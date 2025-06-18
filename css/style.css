@@ -546,3 +546,110 @@ body {
 .enfoquecss b {
     color: var(--primary);
 }
+
+/*** View Mode Toggle Buttons ***/
+.view-mode-toggle {
+    margin-bottom: 1rem; /* Or as needed */
+}
+
+.view-mode-toggle .btn {
+    /* Standard button styles are mostly fine, customize if needed */
+}
+
+.view-mode-toggle .btn.active {
+    background-color: var(--primary);
+    color: #FFFFFF;
+    border-color: var(--primary);
+}
+
+.view-mode-toggle .btn:not(.active) {
+    background-color: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+/*** Project Portfolio List View ***/
+.portfolio-container.list-view-active .portfolio-item {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; /* Align items to have the same height */
+    margin-bottom: 2rem; /* Spacing between list items */
+    background-color: var(--light); /* Optional: background for each item */
+    border-radius: 0.25rem; /* Optional: rounded corners */
+    overflow: hidden; /* To contain rounded corners if image is flush */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional: subtle shadow */
+}
+
+.portfolio-container.list-view-active .portfolio-item .portfolio-img {
+    flex: 0 0 250px; /* Fixed width for the image container */
+    height: auto; /* Auto height to maintain aspect ratio */
+    overflow: hidden; /* Ensure image stays within bounds */
+}
+
+.portfolio-container.list-view-active .portfolio-item .portfolio-img img {
+    width: 100%;
+    height: 100%; /* Make image fill the container height */
+    object-fit: cover; /* Cover the area, might crop */
+    display: block;
+}
+
+.portfolio-container.list-view-active .portfolio-item .portfolio-btn {
+    position: static; /* Override absolute positioning */
+    opacity: 1; /* Always visible */
+    background: none; /* Remove dark overlay */
+    color: var(--dark); /* Text color for content */
+    padding: 20px; /* Padding for the content area */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the left */
+    width: 100%; /* Take remaining width */
+    height: auto; /* Adjust height based on content */
+    /* Reset hover effects if any specifically for padding or opacity */
+    padding-bottom: 20px !important; /* Override inline style from JS if needed, or remove JS part */
+}
+
+/* Adjustments for buttons within portfolio-btn in list view if needed */
+.portfolio-container.list-view-active .portfolio-item .portfolio-btn .btn {
+    margin-top: 10px; /* Add some space above buttons if multiple */
+}
+
+
+/* Optional: Styles for title and description if they were separate elements */
+/*
+.portfolio-container.list-view-active .portfolio-item .project-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.portfolio-container.list-view-active .portfolio-item .project-description {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    flex-grow: 1; / Allow description to take available space /
+}
+*/
+
+/*** Responsive List View Styles ***/
+@media (max-width: 768px) {
+    .portfolio-container.list-view-active .portfolio-item {
+        flex-direction: column; /* Stack image and content vertically */
+    }
+
+    .portfolio-container.list-view-active .portfolio-item .portfolio-img {
+        flex-basis: auto; /* Reset flex-basis */
+        width: 100%; /* Image container takes full width */
+        height: 200px; /* Fixed height for stacked image, or use aspect-ratio */
+    }
+
+    .portfolio-container.list-view-active .portfolio-item .portfolio-img img {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .portfolio-container.list-view-active .portfolio-item .portfolio-btn {
+        align-items: center; /* Center content in stacked view */
+        text-align: center; /* Center text */
+    }
+}

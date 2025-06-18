@@ -124,6 +124,53 @@ document.getElementById("lightbox").addEventListener("click", function(event) {
         portfolioIsotope.isotope({filter: $(this).data('filter')});
     });
 
+    // View Mode Toggle for Portfolio
+    var $portfolioContainer = $('.portfolio-container');
+    var $btnGridView = $('#btn-grid-view');
+    var $btnListView = $('#btn-list-view');
+
+    // Function to apply view mode
+    function applyViewMode(mode) {
+        if (mode === 'list') {
+            $portfolioContainer.addClass('list-view-active');
+            $btnListView.addClass('active');
+            $btnGridView.removeClass('active');
+            localStorage.setItem('portfolioViewMode', 'list');
+        } else { // Default to grid
+            $portfolioContainer.removeClass('list-view-active');
+            $btnGridView.addClass('active');
+            $btnListView.removeClass('active');
+            localStorage.setItem('portfolioViewMode', 'grid');
+        }
+        // Re-layout Isotope
+        if (portfolioIsotope.data('isotope')) { // Check if isotope is initialized
+            portfolioIsotope.isotope('layout');
+        }
+    }
+
+    // Event Listeners for view toggle buttons
+    $btnListView.on('click', function () {
+        applyViewMode('list');
+    });
+
+    $btnGridView.on('click', function () {
+        applyViewMode('grid');
+    });
+
+    // On page load, check for saved preference
+    var preferredViewMode = localStorage.getItem('portfolioViewMode');
+    if (preferredViewMode) {
+        applyViewMode(preferredViewMode);
+    } else {
+        // If no preference, ensure grid is active by default (it should be, but good to be explicit)
+        // and portfolioIsotope.isotope('layout') will be called by applyViewMode if needed.
+        // applyViewMode('grid'); // This will set grid as default and call layout.
+        // HTML defaults to grid, so only call layout if isotope is initialized.
+        if (portfolioIsotope.data('isotope')) {
+             portfolioIsotope.isotope('layout');
+        }
+    }
+
 
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({

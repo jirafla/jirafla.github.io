@@ -129,19 +129,51 @@
         .val { font-weight: 700; font-size: 1rem; }
         .ex-sentence { font-style: italic; font-size: 0.8rem; opacity: 0.8; margin-top: 0.7rem; text-align: center; }
 
-        /* ---- Nav buttons ---- */
-        .nav-btn {
-            width: 46px; height: 46px; border-radius: 50%;
-            border: 2px solid var(--primary);
-            background: white; color: var(--primary);
-            font-size: 1.15rem;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.2s;
+        /* ---- Mark buttons (check / X) ---- */
+        .mark-btns { display: flex; gap: 0.75rem; max-width: 500px; margin: 0 auto; }
+        .mark-btn {
+            flex: 1; padding: 0.85rem 1rem;
+            border-radius: 14px; border: 2.5px solid transparent;
+            font-size: 1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.18s;
+            display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+            font-family: 'Open Sans', sans-serif;
         }
-        .nav-btn:hover:not(:disabled) { background: var(--primary); color: white; }
-        .nav-btn:disabled { opacity: 0.3; cursor: default; }
-        .nav-btn.shuffle { background: var(--secondary); border-color: var(--secondary); color: var(--dark); }
-        .nav-btn.shuffle:hover { background: #e5af38; border-color: #e5af38; }
+        .mark-btn.cross {
+            background: white; border-color: #e0e0e0; color: #888;
+        }
+        .mark-btn.cross:hover { border-color: #dc3545; color: #dc3545; background: #fff5f5; }
+        .mark-btn.check {
+            background: var(--primary); color: white; border-color: var(--primary);
+        }
+        .mark-btn.check:hover { background: #2d0466; border-color: #2d0466; }
+
+        /* ---- Deck progress ---- */
+        .deck-progress {
+            display: flex; align-items: center; justify-content: center;
+            gap: 1.2rem; font-size: 0.83rem; font-weight: 700;
+        }
+        .dp-learned { color: #176330; }
+        .dp-pending { color: #888; }
+        .dp-dot { width: 6px; height: 6px; border-radius: 50%; background: #ddd; }
+
+        /* ---- Restart button ---- */
+        .restart-btn {
+            background: none; border: 2.5px solid var(--primary);
+            color: var(--primary); border-radius: 20px;
+            padding: 0.3rem 1.1rem; font-size: 0.83rem; font-weight: 700;
+            cursor: pointer; transition: all 0.2s;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .restart-btn:hover { background: var(--primary); color: white; }
+
+        /* ---- Complete screen ---- */
+        .complete-card {
+            background: var(--primary); color: white;
+            border-radius: 22px; padding: 2.5rem 2rem; text-align: center;
+            max-width: 500px; margin: 0 auto;
+            box-shadow: 0 10px 36px rgba(63,5,138,0.2);
+        }
 
         /* ---- Quiz scores ---- */
         .score-box {
@@ -271,34 +303,52 @@
                 <button class="filter-btn" data-filter="regular">Regulares (20)</button>
             </div>
 
-            <div class="text-center mb-2">
-                <span class="progress-text" id="fc-label">Verbo 1 de 85</span>
+            <!-- Deck progress -->
+            <div class="deck-progress mb-3" id="fc-deck-progress">
+                <span class="dp-learned" id="fc-learned-count"><i class="bi bi-check-circle-fill"></i> 0 aprendidos</span>
+                <span class="dp-dot"></span>
+                <span class="dp-pending" id="fc-pending-count">85 por repasar</span>
+                <span class="dp-dot"></span>
+                <button class="restart-btn" onclick="restartDeck()"><i class="bi bi-arrow-repeat"></i> Reiniciar</button>
             </div>
             <div class="progress-strip mb-4">
-                <div class="progress-fill" id="fc-bar" style="width:2%"></div>
+                <div class="progress-fill" id="fc-bar" style="width:0%"></div>
             </div>
 
-            <div class="fc-scene" id="fc-scene" onclick="flipCard()">
-                <div class="fc-inner" id="fc-inner">
-                    <div class="fc-face fc-front" id="fc-front"></div>
-                    <div class="fc-face fc-back"  id="fc-back"></div>
+            <!-- Card -->
+            <div id="fc-card-area">
+                <div class="fc-scene" id="fc-scene" onclick="flipCard()">
+                    <div class="fc-inner" id="fc-inner">
+                        <div class="fc-face fc-front" id="fc-front"></div>
+                        <div class="fc-face fc-back"  id="fc-back"></div>
+                    </div>
+                </div>
+
+                <!-- Mark buttons -->
+                <div class="mark-btns mt-4">
+                    <button class="mark-btn cross" onclick="markCard(false)" title="No lo sé, repasar al final">
+                        <i class="bi bi-x-lg"></i> No lo sé
+                    </button>
+                    <button class="mark-btn check" onclick="markCard(true)" title="¡Lo sé! Marcar como aprendido">
+                        <i class="bi bi-check-lg"></i> ¡Lo sé!
+                    </button>
+                </div>
+                <p class="text-center mt-2" style="font-size:0.78rem; color:#bbb">
+                    <i class="bi bi-hand-index"></i> Toca la tarjeta para revelar · marca cuando hayas visto la respuesta
+                </p>
+            </div>
+
+            <!-- Complete screen -->
+            <div id="fc-complete" style="display:none">
+                <div class="complete-card">
+                    <div style="font-size:3.5rem; line-height:1; margin-bottom:0.5rem">🏆</div>
+                    <h2 class="fw-bold mb-1">¡Lo lograste!</h2>
+                    <p style="opacity:0.85; margin-bottom:1.5rem" id="fc-complete-sub">Aprendiste todos los verbos</p>
+                    <button class="btn btn-light rounded-pill px-4 fw-bold" onclick="restartDeck()">
+                        <i class="bi bi-arrow-repeat"></i> Volver a empezar
+                    </button>
                 </div>
             </div>
-
-            <div class="d-flex align-items-center justify-content-center gap-3 mt-4">
-                <button class="nav-btn" id="btn-prev" onclick="navigate(-1)" title="Anterior">
-                    <i class="bi bi-chevron-left"></i>
-                </button>
-                <button class="nav-btn shuffle" onclick="shuffleCards()" title="Barajar">
-                    <i class="bi bi-shuffle"></i>
-                </button>
-                <button class="nav-btn" id="btn-next" onclick="navigate(1)" title="Siguiente">
-                    <i class="bi bi-chevron-right"></i>
-                </button>
-            </div>
-            <p class="text-center mt-2" style="font-size:0.78rem; color:#bbb">
-                <i class="bi bi-hand-index"></i> Toca la tarjeta para revelar las formas
-            </p>
         </div>
 
         <!-- ========== QUIZ ========== -->
@@ -504,9 +554,10 @@ const VERBS = [
 ];
 
 // ===================== STATE =====================
-let fcList    = [...VERBS];
-let fcIdx     = 0;
-let fcFlipped = false;
+let fcSourceList = [...VERBS]; // verbs for active filter
+let fcDeck       = [];         // queue: first card is current
+let fcLearned    = new Set();  // infinitives marked as learned
+let fcFlipped    = false;
 
 let qList     = [];
 let qIdx      = 0;
@@ -516,11 +567,38 @@ let qCurrentAnswer = '';
 const Q_TOTAL = 20;
 
 // ===================== FLASHCARDS =====================
-function renderCard() {
-    const v = fcList[fcIdx];
+function startDeck(verbs) {
+    fcSourceList = [...verbs];
+    // Shuffle on start
+    fcDeck = [...verbs].sort(() => Math.random() - 0.5);
+    fcLearned.clear();
+    showCurrentCard();
+}
+
+function restartDeck() {
+    fcDeck = [...fcSourceList].sort(() => Math.random() - 0.5);
+    fcLearned.clear();
+    document.getElementById('fc-complete').style.display = 'none';
+    document.getElementById('fc-card-area').style.display = '';
+    showCurrentCard();
+}
+
+function showCurrentCard() {
     fcFlipped = false;
     document.getElementById('fc-inner').classList.remove('flipped');
 
+    const total   = fcSourceList.length;
+    const learned = fcLearned.size;
+    const pending = fcDeck.length;
+
+    document.getElementById('fc-learned-count').innerHTML =
+        `<i class="bi bi-check-circle-fill"></i> ${learned} aprendido${learned !== 1 ? 's' : ''}`;
+    document.getElementById('fc-pending-count').textContent =
+        `${pending} por repasar`;
+    document.getElementById('fc-bar').style.width =
+        (learned / total * 100) + '%';
+
+    const v = fcDeck[0];
     document.getElementById('fc-front').innerHTML = `
         <span class="type-badge ${v.type === 'irregular' ? 'badge-irregular' : 'badge-regular'}">
             ${v.type === 'irregular' ? 'Irregular' : 'Regular'}
@@ -529,7 +607,6 @@ function renderCard() {
         <div class="verb-sub">to ${v.inf}</div>
         <div class="flip-hint"><i class="bi bi-hand-index"></i> Toca para ver las formas</div>
     `;
-
     document.getElementById('fc-back').innerHTML = `
         <table class="back-rows">
             <tr><td class="lbl">Infinitivo</td><td class="val">to ${v.inf}</td></tr>
@@ -539,12 +616,6 @@ function renderCard() {
         </table>
         <div class="ex-sentence">"${v.ex}"</div>
     `;
-
-    const pct = Math.round((fcIdx + 1) / fcList.length * 100);
-    document.getElementById('fc-label').textContent = `Verbo ${fcIdx + 1} de ${fcList.length}`;
-    document.getElementById('fc-bar').style.width = pct + '%';
-    document.getElementById('btn-prev').disabled = fcIdx === 0;
-    document.getElementById('btn-next').disabled = fcIdx === fcList.length - 1;
 }
 
 function flipCard() {
@@ -552,18 +623,27 @@ function flipCard() {
     document.getElementById('fc-inner').classList.toggle('flipped', fcFlipped);
 }
 
-function navigate(dir) {
-    fcIdx = Math.max(0, Math.min(fcList.length - 1, fcIdx + dir));
-    renderCard();
-}
-
-function shuffleCards() {
-    for (let i = fcList.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [fcList[i], fcList[j]] = [fcList[j], fcList[i]];
+function markCard(known) {
+    const v = fcDeck.shift();
+    if (known) {
+        fcLearned.add(v.inf);
+    } else {
+        fcDeck.push(v); // goes to the end of the queue
     }
-    fcIdx = 0;
-    renderCard();
+
+    if (fcDeck.length === 0) {
+        // All learned!
+        document.getElementById('fc-bar').style.width = '100%';
+        document.getElementById('fc-learned-count').innerHTML =
+            `<i class="bi bi-check-circle-fill"></i> ${fcLearned.size} aprendidos`;
+        document.getElementById('fc-pending-count').textContent = '0 por repasar';
+        document.getElementById('fc-card-area').style.display = 'none';
+        document.getElementById('fc-complete').style.display = '';
+        document.getElementById('fc-complete-sub').textContent =
+            `Aprendiste los ${fcLearned.size} verbos del mazo`;
+    } else {
+        showCurrentCard();
+    }
 }
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -571,9 +651,10 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const f = btn.dataset.filter;
-        fcList = f === 'all' ? [...VERBS] : VERBS.filter(v => v.type === f);
-        fcIdx = 0;
-        renderCard();
+        const verbs = f === 'all' ? [...VERBS] : VERBS.filter(v => v.type === f);
+        document.getElementById('fc-complete').style.display = 'none';
+        document.getElementById('fc-card-area').style.display = '';
+        startDeck(verbs);
     });
 });
 
@@ -729,7 +810,7 @@ document.querySelectorAll('[data-mode]').forEach(link => {
 });
 
 // ===================== INIT =====================
-renderCard();
+startDeck(VERBS);
 buildTable();
 </script>
 </body>

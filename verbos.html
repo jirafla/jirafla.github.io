@@ -639,7 +639,7 @@ function goTo(name){
 
 // ── FLASHCARDS ───────────────────────────────────────────
 let fcSrc=[...VERBS],fcDeck=[],fcLearned=loadL();
-let dragging=false,dragX0=0,dragY0=0,dragDX=0,dragDY=0,animating=false;
+let dragging=false,dragX0=0,dragY0=0,dragDX=0,dragDY=0,dragT0=0,animating=false,lastTouchEnd=0;
 
 function startDeck(verbs){
   fcSrc=[...verbs];fcLearned=loadL();
@@ -703,7 +703,8 @@ function getXY(e){return e.touches?{x:e.touches[0].clientX,y:e.touches[0].client
 
 function onDown(e){
   if(animating)return;
-  dragging=true;dragDX=0;dragDY=0;
+  if(e.type==='mousedown'&&Date.now()-lastTouchEnd<600)return;
+  dragging=true;dragDX=0;dragDY=0;dragT0=Date.now();
   const c=getXY(e);dragX0=c.x;dragY0=c.y;
   fcWrap.style.transition='none';
   fcWrap.classList.add('grabbing');
@@ -724,9 +725,10 @@ function onUp(){
   if(!dragging)return;
   dragging=false;
   fcWrap.classList.remove('grabbing');
+  const isTap=Math.abs(dragDX)<25&&Math.abs(dragDY)<25&&Date.now()-dragT0<280;
   if(Math.abs(dragDX)>SWIPE_T){
     flyAway(dragDX>0);
-  } else if(Math.abs(dragDX)<8&&Math.abs(dragDY)<8){
+  } else if(isTap){
     snapBack();
     document.getElementById('fc-inner').classList.toggle('flipped');
   } else {
@@ -775,7 +777,7 @@ function triggerSwipe(right){if(!animating)flyAway(right);}
 
 fcWrap.addEventListener('touchstart',onDown,{passive:true});
 fcWrap.addEventListener('touchmove', onMove,{passive:false});
-fcWrap.addEventListener('touchend',  onUp,  {passive:true});
+fcWrap.addEventListener('touchend', e=>{lastTouchEnd=Date.now();onUp(e);},{passive:true});
 fcWrap.addEventListener('mousedown', onDown);
 document.addEventListener('mousemove',onMove);
 document.addEventListener('mouseup',  onUp);

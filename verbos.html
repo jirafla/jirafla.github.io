@@ -108,7 +108,33 @@ body{
 .deck-left{font-size:.8rem;color:var(--mut)}
 
 .fc-scene{perspective:1100px;height:278px;width:100%;
-  cursor:pointer;user-select:none;-webkit-user-select:none}
+  user-select:none;-webkit-user-select:none}
+
+/* ── TINDER STACK ── */
+#fc-stack{position:relative;height:278px;touch-action:none}
+#fc-behind{
+  position:absolute;inset:0;border-radius:var(--r);
+  background:var(--surf);border:2px solid var(--bdr);
+  box-shadow:var(--sh);
+  transform:scale(0.93) translateY(12px);
+  transition:transform .3s ease;
+}
+#fc-wrap{
+  position:absolute;inset:0;
+  cursor:grab;will-change:transform;
+  touch-action:none;
+}
+#fc-wrap.grabbing{cursor:grabbing}
+.stamp{
+  position:absolute;top:22px;
+  padding:7px 15px;border-radius:8px;
+  font-size:1.25rem;font-weight:900;
+  border:4px solid;opacity:0;
+  pointer-events:none;z-index:20;
+  letter-spacing:.04em;
+}
+.yes-st{right:18px;color:#22C55E;border-color:#22C55E;transform:rotate(15deg)}
+.no-st {left:18px; color:#EF4444;border-color:#EF4444;transform:rotate(-15deg)}
 .fc-inner{width:100%;height:100%;position:relative;
   transform-style:preserve-3d;
   transition:transform .48s cubic-bezier(.4,2,.5,.9)}
@@ -372,20 +398,27 @@ body{
 
     <!-- card + buttons -->
     <div id="fc-area">
-      <div class="fc-scene" id="fc-scene">
-        <div class="fc-inner" id="fc-inner">
-          <div class="fc-face fc-front" id="fc-front"></div>
-          <div class="fc-face fc-back"  id="fc-back"></div>
+      <div id="fc-stack">
+        <div id="fc-behind"></div>
+        <div id="fc-wrap">
+          <div class="fc-scene" id="fc-scene">
+            <div class="fc-inner" id="fc-inner">
+              <div class="fc-face fc-front" id="fc-front"></div>
+              <div class="fc-face fc-back"  id="fc-back"></div>
+            </div>
+          </div>
+          <div class="stamp yes-st" id="stamp-yes">✓ LO SÉ</div>
+          <div class="stamp no-st"  id="stamp-no">NO LO SÉ ✗</div>
         </div>
       </div>
       <div class="swipe-row">
         <span><i class="bi bi-arrow-left"></i> No lo sé</span>
-        <span style="font-size:.62rem;color:#ccc">desliza o toca</span>
+        <span style="font-size:.62rem;color:#ccc">desliza · toca para voltear</span>
         <span>¡Lo sé! <i class="bi bi-arrow-right"></i></span>
       </div>
       <div class="mark-row">
-        <button class="mbtn no"  onclick="markCard(false)"><i class="bi bi-x-lg"></i> No lo sé</button>
-        <button class="mbtn yes" onclick="markCard(true)"><i class="bi bi-check-lg"></i> ¡Lo sé!</button>
+        <button class="mbtn no"  onclick="triggerSwipe(false)"><i class="bi bi-x-lg"></i> No lo sé</button>
+        <button class="mbtn yes" onclick="triggerSwipe(true)"><i class="bi bi-check-lg"></i> ¡Lo sé!</button>
       </div>
     </div>
 
@@ -605,8 +638,8 @@ function goTo(name){
 }
 
 // ── FLASHCARDS ───────────────────────────────────────────
-let fcSrc=[...VERBS],fcDeck=[],fcLearned=loadL(),swipeHandled=false;
-let touchX0=0,touchY0=0;
+let fcSrc=[...VERBS],fcDeck=[],fcLearned=loadL();
+let dragging=false,dragX0=0,dragY0=0,dragDX=0,dragDY=0,animating=false;
 
 function startDeck(verbs){
   fcSrc=[...verbs];fcLearned=loadL();
@@ -659,20 +692,93 @@ function showDone(){
   document.getElementById('fc-done-sub').textContent=`¡Aprendiste los ${fcLearned.size} verbos del mazo!`;
 }
 
-// touch / click on card
-const fcScene=document.getElementById('fc-scene');
-fcScene.addEventListener('touchstart',e=>{touchX0=e.touches[0].clientX;touchY0=e.touches[0].clientY},{passive:true});
-fcScene.addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].clientX-touchX0;
-  const dy=e.changedTouches[0].clientY-touchY0;
-  if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>55){
-    swipeHandled=true;markCard(dx>0);
+// ── TINDER SWIPE ──────────────────────────────────────────
+const fcWrap   = document.getElementById('fc-wrap');
+const fcBehind = document.getElementById('fc-behind');
+const stampY   = document.getElementById('stamp-yes');
+const stampN   = document.getElementById('stamp-no');
+const SWIPE_T  = 88;
+
+function getXY(e){return e.touches?{x:e.touches[0].clientX,y:e.touches[0].clientY}:{x:e.clientX,y:e.clientY};}
+
+function onDown(e){
+  if(animating)return;
+  dragging=true;dragDX=0;dragDY=0;
+  const c=getXY(e);dragX0=c.x;dragY0=c.y;
+  fcWrap.style.transition='none';
+  fcWrap.classList.add('grabbing');
+}
+function onMove(e){
+  if(!dragging)return;
+  if(e.cancelable)e.preventDefault();
+  const c=e.touches?{x:e.touches[0].clientX,y:e.touches[0].clientY}:{x:e.clientX,y:e.clientY};
+  dragDX=c.x-dragX0; dragDY=c.y-dragY0;
+  fcWrap.style.transform=`translate(${dragDX}px,${dragDY*.22}px) rotate(${dragDX*.07}deg)`;
+  const p=Math.min(1,Math.abs(dragDX)/SWIPE_T);
+  fcBehind.style.transition='none';
+  fcBehind.style.transform=`scale(${.93+p*.07}) translateY(${12-p*12}px)`;
+  stampY.style.opacity=dragDX>20?Math.min(1,(dragDX-20)/(SWIPE_T*.7)):0;
+  stampN.style.opacity=dragDX<-20?Math.min(1,(-dragDX-20)/(SWIPE_T*.7)):0;
+}
+function onUp(){
+  if(!dragging)return;
+  dragging=false;
+  fcWrap.classList.remove('grabbing');
+  if(Math.abs(dragDX)>SWIPE_T){
+    flyAway(dragDX>0);
+  } else if(Math.abs(dragDX)<8&&Math.abs(dragDY)<8){
+    snapBack();
+    document.getElementById('fc-inner').classList.toggle('flipped');
+  } else {
+    snapBack();
   }
-},{passive:true});
-fcScene.addEventListener('click',()=>{
-  if(swipeHandled){swipeHandled=false;return;}
-  document.getElementById('fc-inner').classList.toggle('flipped');
-});
+}
+
+function flyAway(right){
+  if(animating)return;
+  animating=true;
+  const dir=right?1:-1;
+  fcWrap.style.transition='transform .42s ease-in, opacity .35s ease';
+  fcWrap.style.transform=`translate(${dir*(window.innerWidth+220)}px,-45px) rotate(${dir*32}deg)`;
+  fcWrap.style.opacity='0';
+  fcBehind.style.transition='transform .38s ease';
+  fcBehind.style.transform='scale(1) translateY(0)';
+
+  setTimeout(()=>{
+    stampY.style.opacity='0'; stampN.style.opacity='0';
+    fcWrap.style.transition='none';
+    fcWrap.style.transform='';
+
+    markCard(right); // updates fcDeck + renders next card
+
+    if(fcDeck.length>0){
+      requestAnimationFrame(()=>{
+        fcWrap.style.transition='opacity .22s ease';
+        fcWrap.style.opacity='1';
+        fcBehind.style.transition='transform .3s ease';
+        fcBehind.style.transform='scale(.93) translateY(12px)';
+      });
+    }
+    animating=false;
+  },430);
+}
+
+function snapBack(){
+  fcWrap.style.transition='transform .32s cubic-bezier(.18,1.5,.5,1)';
+  fcWrap.style.transform='';
+  stampY.style.opacity='0'; stampN.style.opacity='0';
+  fcBehind.style.transition='transform .3s ease';
+  fcBehind.style.transform='scale(.93) translateY(12px)';
+}
+
+function triggerSwipe(right){if(!animating)flyAway(right);}
+
+fcWrap.addEventListener('touchstart',onDown,{passive:true});
+fcWrap.addEventListener('touchmove', onMove,{passive:false});
+fcWrap.addEventListener('touchend',  onUp,  {passive:true});
+fcWrap.addEventListener('mousedown', onDown);
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',  onUp);
 
 // filter pills
 document.getElementById('fc-filters').querySelectorAll('.pill').forEach(btn=>{

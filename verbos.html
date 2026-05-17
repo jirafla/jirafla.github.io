@@ -143,30 +143,53 @@
         .nav-btn.shuffle { background: var(--secondary); border-color: var(--secondary); color: var(--dark); }
         .nav-btn.shuffle:hover { background: #e5af38; border-color: #e5af38; }
 
-        /* ---- Quiz ---- */
+        /* ---- Quiz scores ---- */
         .score-box {
             background: var(--primary); color: white;
             border-radius: 14px; padding: 0.7rem 1rem; text-align: center;
         }
-        .score-box.alt { background: #ece8f7; color: var(--primary); }
+        .score-box.alt    { background: #ece8f7; color: var(--primary); }
         .score-box.yellow { background: var(--secondary); color: var(--dark); }
-        .score-num  { font-size: 1.9rem; font-weight: 800; line-height: 1; }
-        .score-lbl  { font-size: 0.7rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.05em; }
+        .score-num { font-size: 1.9rem; font-weight: 800; line-height: 1; }
+        .score-lbl { font-size: 0.7rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.05em; }
 
+        /* ---- Quiz question card ---- */
         .q-card { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
         .q-label { font-size: 0.95rem; font-weight: 700; color: #555; }
         .q-verb  { font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1.2; }
 
-        .ans-btn {
-            width: 100%; padding: 0.7rem 1.2rem;
-            border-radius: 12px; border: 2px solid #e0e0e0;
-            background: white; text-align: left;
-            font-size: 0.92rem; font-weight: 600; color: var(--dark);
-            cursor: pointer; transition: all 0.18s;
+        /* ---- Typing input ---- */
+        .type-input-wrap { display: flex; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px rgba(63,5,138,0.1); }
+        .type-input {
+            flex: 1; padding: 0.85rem 1.1rem;
+            border: 2px solid #e0e0e0; border-right: none; border-radius: 0;
+            font-size: 1.05rem; font-weight: 600; color: var(--dark);
+            font-family: 'Open Sans', sans-serif;
+            outline: none; transition: border-color 0.2s, background 0.2s;
         }
-        .ans-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: #f3eeff; }
-        .ans-btn.correct  { border-color: #28a745; background: #e6f8ec; color: #176330; }
-        .ans-btn.wrong    { border-color: #dc3545; background: #fde8ea; color: #9b1c28; }
+        .type-input:focus { border-color: var(--primary); }
+        .type-input.correct { border-color: #28a745; background: #e6f8ec; color: #176330; }
+        .type-input.wrong   { border-color: #dc3545; background: #fde8ea; color: #9b1c28; }
+        .type-input:disabled { opacity: 0.85; }
+        .check-btn {
+            padding: 0.85rem 1.3rem;
+            background: var(--primary); color: white;
+            border: 2px solid var(--primary); border-left: none;
+            font-size: 0.9rem; font-weight: 700; cursor: pointer;
+            font-family: 'Open Sans', sans-serif; transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .check-btn:hover:not(:disabled) { background: #2d0466; border-color: #2d0466; }
+        .check-btn:disabled { opacity: 0.45; cursor: default; }
+
+        /* ---- Quiz feedback ---- */
+        .feedback-box {
+            border-radius: 12px; padding: 0.9rem 1.1rem;
+            font-weight: 700; font-size: 0.95rem;
+        }
+        .feedback-box.correct { background: #e6f8ec; color: #176330; border: 2px solid #28a745; }
+        .feedback-box.wrong   { background: #fde8ea; color: #9b1c28; border: 2px solid #dc3545; }
+        .hint-text { font-size: 0.8rem; color: #aaa; text-align: center; margin-top: 0.4rem; }
 
         /* ---- Results ---- */
         .result-card {
@@ -224,7 +247,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-mode="quiz">
-                    <i class="bi bi-patch-question-fill"></i> Quiz
+                    <i class="bi bi-keyboard"></i> Quiz
                 </a>
             </li>
             <li class="nav-item">
@@ -243,13 +266,13 @@
         <!-- ========== FLASHCARDS ========== -->
         <div id="mode-flashcards">
             <div class="d-flex justify-content-center gap-2 mb-3 flex-wrap">
-                <button class="filter-btn active" data-filter="all">Todos (50)</button>
-                <button class="filter-btn" data-filter="irregular">Irregulares (30)</button>
+                <button class="filter-btn active" data-filter="all">Todos (85)</button>
+                <button class="filter-btn" data-filter="irregular">Irregulares (65)</button>
                 <button class="filter-btn" data-filter="regular">Regulares (20)</button>
             </div>
 
             <div class="text-center mb-2">
-                <span class="progress-text" id="fc-label">Verbo 1 de 50</span>
+                <span class="progress-text" id="fc-label">Verbo 1 de 85</span>
             </div>
             <div class="progress-strip mb-4">
                 <div class="progress-fill" id="fc-bar" style="width:2%"></div>
@@ -282,6 +305,7 @@
         <div id="mode-quiz" style="display:none">
 
             <div id="quiz-active">
+                <!-- Scores -->
                 <div class="row g-2 mb-3">
                     <div class="col-4">
                         <div class="score-box">
@@ -307,21 +331,35 @@
                     <div class="progress-fill" id="q-bar" style="width:0%"></div>
                 </div>
 
+                <!-- Question -->
                 <div class="q-card mb-3">
                     <div class="q-label" id="q-label">¿Cuál es el <b>pasado simple</b> de...?</div>
                     <div class="q-verb" id="q-verb">go</div>
                 </div>
 
-                <div id="q-answers" class="d-grid gap-2 mb-3"></div>
-
-                <div id="q-feedback" style="display:none; text-align:center; padding: 0.5rem 0">
-                    <p id="q-feedback-text" class="fw-bold mb-2" style="font-size:0.95rem"></p>
-                    <button class="btn btn-primary rounded-pill px-4 fw-bold" onclick="nextQuestion()">
-                        Siguiente <i class="bi bi-arrow-right"></i>
+                <!-- Typing input -->
+                <div class="type-input-wrap mb-2">
+                    <input type="text" id="q-input" class="type-input"
+                           placeholder="Escribe tu respuesta aquí..."
+                           autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <button class="check-btn" id="q-check-btn" onclick="checkTypedAnswer()">
+                        <i class="bi bi-check-lg"></i> Comprobar
                     </button>
+                </div>
+                <p class="hint-text">Pulsa <kbd>Enter</kbd> para comprobar · <kbd>Enter</kbd> de nuevo para continuar</p>
+
+                <!-- Feedback -->
+                <div id="q-feedback" style="display:none" class="mt-3">
+                    <div id="q-feedback-box" class="feedback-box mb-3"></div>
+                    <div class="text-center">
+                        <button class="btn btn-primary rounded-pill px-4 fw-bold" onclick="nextQuestion()">
+                            Siguiente <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
+            <!-- Results -->
             <div id="quiz-results" style="display:none">
                 <div class="result-card">
                     <div class="result-emoji" id="r-emoji">🏆</div>
@@ -373,69 +411,108 @@
 <script>
 // ===================== DATA =====================
 const VERBS = [
-    // ---------- IRREGULAR ----------
-    {inf:"be",      past:"was / were", pp:"been",      es:"ser / estar",          type:"irregular", ex:"She was very happy yesterday."},
-    {inf:"have",    past:"had",        pp:"had",        es:"tener",                type:"irregular", ex:"They had a wonderful time."},
-    {inf:"do",      past:"did",        pp:"done",       es:"hacer",                type:"irregular", ex:"He did all his homework."},
-    {inf:"go",      past:"went",       pp:"gone",       es:"ir",                   type:"irregular", ex:"We went to the park on Sunday."},
-    {inf:"come",    past:"came",       pp:"come",       es:"venir",                type:"irregular", ex:"She came home very late."},
-    {inf:"see",     past:"saw",        pp:"seen",       es:"ver",                  type:"irregular", ex:"I saw a great movie last night."},
-    {inf:"get",     past:"got",        pp:"gotten",     es:"obtener / conseguir",  type:"irregular", ex:"He got a new job this week."},
-    {inf:"make",    past:"made",       pp:"made",       es:"hacer / fabricar",     type:"irregular", ex:"She made a delicious cake."},
-    {inf:"take",    past:"took",       pp:"taken",      es:"tomar / llevar",       type:"irregular", ex:"He took the bus to school."},
-    {inf:"know",    past:"knew",       pp:"known",      es:"saber / conocer",      type:"irregular", ex:"I knew the answer immediately."},
-    {inf:"think",   past:"thought",    pp:"thought",    es:"pensar",               type:"irregular", ex:"She thought about it all day."},
-    {inf:"give",    past:"gave",       pp:"given",      es:"dar",                  type:"irregular", ex:"He gave me a birthday gift."},
-    {inf:"find",    past:"found",      pp:"found",      es:"encontrar",            type:"irregular", ex:"We finally found the lost keys."},
-    {inf:"tell",    past:"told",       pp:"told",       es:"decir / contar",       type:"irregular", ex:"She always tells the truth."},
-    {inf:"feel",    past:"felt",       pp:"felt",       es:"sentir",               type:"irregular", ex:"I felt very tired after work."},
-    {inf:"leave",   past:"left",       pp:"left",       es:"dejar / salir",        type:"irregular", ex:"He left the office at noon."},
-    {inf:"bring",   past:"brought",    pp:"brought",    es:"traer",                type:"irregular", ex:"She brought flowers to the party."},
-    {inf:"begin",   past:"began",      pp:"begun",      es:"comenzar",             type:"irregular", ex:"The class began earlier than usual."},
-    {inf:"keep",    past:"kept",       pp:"kept",       es:"mantener / guardar",   type:"irregular", ex:"She always kept her promise."},
-    {inf:"write",   past:"wrote",      pp:"written",    es:"escribir",             type:"irregular", ex:"He wrote a long letter to her."},
-    {inf:"hear",    past:"heard",      pp:"heard",      es:"escuchar / oír",       type:"irregular", ex:"I heard a strange noise outside."},
-    {inf:"run",     past:"ran",        pp:"run",        es:"correr",               type:"irregular", ex:"She ran five kilometers every morning."},
-    {inf:"buy",     past:"bought",     pp:"bought",     es:"comprar",              type:"irregular", ex:"They bought a new car last year."},
-    {inf:"speak",   past:"spoke",      pp:"spoken",     es:"hablar",               type:"irregular", ex:"He spoke to the whole class."},
-    {inf:"read",    past:"read",       pp:"read",       es:"leer",                 type:"irregular", ex:"She read the entire book in one day."},
-    {inf:"eat",     past:"ate",        pp:"eaten",      es:"comer",                type:"irregular", ex:"We ate dinner together last night."},
-    {inf:"sleep",   past:"slept",      pp:"slept",      es:"dormir",               type:"irregular", ex:"The baby slept for eight hours."},
-    {inf:"drive",   past:"drove",      pp:"driven",     es:"manejar / conducir",   type:"irregular", ex:"She drove to work every day."},
-    {inf:"forget",  past:"forgot",     pp:"forgotten",  es:"olvidar",              type:"irregular", ex:"I totally forgot my keys again."},
-    {inf:"meet",    past:"met",        pp:"met",        es:"conocer / reunirse",   type:"irregular", ex:"We met at school ten years ago."},
-    // ---------- REGULAR ----------
-    {inf:"work",    past:"worked",     pp:"worked",     es:"trabajar",             type:"regular",   ex:"She worked all day without a break."},
-    {inf:"play",    past:"played",     pp:"played",     es:"jugar / tocar",        type:"regular",   ex:"The kids played soccer in the park."},
-    {inf:"study",   past:"studied",    pp:"studied",    es:"estudiar",             type:"regular",   ex:"He studied English every evening."},
-    {inf:"talk",    past:"talked",     pp:"talked",     es:"hablar / conversar",   type:"regular",   ex:"We talked on the phone for hours."},
-    {inf:"walk",    past:"walked",     pp:"walked",     es:"caminar",              type:"regular",   ex:"She walked to school every morning."},
-    {inf:"help",    past:"helped",     pp:"helped",     es:"ayudar",               type:"regular",   ex:"He helped his neighbor carry the bags."},
-    {inf:"start",   past:"started",    pp:"started",    es:"empezar / iniciar",    type:"regular",   ex:"The movie started five minutes late."},
-    {inf:"finish",  past:"finished",   pp:"finished",   es:"terminar",             type:"regular",   ex:"She finished all the exercises quickly."},
-    {inf:"love",    past:"loved",      pp:"loved",      es:"amar / querer",        type:"regular",   ex:"They loved the new restaurant."},
-    {inf:"need",    past:"needed",     pp:"needed",     es:"necesitar",            type:"regular",   ex:"I needed more time to finish the test."},
-    {inf:"want",    past:"wanted",     pp:"wanted",     es:"querer / desear",      type:"regular",   ex:"She wanted to travel around the world."},
-    {inf:"learn",   past:"learned",    pp:"learned",    es:"aprender",             type:"regular",   ex:"He learned to cook during quarantine."},
-    {inf:"listen",  past:"listened",   pp:"listened",   es:"escuchar (atentamente)",type:"regular",  ex:"She listened very carefully to the teacher."},
-    {inf:"call",    past:"called",     pp:"called",     es:"llamar",               type:"regular",   ex:"He called his mom every Sunday."},
-    {inf:"open",    past:"opened",     pp:"opened",     es:"abrir",                type:"regular",   ex:"She opened the window to let in fresh air."},
-    {inf:"close",   past:"closed",     pp:"closed",     es:"cerrar",               type:"regular",   ex:"He closed the door quietly."},
-    {inf:"try",     past:"tried",      pp:"tried",      es:"intentar",             type:"regular",   ex:"She tried her best on the exam."},
-    {inf:"use",     past:"used",       pp:"used",       es:"usar / utilizar",      type:"regular",   ex:"He used a dictionary to check the word."},
-    {inf:"ask",     past:"asked",      pp:"asked",      es:"preguntar / pedir",    type:"regular",   ex:"She asked her teacher for help."},
-    {inf:"live",    past:"lived",      pp:"lived",      es:"vivir",                type:"regular",   ex:"They lived in Madrid for three years."},
+    // ---------- IRREGULAR (65) ----------
+    {inf:"be",          past:"was / were",  pp:"been",        es:"ser / estar",            type:"irregular", ex:"She was very happy yesterday."},
+    {inf:"have",        past:"had",         pp:"had",         es:"tener",                  type:"irregular", ex:"They had a wonderful time."},
+    {inf:"do",          past:"did",         pp:"done",        es:"hacer",                  type:"irregular", ex:"He did all his homework."},
+    {inf:"go",          past:"went",        pp:"gone",        es:"ir",                     type:"irregular", ex:"We went to the park on Sunday."},
+    {inf:"come",        past:"came",        pp:"come",        es:"venir",                  type:"irregular", ex:"She came home very late."},
+    {inf:"see",         past:"saw",         pp:"seen",        es:"ver",                    type:"irregular", ex:"I saw a great movie last night."},
+    {inf:"get",         past:"got",         pp:"gotten",      es:"obtener / conseguir",    type:"irregular", ex:"He got a new job this week."},
+    {inf:"make",        past:"made",        pp:"made",        es:"hacer / fabricar",       type:"irregular", ex:"She made a delicious cake."},
+    {inf:"take",        past:"took",        pp:"taken",       es:"tomar / llevar",         type:"irregular", ex:"He took the bus to school."},
+    {inf:"know",        past:"knew",        pp:"known",       es:"saber / conocer",        type:"irregular", ex:"I knew the answer immediately."},
+    {inf:"think",       past:"thought",     pp:"thought",     es:"pensar",                 type:"irregular", ex:"She thought about it all day."},
+    {inf:"give",        past:"gave",        pp:"given",       es:"dar",                    type:"irregular", ex:"He gave me a birthday gift."},
+    {inf:"find",        past:"found",       pp:"found",       es:"encontrar",              type:"irregular", ex:"We finally found the lost keys."},
+    {inf:"tell",        past:"told",        pp:"told",        es:"decir / contar",         type:"irregular", ex:"She always told the truth."},
+    {inf:"feel",        past:"felt",        pp:"felt",        es:"sentir",                 type:"irregular", ex:"I felt very tired after work."},
+    {inf:"leave",       past:"left",        pp:"left",        es:"dejar / salir",          type:"irregular", ex:"He left the office at noon."},
+    {inf:"bring",       past:"brought",     pp:"brought",     es:"traer",                  type:"irregular", ex:"She brought flowers to the party."},
+    {inf:"begin",       past:"began",       pp:"begun",       es:"comenzar",               type:"irregular", ex:"The class began earlier than usual."},
+    {inf:"keep",        past:"kept",        pp:"kept",        es:"mantener / guardar",     type:"irregular", ex:"She always kept her promise."},
+    {inf:"write",       past:"wrote",       pp:"written",     es:"escribir",               type:"irregular", ex:"He wrote a long letter to her."},
+    {inf:"hear",        past:"heard",       pp:"heard",       es:"escuchar / oír",         type:"irregular", ex:"I heard a strange noise outside."},
+    {inf:"run",         past:"ran",         pp:"run",         es:"correr",                 type:"irregular", ex:"She ran five kilometers every morning."},
+    {inf:"buy",         past:"bought",      pp:"bought",      es:"comprar",                type:"irregular", ex:"They bought a new car last year."},
+    {inf:"speak",       past:"spoke",       pp:"spoken",      es:"hablar",                 type:"irregular", ex:"He spoke to the whole class."},
+    {inf:"read",        past:"read",        pp:"read",        es:"leer",                   type:"irregular", ex:"She read the entire book in one day."},
+    {inf:"eat",         past:"ate",         pp:"eaten",       es:"comer",                  type:"irregular", ex:"We ate dinner together last night."},
+    {inf:"sleep",       past:"slept",       pp:"slept",       es:"dormir",                 type:"irregular", ex:"The baby slept for eight hours."},
+    {inf:"drive",       past:"drove",       pp:"driven",      es:"manejar / conducir",     type:"irregular", ex:"She drove to work every day."},
+    {inf:"forget",      past:"forgot",      pp:"forgotten",   es:"olvidar",                type:"irregular", ex:"I totally forgot my keys again."},
+    {inf:"meet",        past:"met",         pp:"met",         es:"conocer / reunirse",     type:"irregular", ex:"We met at school ten years ago."},
+    // --- nuevos irregulares ---
+    {inf:"become",      past:"became",      pp:"become",      es:"convertirse / llegar a ser", type:"irregular", ex:"She became a doctor after years of study."},
+    {inf:"bite",        past:"bit",         pp:"bitten",      es:"morder",                 type:"irregular", ex:"The dog bit the mailman's hand."},
+    {inf:"break",       past:"broke",       pp:"broken",      es:"romper",                 type:"irregular", ex:"He broke the window by accident."},
+    {inf:"build",       past:"built",       pp:"built",       es:"construir",              type:"irregular", ex:"They built a new house last year."},
+    {inf:"catch",       past:"caught",      pp:"caught",      es:"atrapar / tomar",        type:"irregular", ex:"She caught the ball with one hand."},
+    {inf:"choose",      past:"chose",       pp:"chosen",      es:"elegir",                 type:"irregular", ex:"He chose the red shirt to wear."},
+    {inf:"cut",         past:"cut",         pp:"cut",         es:"cortar",                 type:"irregular", ex:"She cut the vegetables for dinner."},
+    {inf:"draw",        past:"drew",        pp:"drawn",       es:"dibujar",                type:"irregular", ex:"The child drew a beautiful picture."},
+    {inf:"drink",       past:"drank",       pp:"drunk",       es:"beber",                  type:"irregular", ex:"He drank three cups of coffee."},
+    {inf:"fall",        past:"fell",        pp:"fallen",      es:"caer",                   type:"irregular", ex:"She fell on the ice and hurt her knee."},
+    {inf:"fight",       past:"fought",      pp:"fought",      es:"pelear / luchar",        type:"irregular", ex:"They fought for their rights bravely."},
+    {inf:"fly",         past:"flew",        pp:"flown",       es:"volar",                  type:"irregular", ex:"The bird flew across the ocean."},
+    {inf:"grow",        past:"grew",        pp:"grown",       es:"crecer",                 type:"irregular", ex:"The plant grew very quickly."},
+    {inf:"hold",        past:"held",        pp:"held",        es:"sostener / sujetar",     type:"irregular", ex:"She held his hand tightly."},
+    {inf:"hurt",        past:"hurt",        pp:"hurt",        es:"doler / lastimar",       type:"irregular", ex:"He hurt his arm playing football."},
+    {inf:"lose",        past:"lost",        pp:"lost",        es:"perder",                 type:"irregular", ex:"We lost the game in the final minute."},
+    {inf:"mean",        past:"meant",       pp:"meant",       es:"significar / querer decir", type:"irregular", ex:"I meant to call you sooner."},
+    {inf:"pay",         past:"paid",        pp:"paid",        es:"pagar",                  type:"irregular", ex:"He paid the bill without complaint."},
+    {inf:"put",         past:"put",         pp:"put",         es:"poner / colocar",        type:"irregular", ex:"She put the keys on the table."},
+    {inf:"ride",        past:"rode",        pp:"ridden",      es:"montar / andar en",      type:"irregular", ex:"He rode his bike to school."},
+    {inf:"ring",        past:"rang",        pp:"rung",        es:"sonar / llamar",         type:"irregular", ex:"The phone rang three times."},
+    {inf:"rise",        past:"rose",        pp:"risen",       es:"levantarse / subir",     type:"irregular", ex:"The sun rose at 6 a.m. today."},
+    {inf:"sell",        past:"sold",        pp:"sold",        es:"vender",                 type:"irregular", ex:"She sold her old car for a good price."},
+    {inf:"send",        past:"sent",        pp:"sent",        es:"enviar / mandar",        type:"irregular", ex:"He sent an email to his boss."},
+    {inf:"show",        past:"showed",      pp:"shown",       es:"mostrar / enseñar",      type:"irregular", ex:"She showed me how to cook pasta."},
+    {inf:"sing",        past:"sang",        pp:"sung",        es:"cantar",                 type:"irregular", ex:"The choir sang beautifully."},
+    {inf:"sit",         past:"sat",         pp:"sat",         es:"sentarse",               type:"irregular", ex:"He sat next to me on the bus."},
+    {inf:"spend",       past:"spent",       pp:"spent",       es:"gastar / pasar (tiempo)",type:"irregular", ex:"We spent the weekend at the beach."},
+    {inf:"stand",       past:"stood",       pp:"stood",       es:"estar de pie / pararse", type:"irregular", ex:"She stood at the door for ten minutes."},
+    {inf:"steal",       past:"stole",       pp:"stolen",      es:"robar",                  type:"irregular", ex:"Someone stole my bicycle last night."},
+    {inf:"swim",        past:"swam",        pp:"swum",        es:"nadar",                  type:"irregular", ex:"He swam across the river."},
+    {inf:"teach",       past:"taught",      pp:"taught",      es:"enseñar",                type:"irregular", ex:"She taught English for twenty years."},
+    {inf:"throw",       past:"threw",       pp:"thrown",      es:"lanzar / tirar",         type:"irregular", ex:"He threw the ball over the fence."},
+    {inf:"understand",  past:"understood",  pp:"understood",  es:"entender / comprender",  type:"irregular", ex:"I finally understood the problem."},
+    {inf:"wake",        past:"woke",        pp:"woken",       es:"despertar",              type:"irregular", ex:"She woke up early to watch the sunrise."},
+    {inf:"wear",        past:"wore",        pp:"worn",        es:"usar / llevar puesto",   type:"irregular", ex:"He wore a suit to the interview."},
+    {inf:"win",         past:"won",         pp:"won",         es:"ganar",                  type:"irregular", ex:"Our team won the championship."},
+    // ---------- REGULAR (20) ----------
+    {inf:"work",    past:"worked",    pp:"worked",    es:"trabajar",               type:"regular", ex:"She worked all day without a break."},
+    {inf:"play",    past:"played",    pp:"played",    es:"jugar / tocar",          type:"regular", ex:"The kids played soccer in the park."},
+    {inf:"study",   past:"studied",   pp:"studied",   es:"estudiar",               type:"regular", ex:"He studied English every evening."},
+    {inf:"talk",    past:"talked",    pp:"talked",    es:"hablar / conversar",     type:"regular", ex:"We talked on the phone for hours."},
+    {inf:"walk",    past:"walked",    pp:"walked",    es:"caminar",                type:"regular", ex:"She walked to school every morning."},
+    {inf:"help",    past:"helped",    pp:"helped",    es:"ayudar",                 type:"regular", ex:"He helped his neighbor carry the bags."},
+    {inf:"start",   past:"started",   pp:"started",   es:"empezar / iniciar",      type:"regular", ex:"The movie started five minutes late."},
+    {inf:"finish",  past:"finished",  pp:"finished",  es:"terminar",               type:"regular", ex:"She finished all the exercises quickly."},
+    {inf:"love",    past:"loved",     pp:"loved",     es:"amar / querer",          type:"regular", ex:"They loved the new restaurant."},
+    {inf:"need",    past:"needed",    pp:"needed",    es:"necesitar",              type:"regular", ex:"I needed more time to finish the test."},
+    {inf:"want",    past:"wanted",    pp:"wanted",    es:"querer / desear",        type:"regular", ex:"She wanted to travel around the world."},
+    {inf:"learn",   past:"learned",   pp:"learned",   es:"aprender",               type:"regular", ex:"He learned to cook during quarantine."},
+    {inf:"listen",  past:"listened",  pp:"listened",  es:"escuchar (atentamente)", type:"regular", ex:"She listened carefully to the teacher."},
+    {inf:"call",    past:"called",    pp:"called",    es:"llamar",                 type:"regular", ex:"He called his mom every Sunday."},
+    {inf:"open",    past:"opened",    pp:"opened",    es:"abrir",                  type:"regular", ex:"She opened the window for fresh air."},
+    {inf:"close",   past:"closed",    pp:"closed",    es:"cerrar",                 type:"regular", ex:"He closed the door quietly."},
+    {inf:"try",     past:"tried",     pp:"tried",     es:"intentar",               type:"regular", ex:"She tried her best on the exam."},
+    {inf:"use",     past:"used",      pp:"used",      es:"usar / utilizar",        type:"regular", ex:"He used a dictionary to check the word."},
+    {inf:"ask",     past:"asked",     pp:"asked",     es:"preguntar / pedir",      type:"regular", ex:"She asked her teacher for help."},
+    {inf:"live",    past:"lived",     pp:"lived",     es:"vivir",                  type:"regular", ex:"They lived in Madrid for three years."},
 ];
 
 // ===================== STATE =====================
-let fcList  = [...VERBS];
-let fcIdx   = 0;
+let fcList    = [...VERBS];
+let fcIdx     = 0;
 let fcFlipped = false;
 
-let qList   = [];
-let qIdx    = 0;
-let qScore  = 0;
+let qList     = [];
+let qIdx      = 0;
+let qScore    = 0;
 let qAnswered = false;
+let qCurrentAnswer = '';
 const Q_TOTAL = 20;
 
 // ===================== FLASHCARDS =====================
@@ -502,10 +579,22 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 
 // ===================== QUIZ =====================
 const Q_TYPES = [
-    v => ({ label: `¿Cuál es el <b>pasado simple</b> de...?`,   verb: `"${v.inf}"`,  answer: v.past, field: 'past' }),
-    v => ({ label: `¿Cuál es el <b>participio pasado</b> de...?`,verb: `"${v.inf}"`,  answer: v.pp,   field: 'pp'   }),
-    v => ({ label: `¿Cómo se dice <b>en inglés</b>...?`,         verb: `"${v.es}"`,   answer: v.inf,  field: 'inf'  }),
+    v => ({ label: `¿Cuál es el <b>pasado simple</b> de...?`,    verb: `"${v.inf}"`,  answer: v.past }),
+    v => ({ label: `¿Cuál es el <b>participio pasado</b> de...?`, verb: `"${v.inf}"`,  answer: v.pp   }),
+    v => ({ label: `¿Cómo se dice <b>en inglés</b>...?`,          verb: `"${v.es}"`,   answer: v.inf  }),
 ];
+
+function normalizeAns(s) {
+    return s.trim().toLowerCase().replace(/\s*\/\s*/g, '/');
+}
+
+function isAnswerCorrect(typed, correct) {
+    const t = normalizeAns(typed);
+    const c = normalizeAns(correct);
+    if (t === c) return true;
+    // Accept any variant of "was / were" style answers
+    return c.split('/').map(p => p.trim()).includes(t);
+}
 
 function startQuiz() {
     qList     = [...VERBS].sort(() => Math.random() - 0.5).slice(0, Q_TOTAL);
@@ -524,55 +613,46 @@ function renderQuestion() {
 
     const v  = qList[qIdx];
     const qt = Q_TYPES[Math.floor(Math.random() * Q_TYPES.length)](v);
+    qCurrentAnswer = qt.answer;
 
     document.getElementById('q-label').innerHTML = qt.label;
     document.getElementById('q-verb').textContent = qt.verb;
 
-    // Build 4 options (1 correct + 3 random wrong)
-    const wrong = VERBS
-        .filter(x => x !== v)
-        .map(x => x[qt.field])
-        .filter((x, i, a) => a.indexOf(x) === i && x !== qt.answer)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3);
+    const input = document.getElementById('q-input');
+    input.value = '';
+    input.className = 'type-input';
+    input.disabled = false;
+    input.focus();
 
-    const opts = [qt.answer, ...wrong].sort(() => Math.random() - 0.5);
-
-    const div = document.getElementById('q-answers');
-    div.innerHTML = '';
-    opts.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'ans-btn';
-        btn.textContent = opt;
-        btn.addEventListener('click', () => checkAnswer(btn, opt, qt.answer));
-        div.appendChild(btn);
-    });
-
+    document.getElementById('q-check-btn').disabled = false;
     document.getElementById('q-feedback').style.display = 'none';
     document.getElementById('q-bar').style.width = (qIdx / Q_TOTAL * 100) + '%';
 }
 
-function checkAnswer(btn, chosen, correct) {
-    if (qAnswered) return;
+function checkTypedAnswer() {
+    if (qAnswered) { nextQuestion(); return; }
+
+    const input = document.getElementById('q-input');
+    const typed = input.value.trim();
+    if (!typed) { input.focus(); return; }
+
     qAnswered = true;
-    if (chosen === correct) qScore++;
+    const correct = isAnswerCorrect(typed, qCurrentAnswer);
+    if (correct) qScore++;
 
-    document.querySelectorAll('.ans-btn').forEach(b => {
-        b.disabled = true;
-        if (b.textContent === correct) b.classList.add('correct');
-    });
-    if (chosen !== correct) btn.classList.add('wrong');
+    input.disabled = true;
+    input.className = 'type-input ' + (correct ? 'correct' : 'wrong');
+    document.getElementById('q-check-btn').disabled = true;
 
-    const fb   = document.getElementById('q-feedback');
-    const text = document.getElementById('q-feedback-text');
-    if (chosen === correct) {
-        text.textContent = '¡Correcto! 🎉';
-        text.style.color = '#176330';
+    const box = document.getElementById('q-feedback-box');
+    if (correct) {
+        box.className = 'feedback-box correct';
+        box.innerHTML = `<i class="bi bi-check-circle-fill"></i> ¡Correcto!`;
     } else {
-        text.textContent = `Incorrecto. La respuesta correcta es: "${correct}"`;
-        text.style.color = '#9b1c28';
+        box.className = 'feedback-box wrong';
+        box.innerHTML = `<i class="bi bi-x-circle-fill"></i> Incorrecto &nbsp;·&nbsp; La respuesta es: <strong>${qCurrentAnswer}</strong>`;
     }
-    fb.style.display = '';
+    document.getElementById('q-feedback').style.display = '';
 
     qIdx++;
     updateScores();
@@ -606,6 +686,11 @@ function showResults() {
     document.getElementById('r-title').textContent = title;
     document.getElementById('r-sub').textContent   = sub;
 }
+
+// Enter key: check answer, then continue
+document.getElementById('q-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkTypedAnswer();
+});
 
 // ===================== WORD LIST =====================
 function buildTable() {

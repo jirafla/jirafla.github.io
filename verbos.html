@@ -1,817 +1,877 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <title>Verbos en Inglés - Jirafla</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="utf-8">
+<title>Verbos en Inglés · Jirafla</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#3F058A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+:root {
+  --p:    #3F058A;
+  --p2:   #6B2FBF;
+  --sec:  #FFC448;
+  --ok:   #22C55E;
+  --err:  #EF4444;
+  --bg:   #EDE8F8;
+  --surf: #FFFFFF;
+  --txt:  #1A1228;
+  --mut:  #8B8BA7;
+  --bdr:  rgba(63,5,138,.12);
+  --sh:   0 8px 32px rgba(63,5,138,.13);
+  --r:    20px;
+  --nav:  68px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+button{cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
+body{
+  font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);
+  min-height:100vh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom:calc(var(--nav) + env(safe-area-inset-bottom) + 8px);
+  overscroll-behavior:none;-webkit-tap-highlight-color:transparent;
+}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+/* ── TOP BAR ── */
+.top-bar{
+  background:var(--p);color:#fff;
+  padding:14px 18px 0;
+  position:sticky;top:0;z-index:60;
+}
+.top-row{display:flex;align-items:center;justify-content:space-between}
+.app-brand{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.back-lnk{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.7);
+  display:flex;align-items:center;gap:3px;text-decoration:none}
+.back-lnk:hover{color:#fff}
+.top-score{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.65)}
+.tab-bar{display:flex;margin-top:10px}
+.tab-pip{flex:1;height:3px;border-radius:2px 2px 0 0;
+  background:rgba(255,255,255,.18);transition:background .25s}
+.tab-pip.on{background:var(--sec)}
 
-    <style>
-        :root {
-            --primary: #3F058A;
-            --secondary: #FFC448;
-            --light: #FAFAFB;
-            --dark: #12141D;
-        }
+/* ── SCREENS ── */
+.screen{display:none}
+.screen.on{display:block;animation:up .22s ease}
+@keyframes up{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.pad{padding:18px 16px;max-width:500px;margin:0 auto}
 
-        * { box-sizing: border-box; }
+/* ── BOTTOM NAV ── */
+.bnav{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  height:calc(var(--nav) + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border-top:1px solid var(--bdr);
+  box-shadow:0 -4px 28px rgba(0,0,0,.08);
+  display:flex;align-items:flex-start;padding-top:6px;
+}
+.ni{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  gap:3px;padding:5px 4px;
+  color:var(--mut);font-size:.6rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;
+  position:relative;transition:color .2s;
+}
+.ni.on{color:var(--p)}
+.ni-pill{
+  position:absolute;top:1px;width:50px;height:32px;
+  border-radius:20px;background:rgba(63,5,138,.1);
+  opacity:0;transform:scale(.85);transition:opacity .2s,transform .2s;
+}
+.ni.on .ni-pill{opacity:1;transform:scale(1)}
+.ni-ico{font-size:1.35rem;line-height:1;position:relative;z-index:1}
+.ni-lbl{position:relative;z-index:1}
 
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background: var(--light);
-            min-height: 100vh;
-        }
+/* ── SHARED ── */
+.prog-strip{height:5px;background:rgba(63,5,138,.1);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--sec);border-radius:3px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+.pill-row{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:.28rem .95rem;border-radius:20px;font-size:.76rem;font-weight:700;
+  border:2px solid var(--bdr);color:var(--mut);background:var(--surf);transition:all .18s}
+.pill.on,.pill:hover{background:var(--p);color:#fff;border-color:var(--p)}
+.sm-btn{background:none;border:1.5px solid var(--bdr);color:var(--mut);
+  border-radius:20px;padding:.22rem .8rem;font-size:.73rem;font-weight:700;transition:all .18s}
+.sm-btn:hover{border-color:var(--p);color:var(--p)}
 
-        /* ---- Header ---- */
-        .app-header {
-            background: var(--primary);
-            color: white;
-            padding: 1.5rem 0 0;
-        }
-        .app-header h1 { font-weight: 800; font-size: 1.8rem; }
-        .app-header .subtitle { opacity: 0.8; font-size: 0.9rem; }
-        .back-link { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
-        .back-link:hover { color: white; }
+/* ── FLASHCARD ── */
+.deck-row{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px}
+.deck-ok{font-size:.8rem;font-weight:700;color:var(--ok);
+  display:flex;align-items:center;gap:4px}
+.deck-left{font-size:.8rem;color:var(--mut)}
 
-        /* ---- Mode tabs ---- */
-        .mode-tabs { border-bottom: none; gap: 0.2rem; flex-wrap: nowrap; }
-        .mode-tabs .nav-link {
-            color: rgba(255,255,255,0.65);
-            border: none;
-            border-radius: 8px 8px 0 0;
-            padding: 0.55rem 1.25rem;
-            font-weight: 700;
-            font-size: 0.88rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .mode-tabs .nav-link:hover { color: white; background: rgba(255,255,255,0.12); }
-        .mode-tabs .nav-link.active { background: var(--light); color: var(--primary); }
+.fc-scene{perspective:1100px;height:278px;width:100%;
+  cursor:pointer;user-select:none;-webkit-user-select:none}
+.fc-inner{width:100%;height:100%;position:relative;
+  transform-style:preserve-3d;
+  transition:transform .48s cubic-bezier(.4,2,.5,.9)}
+.fc-inner.flipped{transform:rotateY(180deg)}
+.fc-face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:var(--r);box-shadow:var(--sh);
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:1.8rem 1.6rem;
+}
+.fc-front{background:var(--surf);border:2px solid var(--bdr)}
+.fc-back{background:linear-gradient(138deg,#3F058A 0%,#7B35D9 100%);
+  color:#fff;transform:rotateY(180deg)}
+.vtype{font-size:.65rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.07em;padding:.18rem .65rem;border-radius:20px;margin-bottom:10px}
+.irr{background:var(--sec);color:#7a5000}
+.reg{background:#D1FAE5;color:#065F46}
+.fc-word{font-size:3.4rem;font-weight:900;color:var(--p);
+  line-height:1;letter-spacing:-.03em}
+.fc-sub{font-size:.85rem;color:var(--mut);margin-top:4px}
+.fc-hint{font-size:.73rem;color:#ccc;margin-top:14px;
+  display:flex;align-items:center;gap:4px}
+.bk-grid{width:100%;display:flex;flex-direction:column;gap:7px}
+.bk-row{display:flex;align-items:baseline;gap:8px}
+.bk-lbl{font-size:.63rem;text-transform:uppercase;letter-spacing:.07em;
+  opacity:.6;width:76px;flex-shrink:0}
+.bk-val{font-size:.98rem;font-weight:700}
+.bk-ex{font-size:.76rem;font-style:italic;opacity:.72;
+  margin-top:10px;text-align:center;line-height:1.45}
 
-        /* ---- App body ---- */
-        .app-body { padding: 2rem 0 3rem; }
+.swipe-row{display:flex;justify-content:space-between;
+  font-size:.7rem;color:var(--mut);font-weight:600;
+  padding:6px 4px 0}
+.swipe-row span{display:flex;align-items:center;gap:3px}
 
-        /* ---- Filter pills ---- */
-        .filter-btn {
-            border-radius: 20px;
-            padding: 0.3rem 1rem;
-            font-size: 0.83rem;
-            font-weight: 700;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            background: white;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .filter-btn.active, .filter-btn:hover { background: var(--primary); color: white; }
+.mark-row{display:flex;gap:10px;margin-top:10px}
+.mbtn{
+  flex:1;padding:.9rem;border-radius:14px;
+  border:2px solid transparent;font-size:.92rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:all .18s;
+}
+.mbtn i{font-size:1.05rem}
+.mbtn.no{background:var(--surf);border-color:#e0e0e0;color:#999}
+.mbtn.no:hover,.mbtn.no:active{border-color:var(--err);color:var(--err);background:#FEF2F2}
+.mbtn.yes{background:var(--p);color:#fff;border-color:var(--p)}
+.mbtn.yes:hover,.mbtn.yes:active{background:#2d0466;border-color:#2d0466}
 
-        /* ---- Progress bar ---- */
-        .progress-strip {
-            height: 6px; background: #e0e0e0;
-            border-radius: 3px; overflow: hidden;
-            max-width: 500px; margin: 0 auto;
-        }
-        .progress-fill {
-            height: 100%; background: var(--primary);
-            border-radius: 3px; transition: width 0.35s;
-        }
-        .progress-text { font-size: 0.82rem; color: #999; font-weight: 600; }
+/* complete */
+.done-card{background:var(--surf);border-radius:var(--r);
+  padding:2.5rem 1.5rem;text-align:center;box-shadow:var(--sh)}
+.done-ico{font-size:3.8rem;line-height:1;margin-bottom:10px}
+.done-h{font-size:1.55rem;font-weight:900;color:var(--p);margin-bottom:6px}
+.done-sub{color:var(--mut);font-size:.88rem;margin-bottom:22px}
 
-        /* ---- Flashcard ---- */
-        .fc-scene {
-            perspective: 1000px;
-            width: 100%; max-width: 500px;
-            height: 310px;
-            margin: 0 auto;
-            cursor: pointer;
-        }
-        .fc-inner {
-            width: 100%; height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.55s cubic-bezier(.4,2,.55,1);
-        }
-        .fc-inner.flipped { transform: rotateY(180deg); }
-        .fc-face {
-            position: absolute; inset: 0;
-            backface-visibility: hidden;
-            border-radius: 22px;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 2rem 2.5rem;
-            box-shadow: 0 10px 36px rgba(63,5,138,0.14);
-        }
-        .fc-front { background: white; border: 3px solid var(--primary); }
-        .fc-back  { background: var(--primary); color: white; transform: rotateY(180deg); }
+/* ── QUIZ ── */
+.score-row{display:flex;gap:8px;margin-bottom:12px}
+.sc{flex:1;border-radius:14px;padding:10px 8px;text-align:center;
+  background:var(--surf);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.sc.pur{background:var(--p);color:#fff}
+.sc.yel{background:var(--sec);color:#7a5000}
+.sc-num{font-size:1.65rem;font-weight:900;line-height:1}
+.sc-lbl{font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;opacity:.75;margin-top:2px}
 
-        .verb-word {
-            font-size: 3.2rem; font-weight: 800;
-            color: var(--primary); line-height: 1;
-        }
-        .verb-sub { color: #aaa; font-size: 0.9rem; margin-top: 0.4rem; }
-        .type-badge {
-            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
-            text-transform: uppercase; padding: 0.22rem 0.7rem;
-            border-radius: 20px; margin-bottom: 0.6rem;
-        }
-        .badge-irregular { background: var(--secondary); color: var(--dark); }
-        .badge-regular   { background: #d4f5e0; color: #1a6b38; }
-        .flip-hint { font-size: 0.78rem; color: #bbb; margin-top: 1rem; }
+.mtabs{display:flex;background:rgba(63,5,138,.08);
+  border-radius:12px;padding:4px;gap:2px;margin-bottom:12px}
+.mtab{flex:1;padding:.48rem .3rem;border-radius:9px;
+  border:none;background:none;font-size:.74rem;font-weight:700;
+  color:var(--mut);transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:4px}
+.mtab i{font-size:.85rem}
+.mtab.on{background:var(--surf);color:var(--p);
+  box-shadow:0 2px 10px rgba(0,0,0,.1)}
 
-        .back-rows { width: 100%; }
-        .back-rows tr td { padding: 0.28rem 0.4rem; }
-        .lbl { font-size: 0.73rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7; }
-        .val { font-weight: 700; font-size: 1rem; }
-        .ex-sentence { font-style: italic; font-size: 0.8rem; opacity: 0.8; margin-top: 0.7rem; text-align: center; }
+.q-card{background:var(--surf);border-radius:var(--r);
+  padding:1.2rem 1.4rem;margin-bottom:12px;box-shadow:var(--sh)}
+.q-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.q-lbl{font-size:.8rem;font-weight:600;color:var(--mut)}
+.q-num{font-size:.7rem;font-weight:700;color:var(--mut)}
+.q-verb{font-size:1.9rem;font-weight:900;color:var(--p);
+  letter-spacing:-.02em;line-height:1.15}
 
-        /* ---- Mark buttons (check / X) ---- */
-        .mark-btns { display: flex; gap: 0.75rem; max-width: 500px; margin: 0 auto; }
-        .mark-btn {
-            flex: 1; padding: 0.85rem 1rem;
-            border-radius: 14px; border: 2.5px solid transparent;
-            font-size: 1rem; font-weight: 700;
-            cursor: pointer; transition: all 0.18s;
-            display: flex; align-items: center; justify-content: center; gap: 0.45rem;
-            font-family: 'Open Sans', sans-serif;
-        }
-        .mark-btn.cross {
-            background: white; border-color: #e0e0e0; color: #888;
-        }
-        .mark-btn.cross:hover { border-color: #dc3545; color: #dc3545; background: #fff5f5; }
-        .mark-btn.check {
-            background: var(--primary); color: white; border-color: var(--primary);
-        }
-        .mark-btn.check:hover { background: #2d0466; border-color: #2d0466; }
+/* mc */
+.mc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mc-opt{
+  padding:.85rem .7rem;background:var(--surf);
+  border:2px solid var(--bdr);border-radius:14px;
+  font-size:.85rem;font-weight:700;color:var(--txt);
+  text-align:center;transition:all .18s;line-height:1.3;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+.mc-opt:hover:not(:disabled){border-color:var(--p);color:var(--p);background:#F5F0FF}
+.mc-opt.ok{background:#D1FAE5;border-color:var(--ok);color:#065F46}
+.mc-opt.err{background:#FEF2F2;border-color:var(--err);color:#991B1B}
+.mc-opt:disabled{cursor:default}
 
-        /* ---- Deck progress ---- */
-        .deck-progress {
-            display: flex; align-items: center; justify-content: center;
-            gap: 1.2rem; font-size: 0.83rem; font-weight: 700;
-        }
-        .dp-learned { color: #176330; }
-        .dp-pending { color: #888; }
-        .dp-dot { width: 6px; height: 6px; border-radius: 50%; background: #ddd; }
+/* type */
+.type-wrap{display:flex;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 16px rgba(63,5,138,.1)}
+.type-inp{
+  flex:1;padding:.95rem 1rem;
+  border:2px solid #e8e0f5;border-right:none;
+  font-size:1rem;font-weight:700;color:var(--txt);
+  font-family:'Inter',sans-serif;outline:none;
+  transition:border-color .2s,background .2s;
+}
+.type-inp:focus{border-color:var(--p2)}
+.type-inp.ok{border-color:var(--ok);background:#D1FAE5;color:#065F46}
+.type-inp.err{border-color:var(--err);background:#FEF2F2;color:#991B1B}
+.type-inp:disabled{opacity:.9}
+.chk-btn{
+  padding:.95rem 1.1rem;background:var(--p);color:#fff;
+  border:none;font-size:.85rem;font-weight:700;
+  font-family:'Inter',sans-serif;white-space:nowrap;transition:background .18s;
+}
+.chk-btn:hover{background:#2d0466}
+.chk-btn:disabled{opacity:.4;cursor:default}
 
-        /* ---- Restart button ---- */
-        .restart-btn {
-            background: none; border: 2.5px solid var(--primary);
-            color: var(--primary); border-radius: 20px;
-            padding: 0.3rem 1.1rem; font-size: 0.83rem; font-weight: 700;
-            cursor: pointer; transition: all 0.2s;
-            font-family: 'Open Sans', sans-serif;
-        }
-        .restart-btn:hover { background: var(--primary); color: white; }
+/* voice */
+.voice-area{display:flex;flex-direction:column;align-items:center;
+  padding:18px 0 10px}
+.vbtn{
+  width:84px;height:84px;border-radius:50%;
+  background:var(--p);color:#fff;border:none;font-size:1.9rem;
+  position:relative;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(63,5,138,.35);transition:transform .15s,background .2s;
+}
+.vbtn:hover{transform:scale(1.05)}
+.vbtn:active{transform:scale(.96)}
+.vbtn.rec{background:var(--err)}
+.vbtn.rec::before,.vbtn.rec::after{
+  content:'';position:absolute;inset:-9px;border-radius:50%;
+  border:3px solid var(--err);opacity:0;
+  animation:vp 1.5s ease-out infinite;
+}
+.vbtn.rec::after{animation-delay:.75s}
+@keyframes vp{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+.v-status{font-size:.8rem;font-weight:600;color:var(--mut);margin-top:10px}
+.v-result{font-size:1.05rem;font-weight:700;color:var(--p);
+  margin-top:4px;min-height:1.4rem;text-align:center}
+.v-no{background:#FEF3C7;border:1.5px solid #F59E0B;border-radius:12px;
+  padding:12px 16px;text-align:center;font-size:.8rem;font-weight:600;color:#92400E}
 
-        /* ---- Complete screen ---- */
-        .complete-card {
-            background: var(--primary); color: white;
-            border-radius: 22px; padding: 2.5rem 2rem; text-align: center;
-            max-width: 500px; margin: 0 auto;
-            box-shadow: 0 10px 36px rgba(63,5,138,0.2);
-        }
+/* feedback */
+.fb-box{border-radius:14px;padding:12px 16px;font-weight:700;
+  font-size:.88rem;display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
+.fb-box i{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.fb-box.ok{background:#D1FAE5;color:#065F46}
+.fb-box.err{background:#FEF2F2;color:#991B1B}
+.fb-sub{font-size:.76rem;font-weight:500;opacity:.85;margin-top:3px}
+.next-btn{
+  width:100%;padding:.9rem;background:var(--p);color:#fff;
+  border:none;border-radius:14px;font-size:.92rem;font-weight:700;
+  font-family:'Inter',sans-serif;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:background .18s;
+}
+.next-btn:hover{background:#2d0466}
+.hint-s{font-size:.7rem;color:var(--mut);text-align:center;margin-top:5px}
 
-        /* ---- Quiz scores ---- */
-        .score-box {
-            background: var(--primary); color: white;
-            border-radius: 14px; padding: 0.7rem 1rem; text-align: center;
-        }
-        .score-box.alt    { background: #ece8f7; color: var(--primary); }
-        .score-box.yellow { background: var(--secondary); color: var(--dark); }
-        .score-num { font-size: 1.9rem; font-weight: 800; line-height: 1; }
-        .score-lbl { font-size: 0.7rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.05em; }
+/* results */
+.res-card{
+  background:linear-gradient(138deg,#3F058A 0%,#7B35D9 100%);
+  border-radius:var(--r);padding:2.2rem 1.5rem;
+  text-align:center;color:#fff;box-shadow:var(--sh);
+}
+.res-stars{font-size:1.8rem;letter-spacing:4px;margin-bottom:6px}
+.res-title{font-size:1.55rem;font-weight:900;margin-bottom:4px}
+.res-pct{font-size:3.2rem;font-weight:900;letter-spacing:-.04em;line-height:1;margin:6px 0}
+.res-lbl{font-size:.72rem;opacity:.7;text-transform:uppercase;letter-spacing:.07em}
+.res-best{font-size:.75rem;opacity:.6;margin-top:4px}
+.res-row{display:flex;justify-content:center;gap:28px;margin:18px 0}
+.res-sn{font-size:1.9rem;font-weight:900;line-height:1}
+.res-sl{font-size:.7rem;opacity:.7}
+.replay-btn{
+  background:#fff;color:var(--p);border:none;border-radius:30px;
+  padding:.8rem 1.8rem;font-size:.9rem;font-weight:800;
+  font-family:'Inter',sans-serif;
+  box-shadow:0 4px 16px rgba(0,0,0,.15);
+  display:inline-flex;align-items:center;gap:6px;
+  transition:transform .15s,box-shadow .15s;margin-top:6px;
+}
+.replay-btn:hover{transform:scale(1.03);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.mode-chips{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.mode-chip{
+  padding:.45rem .9rem;border-radius:20px;
+  background:rgba(255,255,255,.15);color:#fff;
+  border:1.5px solid rgba(255,255,255,.3);
+  font-size:.75rem;font-weight:700;font-family:'Inter',sans-serif;
+  transition:background .18s;
+}
+.mode-chip:hover{background:rgba(255,255,255,.28)}
 
-        /* ---- Quiz question card ---- */
-        .q-card { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
-        .q-label { font-size: 0.95rem; font-weight: 700; color: #555; }
-        .q-verb  { font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1.2; }
+/* ── LIST ── */
+.srch-wrap{position:relative}
+.srch-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  color:var(--mut);font-size:.95rem}
+.srch{
+  width:100%;padding:.82rem 1rem .82rem 2.5rem;
+  border:2px solid var(--bdr);border-radius:14px;
+  font-size:.9rem;font-family:'Inter',sans-serif;outline:none;
+  background:var(--surf);transition:border-color .2s,box-shadow .2s;
+}
+.srch:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(63,5,138,.1)}
+.vlist{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.vc{
+  background:var(--surf);border-radius:16px;
+  padding:13px 15px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+  display:flex;align-items:center;gap:11px;
+  border:2px solid transparent;transition:border-color .18s;
+}
+.vc.vc-ok{border-color:#D1FAE5}
+.vc-main{flex:1;min-width:0}
+.vc-inf{font-size:1rem;font-weight:800;color:var(--p)}
+.vc-forms{font-size:.76rem;color:var(--mut);font-weight:600;
+  margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vc-es{font-size:.78rem;color:var(--txt);font-weight:500;margin-top:1px}
+.vc-b{font-size:.6rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.06em;padding:3px 7px;border-radius:20px;flex-shrink:0}
+.vc-irr{background:#FEF9C3;color:#854D0E}
+.vc-reg{background:#D1FAE5;color:#065F46}
+.vc-chk{color:var(--ok);font-size:1.05rem;flex-shrink:0}
 
-        /* ---- Typing input ---- */
-        .type-input-wrap { display: flex; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px rgba(63,5,138,0.1); }
-        .type-input {
-            flex: 1; padding: 0.85rem 1.1rem;
-            border: 2px solid #e0e0e0; border-right: none; border-radius: 0;
-            font-size: 1.05rem; font-weight: 600; color: var(--dark);
-            font-family: 'Open Sans', sans-serif;
-            outline: none; transition: border-color 0.2s, background 0.2s;
-        }
-        .type-input:focus { border-color: var(--primary); }
-        .type-input.correct { border-color: #28a745; background: #e6f8ec; color: #176330; }
-        .type-input.wrong   { border-color: #dc3545; background: #fde8ea; color: #9b1c28; }
-        .type-input:disabled { opacity: 0.85; }
-        .check-btn {
-            padding: 0.85rem 1.3rem;
-            background: var(--primary); color: white;
-            border: 2px solid var(--primary); border-left: none;
-            font-size: 0.9rem; font-weight: 700; cursor: pointer;
-            font-family: 'Open Sans', sans-serif; transition: background 0.2s;
-            white-space: nowrap;
-        }
-        .check-btn:hover:not(:disabled) { background: #2d0466; border-color: #2d0466; }
-        .check-btn:disabled { opacity: 0.45; cursor: default; }
-
-        /* ---- Quiz feedback ---- */
-        .feedback-box {
-            border-radius: 12px; padding: 0.9rem 1.1rem;
-            font-weight: 700; font-size: 0.95rem;
-        }
-        .feedback-box.correct { background: #e6f8ec; color: #176330; border: 2px solid #28a745; }
-        .feedback-box.wrong   { background: #fde8ea; color: #9b1c28; border: 2px solid #dc3545; }
-        .hint-text { font-size: 0.8rem; color: #aaa; text-align: center; margin-top: 0.4rem; }
-
-        /* ---- Results ---- */
-        .result-card {
-            background: var(--primary); color: white;
-            border-radius: 22px; padding: 2.5rem 2rem; text-align: center;
-            max-width: 420px; margin: 0 auto;
-        }
-        .result-emoji { font-size: 3.8rem; line-height: 1; margin-bottom: 0.5rem; }
-        .result-num   { font-size: 2.5rem; font-weight: 800; line-height: 1; }
-
-        /* ---- Word list ---- */
-        .search-box {
-            width: 100%; padding: 0.6rem 1rem;
-            border: 2px solid var(--primary); border-radius: 10px;
-            font-size: 0.9rem; outline: none;
-            font-family: 'Open Sans', sans-serif;
-        }
-        .search-box:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(255,196,72,0.22); }
-
-        .verb-table { font-size: 0.86rem; }
-        .verb-table thead th {
-            background: var(--primary); color: white;
-            font-size: 0.78rem; text-transform: uppercase;
-            letter-spacing: 0.05em; font-weight: 700;
-            position: sticky; top: 0; z-index: 1;
-        }
-        .verb-table tbody tr:hover { background: #f3eeff; }
-        .tag-irr { color: #8a5f00; font-weight: 700; }
-        .tag-reg { color: #176330; font-weight: 700; }
-
-        /* ---- Responsive ---- */
-        @media (max-width: 480px) {
-            .fc-scene { height: 270px; }
-            .verb-word { font-size: 2.5rem; }
-            .fc-face { padding: 1.5rem; }
-            .mode-tabs .nav-link { padding: 0.45rem 0.85rem; font-size: 0.82rem; }
-        }
-    </style>
+/* ── MISC ── */
+.mt2{margin-top:8px}.mt3{margin-top:12px}.mt4{margin-top:16px}
+</style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
-<div class="app-header">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-1">
-            <a href="index.html" class="back-link"><i class="bi bi-arrow-left"></i> Jirafla</a>
-        </div>
-        <h1 class="mb-0">Verbos en Inglés</h1>
-        <p class="subtitle mb-3">Aprende las formas verbales más comunes con flashcards y quizzes</p>
-        <ul class="nav mode-tabs" id="modeTabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="#" data-mode="flashcards">
-                    <i class="bi bi-layers-fill"></i> Flashcards
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-mode="quiz">
-                    <i class="bi bi-keyboard"></i> Quiz
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-mode="list">
-                    <i class="bi bi-list-ul"></i> Lista
-                </a>
-            </li>
-        </ul>
-    </div>
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-row">
+    <a href="index.html" class="back-lnk"><i class="bi bi-arrow-left"></i> Jirafla</a>
+    <span class="app-brand">Verbos en Inglés</span>
+    <span class="top-score" id="top-score">0 / 85 ✓</span>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-pip on"  data-s="cards"></div>
+    <div class="tab-pip"     data-s="quiz"></div>
+    <div class="tab-pip"     data-s="list"></div>
+  </div>
 </div>
 
-<!-- ===== BODY ===== -->
-<div class="app-body">
-    <div class="container" style="max-width:640px">
-
-        <!-- ========== FLASHCARDS ========== -->
-        <div id="mode-flashcards">
-            <div class="d-flex justify-content-center gap-2 mb-3 flex-wrap">
-                <button class="filter-btn active" data-filter="all">Todos (85)</button>
-                <button class="filter-btn" data-filter="irregular">Irregulares (65)</button>
-                <button class="filter-btn" data-filter="regular">Regulares (20)</button>
-            </div>
-
-            <!-- Deck progress -->
-            <div class="deck-progress mb-3" id="fc-deck-progress">
-                <span class="dp-learned" id="fc-learned-count"><i class="bi bi-check-circle-fill"></i> 0 aprendidos</span>
-                <span class="dp-dot"></span>
-                <span class="dp-pending" id="fc-pending-count">85 por repasar</span>
-                <span class="dp-dot"></span>
-                <button class="restart-btn" onclick="restartDeck()"><i class="bi bi-arrow-repeat"></i> Reiniciar</button>
-            </div>
-            <div class="progress-strip mb-4">
-                <div class="progress-fill" id="fc-bar" style="width:0%"></div>
-            </div>
-
-            <!-- Card -->
-            <div id="fc-card-area">
-                <div class="fc-scene" id="fc-scene" onclick="flipCard()">
-                    <div class="fc-inner" id="fc-inner">
-                        <div class="fc-face fc-front" id="fc-front"></div>
-                        <div class="fc-face fc-back"  id="fc-back"></div>
-                    </div>
-                </div>
-
-                <!-- Mark buttons -->
-                <div class="mark-btns mt-4">
-                    <button class="mark-btn cross" onclick="markCard(false)" title="No lo sé, repasar al final">
-                        <i class="bi bi-x-lg"></i> No lo sé
-                    </button>
-                    <button class="mark-btn check" onclick="markCard(true)" title="¡Lo sé! Marcar como aprendido">
-                        <i class="bi bi-check-lg"></i> ¡Lo sé!
-                    </button>
-                </div>
-                <p class="text-center mt-2" style="font-size:0.78rem; color:#bbb">
-                    <i class="bi bi-hand-index"></i> Toca la tarjeta para revelar · marca cuando hayas visto la respuesta
-                </p>
-            </div>
-
-            <!-- Complete screen -->
-            <div id="fc-complete" style="display:none">
-                <div class="complete-card">
-                    <div style="font-size:3.5rem; line-height:1; margin-bottom:0.5rem">🏆</div>
-                    <h2 class="fw-bold mb-1">¡Lo lograste!</h2>
-                    <p style="opacity:0.85; margin-bottom:1.5rem" id="fc-complete-sub">Aprendiste todos los verbos</p>
-                    <button class="btn btn-light rounded-pill px-4 fw-bold" onclick="restartDeck()">
-                        <i class="bi bi-arrow-repeat"></i> Volver a empezar
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========== QUIZ ========== -->
-        <div id="mode-quiz" style="display:none">
-
-            <div id="quiz-active">
-                <!-- Scores -->
-                <div class="row g-2 mb-3">
-                    <div class="col-4">
-                        <div class="score-box">
-                            <div class="score-num" id="q-correct">0</div>
-                            <div class="score-lbl">Correctas</div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="score-box alt">
-                            <div class="score-num" id="q-total">0</div>
-                            <div class="score-lbl">Respondidas</div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="score-box yellow">
-                            <div class="score-num" id="q-pct">—</div>
-                            <div class="score-lbl">Precisión</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="progress-strip mb-3">
-                    <div class="progress-fill" id="q-bar" style="width:0%"></div>
-                </div>
-
-                <!-- Question -->
-                <div class="q-card mb-3">
-                    <div class="q-label" id="q-label">¿Cuál es el <b>pasado simple</b> de...?</div>
-                    <div class="q-verb" id="q-verb">go</div>
-                </div>
-
-                <!-- Typing input -->
-                <div class="type-input-wrap mb-2">
-                    <input type="text" id="q-input" class="type-input"
-                           placeholder="Escribe tu respuesta aquí..."
-                           autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                    <button class="check-btn" id="q-check-btn" onclick="checkTypedAnswer()">
-                        <i class="bi bi-check-lg"></i> Comprobar
-                    </button>
-                </div>
-                <p class="hint-text">Pulsa <kbd>Enter</kbd> para comprobar · <kbd>Enter</kbd> de nuevo para continuar</p>
-
-                <!-- Feedback -->
-                <div id="q-feedback" style="display:none" class="mt-3">
-                    <div id="q-feedback-box" class="feedback-box mb-3"></div>
-                    <div class="text-center">
-                        <button class="btn btn-primary rounded-pill px-4 fw-bold" onclick="nextQuestion()">
-                            Siguiente <i class="bi bi-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Results -->
-            <div id="quiz-results" style="display:none">
-                <div class="result-card">
-                    <div class="result-emoji" id="r-emoji">🏆</div>
-                    <h2 class="fw-bold mb-1" id="r-title">¡Excelente!</h2>
-                    <p class="mb-4" id="r-sub" style="opacity:0.85">Completaste el quiz</p>
-                    <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
-                        <div>
-                            <div class="result-num" id="r-score">0</div>
-                            <div style="font-size:0.78rem; opacity:0.75">Correctas</div>
-                        </div>
-                        <div style="font-size:2rem; opacity:0.35">/</div>
-                        <div>
-                            <div class="result-num" id="r-total">20</div>
-                            <div style="font-size:0.78rem; opacity:0.75">Preguntas</div>
-                        </div>
-                    </div>
-                    <button class="btn btn-light rounded-pill px-4 fw-bold" onclick="startQuiz()">
-                        <i class="bi bi-arrow-repeat"></i> Jugar de nuevo
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========== LIST ========== -->
-        <div id="mode-list" style="display:none">
-            <input type="search" class="search-box mb-3" id="search-input"
-                   placeholder="🔍  Buscar verbo en inglés o español..."
-                   oninput="filterTable()">
-            <div style="max-height:66vh; overflow-y:auto; border-radius:14px;
-                        box-shadow:0 4px 20px rgba(0,0,0,0.09)">
-                <table class="table verb-table mb-0">
-                    <thead>
-                        <tr>
-                            <th>Infinitivo</th>
-                            <th>Pasado simple</th>
-                            <th>Participio</th>
-                            <th>Español</th>
-                            <th>Tipo</th>
-                        </tr>
-                    </thead>
-                    <tbody id="verbs-tbody"></tbody>
-                </table>
-            </div>
-        </div>
-
+<!-- ══ CARDS ══ -->
+<div class="screen on" id="screen-cards">
+  <div class="pad">
+    <div class="pill-row mt3" id="fc-filters">
+      <button class="pill on" data-f="all">Todos · 85</button>
+      <button class="pill"    data-f="irregular">Irregulares · 65</button>
+      <button class="pill"    data-f="regular">Regulares · 20</button>
     </div>
+
+    <div class="deck-row mt3">
+      <span class="deck-ok" id="fc-ok"><i class="bi bi-check-circle-fill"></i> 0 aprendidos</span>
+      <span class="deck-left" id="fc-left">85 por repasar</span>
+      <button class="sm-btn" onclick="restartDeck()"><i class="bi bi-arrow-repeat"></i> Reiniciar</button>
+    </div>
+    <div class="prog-strip mt2 mb3" style="margin-bottom:14px">
+      <div class="prog-fill" id="fc-bar" style="width:0%"></div>
+    </div>
+
+    <!-- card + buttons -->
+    <div id="fc-area">
+      <div class="fc-scene" id="fc-scene">
+        <div class="fc-inner" id="fc-inner">
+          <div class="fc-face fc-front" id="fc-front"></div>
+          <div class="fc-face fc-back"  id="fc-back"></div>
+        </div>
+      </div>
+      <div class="swipe-row">
+        <span><i class="bi bi-arrow-left"></i> No lo sé</span>
+        <span style="font-size:.62rem;color:#ccc">desliza o toca</span>
+        <span>¡Lo sé! <i class="bi bi-arrow-right"></i></span>
+      </div>
+      <div class="mark-row">
+        <button class="mbtn no"  onclick="markCard(false)"><i class="bi bi-x-lg"></i> No lo sé</button>
+        <button class="mbtn yes" onclick="markCard(true)"><i class="bi bi-check-lg"></i> ¡Lo sé!</button>
+      </div>
+    </div>
+
+    <!-- complete -->
+    <div id="fc-done" style="display:none">
+      <div class="done-card">
+        <div class="done-ico">🏆</div>
+        <div class="done-h">¡Lo lograste!</div>
+        <div class="done-sub" id="fc-done-sub">Aprendiste todos los verbos</div>
+        <button class="mbtn yes" style="max-width:260px;margin:0 auto" onclick="restartDeck()">
+          <i class="bi bi-arrow-repeat"></i> Volver a empezar
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- ══ QUIZ ══ -->
+<div class="screen" id="screen-quiz">
+  <div class="pad">
+    <div class="score-row">
+      <div class="sc pur"><div class="sc-num" id="q-ok">0</div><div class="sc-lbl">Correctas</div></div>
+      <div class="sc">    <div class="sc-num" id="q-tot">0</div><div class="sc-lbl">Total</div></div>
+      <div class="sc yel"><div class="sc-num" id="q-pct">—</div><div class="sc-lbl">Precisión</div></div>
+    </div>
+    <div class="prog-strip" style="margin-bottom:12px">
+      <div class="prog-fill" id="q-bar" style="width:0%"></div>
+    </div>
+
+    <div class="mtabs" id="mtabs">
+      <button class="mtab on" data-m="mc">   <i class="bi bi-grid-3x3-gap-fill"></i> Múltiple</button>
+      <button class="mtab"    data-m="type"> <i class="bi bi-keyboard"></i> Escribir</button>
+      <button class="mtab"    data-m="voice"><i class="bi bi-mic-fill"></i> Voz</button>
+    </div>
+
+    <div id="q-active">
+      <div class="q-card">
+        <div class="q-top">
+          <span class="q-lbl" id="q-lbl">¿Pasado simple de...?</span>
+          <span class="q-num" id="q-num">1 / 20</span>
+        </div>
+        <div class="q-verb" id="q-verb">go</div>
+      </div>
+      <div id="q-ans-area"></div>
+      <div id="q-fb" style="display:none" class="mt3">
+        <div class="fb-box" id="q-fb-box"></div>
+        <button class="next-btn" onclick="nextQ()">Siguiente <i class="bi bi-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <div id="q-results" style="display:none">
+      <div class="res-card">
+        <div class="res-stars" id="r-stars">⭐⭐⭐</div>
+        <div class="res-title" id="r-title">¡Excelente!</div>
+        <div class="res-pct"   id="r-pct">95%</div>
+        <div class="res-lbl">precisión</div>
+        <div class="res-best"  id="r-best"></div>
+        <div class="res-row">
+          <div><div class="res-sn" id="r-ok">0</div><div class="res-sl">Correctas</div></div>
+          <div><div class="res-sn" id="r-tot">20</div><div class="res-sl">Preguntas</div></div>
+        </div>
+        <button class="replay-btn" onclick="startQuiz()">
+          <i class="bi bi-arrow-repeat"></i> Jugar de nuevo
+        </button>
+        <div class="mode-chips">
+          <button class="mode-chip" onclick="setMode('mc');   startQuiz()">Múltiple</button>
+          <button class="mode-chip" onclick="setMode('type'); startQuiz()">Escribir</button>
+          <button class="mode-chip" onclick="setMode('voice');startQuiz()">Voz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LIST ══ -->
+<div class="screen" id="screen-list">
+  <div class="pad">
+    <div class="srch-wrap">
+      <i class="bi bi-search srch-ico"></i>
+      <input type="search" class="srch" id="srch" placeholder="Buscar en inglés o español…" oninput="filterList()">
+    </div>
+    <div class="vlist" id="vlist"></div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <div class="ni on" data-s="cards" onclick="goTo('cards')">
+    <div class="ni-pill"></div>
+    <i class="bi bi-layers-fill ni-ico"></i>
+    <span class="ni-lbl">Cards</span>
+  </div>
+  <div class="ni" data-s="quiz" onclick="goTo('quiz')">
+    <div class="ni-pill"></div>
+    <i class="bi bi-patch-question-fill ni-ico"></i>
+    <span class="ni-lbl">Quiz</span>
+  </div>
+  <div class="ni" data-s="list" onclick="goTo('list')">
+    <div class="ni-pill"></div>
+    <i class="bi bi-list-ul ni-ico"></i>
+    <span class="ni-lbl">Lista</span>
+  </div>
+</nav>
 
 <script>
-// ===================== DATA =====================
-const VERBS = [
-    // ---------- IRREGULAR (65) ----------
-    {inf:"be",          past:"was / were",  pp:"been",        es:"ser / estar",            type:"irregular", ex:"She was very happy yesterday."},
-    {inf:"have",        past:"had",         pp:"had",         es:"tener",                  type:"irregular", ex:"They had a wonderful time."},
-    {inf:"do",          past:"did",         pp:"done",        es:"hacer",                  type:"irregular", ex:"He did all his homework."},
-    {inf:"go",          past:"went",        pp:"gone",        es:"ir",                     type:"irregular", ex:"We went to the park on Sunday."},
-    {inf:"come",        past:"came",        pp:"come",        es:"venir",                  type:"irregular", ex:"She came home very late."},
-    {inf:"see",         past:"saw",         pp:"seen",        es:"ver",                    type:"irregular", ex:"I saw a great movie last night."},
-    {inf:"get",         past:"got",         pp:"gotten",      es:"obtener / conseguir",    type:"irregular", ex:"He got a new job this week."},
-    {inf:"make",        past:"made",        pp:"made",        es:"hacer / fabricar",       type:"irregular", ex:"She made a delicious cake."},
-    {inf:"take",        past:"took",        pp:"taken",       es:"tomar / llevar",         type:"irregular", ex:"He took the bus to school."},
-    {inf:"know",        past:"knew",        pp:"known",       es:"saber / conocer",        type:"irregular", ex:"I knew the answer immediately."},
-    {inf:"think",       past:"thought",     pp:"thought",     es:"pensar",                 type:"irregular", ex:"She thought about it all day."},
-    {inf:"give",        past:"gave",        pp:"given",       es:"dar",                    type:"irregular", ex:"He gave me a birthday gift."},
-    {inf:"find",        past:"found",       pp:"found",       es:"encontrar",              type:"irregular", ex:"We finally found the lost keys."},
-    {inf:"tell",        past:"told",        pp:"told",        es:"decir / contar",         type:"irregular", ex:"She always told the truth."},
-    {inf:"feel",        past:"felt",        pp:"felt",        es:"sentir",                 type:"irregular", ex:"I felt very tired after work."},
-    {inf:"leave",       past:"left",        pp:"left",        es:"dejar / salir",          type:"irregular", ex:"He left the office at noon."},
-    {inf:"bring",       past:"brought",     pp:"brought",     es:"traer",                  type:"irregular", ex:"She brought flowers to the party."},
-    {inf:"begin",       past:"began",       pp:"begun",       es:"comenzar",               type:"irregular", ex:"The class began earlier than usual."},
-    {inf:"keep",        past:"kept",        pp:"kept",        es:"mantener / guardar",     type:"irregular", ex:"She always kept her promise."},
-    {inf:"write",       past:"wrote",       pp:"written",     es:"escribir",               type:"irregular", ex:"He wrote a long letter to her."},
-    {inf:"hear",        past:"heard",       pp:"heard",       es:"escuchar / oír",         type:"irregular", ex:"I heard a strange noise outside."},
-    {inf:"run",         past:"ran",         pp:"run",         es:"correr",                 type:"irregular", ex:"She ran five kilometers every morning."},
-    {inf:"buy",         past:"bought",      pp:"bought",      es:"comprar",                type:"irregular", ex:"They bought a new car last year."},
-    {inf:"speak",       past:"spoke",       pp:"spoken",      es:"hablar",                 type:"irregular", ex:"He spoke to the whole class."},
-    {inf:"read",        past:"read",        pp:"read",        es:"leer",                   type:"irregular", ex:"She read the entire book in one day."},
-    {inf:"eat",         past:"ate",         pp:"eaten",       es:"comer",                  type:"irregular", ex:"We ate dinner together last night."},
-    {inf:"sleep",       past:"slept",       pp:"slept",       es:"dormir",                 type:"irregular", ex:"The baby slept for eight hours."},
-    {inf:"drive",       past:"drove",       pp:"driven",      es:"manejar / conducir",     type:"irregular", ex:"She drove to work every day."},
-    {inf:"forget",      past:"forgot",      pp:"forgotten",   es:"olvidar",                type:"irregular", ex:"I totally forgot my keys again."},
-    {inf:"meet",        past:"met",         pp:"met",         es:"conocer / reunirse",     type:"irregular", ex:"We met at school ten years ago."},
-    // --- nuevos irregulares ---
-    {inf:"become",      past:"became",      pp:"become",      es:"convertirse / llegar a ser", type:"irregular", ex:"She became a doctor after years of study."},
-    {inf:"bite",        past:"bit",         pp:"bitten",      es:"morder",                 type:"irregular", ex:"The dog bit the mailman's hand."},
-    {inf:"break",       past:"broke",       pp:"broken",      es:"romper",                 type:"irregular", ex:"He broke the window by accident."},
-    {inf:"build",       past:"built",       pp:"built",       es:"construir",              type:"irregular", ex:"They built a new house last year."},
-    {inf:"catch",       past:"caught",      pp:"caught",      es:"atrapar / tomar",        type:"irregular", ex:"She caught the ball with one hand."},
-    {inf:"choose",      past:"chose",       pp:"chosen",      es:"elegir",                 type:"irregular", ex:"He chose the red shirt to wear."},
-    {inf:"cut",         past:"cut",         pp:"cut",         es:"cortar",                 type:"irregular", ex:"She cut the vegetables for dinner."},
-    {inf:"draw",        past:"drew",        pp:"drawn",       es:"dibujar",                type:"irregular", ex:"The child drew a beautiful picture."},
-    {inf:"drink",       past:"drank",       pp:"drunk",       es:"beber",                  type:"irregular", ex:"He drank three cups of coffee."},
-    {inf:"fall",        past:"fell",        pp:"fallen",      es:"caer",                   type:"irregular", ex:"She fell on the ice and hurt her knee."},
-    {inf:"fight",       past:"fought",      pp:"fought",      es:"pelear / luchar",        type:"irregular", ex:"They fought for their rights bravely."},
-    {inf:"fly",         past:"flew",        pp:"flown",       es:"volar",                  type:"irregular", ex:"The bird flew across the ocean."},
-    {inf:"grow",        past:"grew",        pp:"grown",       es:"crecer",                 type:"irregular", ex:"The plant grew very quickly."},
-    {inf:"hold",        past:"held",        pp:"held",        es:"sostener / sujetar",     type:"irregular", ex:"She held his hand tightly."},
-    {inf:"hurt",        past:"hurt",        pp:"hurt",        es:"doler / lastimar",       type:"irregular", ex:"He hurt his arm playing football."},
-    {inf:"lose",        past:"lost",        pp:"lost",        es:"perder",                 type:"irregular", ex:"We lost the game in the final minute."},
-    {inf:"mean",        past:"meant",       pp:"meant",       es:"significar / querer decir", type:"irregular", ex:"I meant to call you sooner."},
-    {inf:"pay",         past:"paid",        pp:"paid",        es:"pagar",                  type:"irregular", ex:"He paid the bill without complaint."},
-    {inf:"put",         past:"put",         pp:"put",         es:"poner / colocar",        type:"irregular", ex:"She put the keys on the table."},
-    {inf:"ride",        past:"rode",        pp:"ridden",      es:"montar / andar en",      type:"irregular", ex:"He rode his bike to school."},
-    {inf:"ring",        past:"rang",        pp:"rung",        es:"sonar / llamar",         type:"irregular", ex:"The phone rang three times."},
-    {inf:"rise",        past:"rose",        pp:"risen",       es:"levantarse / subir",     type:"irregular", ex:"The sun rose at 6 a.m. today."},
-    {inf:"sell",        past:"sold",        pp:"sold",        es:"vender",                 type:"irregular", ex:"She sold her old car for a good price."},
-    {inf:"send",        past:"sent",        pp:"sent",        es:"enviar / mandar",        type:"irregular", ex:"He sent an email to his boss."},
-    {inf:"show",        past:"showed",      pp:"shown",       es:"mostrar / enseñar",      type:"irregular", ex:"She showed me how to cook pasta."},
-    {inf:"sing",        past:"sang",        pp:"sung",        es:"cantar",                 type:"irregular", ex:"The choir sang beautifully."},
-    {inf:"sit",         past:"sat",         pp:"sat",         es:"sentarse",               type:"irregular", ex:"He sat next to me on the bus."},
-    {inf:"spend",       past:"spent",       pp:"spent",       es:"gastar / pasar (tiempo)",type:"irregular", ex:"We spent the weekend at the beach."},
-    {inf:"stand",       past:"stood",       pp:"stood",       es:"estar de pie / pararse", type:"irregular", ex:"She stood at the door for ten minutes."},
-    {inf:"steal",       past:"stole",       pp:"stolen",      es:"robar",                  type:"irregular", ex:"Someone stole my bicycle last night."},
-    {inf:"swim",        past:"swam",        pp:"swum",        es:"nadar",                  type:"irregular", ex:"He swam across the river."},
-    {inf:"teach",       past:"taught",      pp:"taught",      es:"enseñar",                type:"irregular", ex:"She taught English for twenty years."},
-    {inf:"throw",       past:"threw",       pp:"thrown",      es:"lanzar / tirar",         type:"irregular", ex:"He threw the ball over the fence."},
-    {inf:"understand",  past:"understood",  pp:"understood",  es:"entender / comprender",  type:"irregular", ex:"I finally understood the problem."},
-    {inf:"wake",        past:"woke",        pp:"woken",       es:"despertar",              type:"irregular", ex:"She woke up early to watch the sunrise."},
-    {inf:"wear",        past:"wore",        pp:"worn",        es:"usar / llevar puesto",   type:"irregular", ex:"He wore a suit to the interview."},
-    {inf:"win",         past:"won",         pp:"won",         es:"ganar",                  type:"irregular", ex:"Our team won the championship."},
-    // ---------- REGULAR (20) ----------
-    {inf:"work",    past:"worked",    pp:"worked",    es:"trabajar",               type:"regular", ex:"She worked all day without a break."},
-    {inf:"play",    past:"played",    pp:"played",    es:"jugar / tocar",          type:"regular", ex:"The kids played soccer in the park."},
-    {inf:"study",   past:"studied",   pp:"studied",   es:"estudiar",               type:"regular", ex:"He studied English every evening."},
-    {inf:"talk",    past:"talked",    pp:"talked",    es:"hablar / conversar",     type:"regular", ex:"We talked on the phone for hours."},
-    {inf:"walk",    past:"walked",    pp:"walked",    es:"caminar",                type:"regular", ex:"She walked to school every morning."},
-    {inf:"help",    past:"helped",    pp:"helped",    es:"ayudar",                 type:"regular", ex:"He helped his neighbor carry the bags."},
-    {inf:"start",   past:"started",   pp:"started",   es:"empezar / iniciar",      type:"regular", ex:"The movie started five minutes late."},
-    {inf:"finish",  past:"finished",  pp:"finished",  es:"terminar",               type:"regular", ex:"She finished all the exercises quickly."},
-    {inf:"love",    past:"loved",     pp:"loved",     es:"amar / querer",          type:"regular", ex:"They loved the new restaurant."},
-    {inf:"need",    past:"needed",    pp:"needed",    es:"necesitar",              type:"regular", ex:"I needed more time to finish the test."},
-    {inf:"want",    past:"wanted",    pp:"wanted",    es:"querer / desear",        type:"regular", ex:"She wanted to travel around the world."},
-    {inf:"learn",   past:"learned",   pp:"learned",   es:"aprender",               type:"regular", ex:"He learned to cook during quarantine."},
-    {inf:"listen",  past:"listened",  pp:"listened",  es:"escuchar (atentamente)", type:"regular", ex:"She listened carefully to the teacher."},
-    {inf:"call",    past:"called",    pp:"called",    es:"llamar",                 type:"regular", ex:"He called his mom every Sunday."},
-    {inf:"open",    past:"opened",    pp:"opened",    es:"abrir",                  type:"regular", ex:"She opened the window for fresh air."},
-    {inf:"close",   past:"closed",    pp:"closed",    es:"cerrar",                 type:"regular", ex:"He closed the door quietly."},
-    {inf:"try",     past:"tried",     pp:"tried",     es:"intentar",               type:"regular", ex:"She tried her best on the exam."},
-    {inf:"use",     past:"used",      pp:"used",      es:"usar / utilizar",        type:"regular", ex:"He used a dictionary to check the word."},
-    {inf:"ask",     past:"asked",     pp:"asked",     es:"preguntar / pedir",      type:"regular", ex:"She asked her teacher for help."},
-    {inf:"live",    past:"lived",     pp:"lived",     es:"vivir",                  type:"regular", ex:"They lived in Madrid for three years."},
+// ── DATA ──────────────────────────────────────────────────
+const VERBS=[
+  {inf:"be",past:"was / were",pp:"been",es:"ser / estar",type:"irregular",ex:"She was very happy yesterday."},
+  {inf:"have",past:"had",pp:"had",es:"tener",type:"irregular",ex:"They had a wonderful time."},
+  {inf:"do",past:"did",pp:"done",es:"hacer",type:"irregular",ex:"He did all his homework."},
+  {inf:"go",past:"went",pp:"gone",es:"ir",type:"irregular",ex:"We went to the park on Sunday."},
+  {inf:"come",past:"came",pp:"come",es:"venir",type:"irregular",ex:"She came home very late."},
+  {inf:"see",past:"saw",pp:"seen",es:"ver",type:"irregular",ex:"I saw a great movie last night."},
+  {inf:"get",past:"got",pp:"gotten",es:"obtener / conseguir",type:"irregular",ex:"He got a new job this week."},
+  {inf:"make",past:"made",pp:"made",es:"hacer / fabricar",type:"irregular",ex:"She made a delicious cake."},
+  {inf:"take",past:"took",pp:"taken",es:"tomar / llevar",type:"irregular",ex:"He took the bus to school."},
+  {inf:"know",past:"knew",pp:"known",es:"saber / conocer",type:"irregular",ex:"I knew the answer immediately."},
+  {inf:"think",past:"thought",pp:"thought",es:"pensar",type:"irregular",ex:"She thought about it all day."},
+  {inf:"give",past:"gave",pp:"given",es:"dar",type:"irregular",ex:"He gave me a birthday gift."},
+  {inf:"find",past:"found",pp:"found",es:"encontrar",type:"irregular",ex:"We finally found the lost keys."},
+  {inf:"tell",past:"told",pp:"told",es:"decir / contar",type:"irregular",ex:"She always told the truth."},
+  {inf:"feel",past:"felt",pp:"felt",es:"sentir",type:"irregular",ex:"I felt very tired after work."},
+  {inf:"leave",past:"left",pp:"left",es:"dejar / salir",type:"irregular",ex:"He left the office at noon."},
+  {inf:"bring",past:"brought",pp:"brought",es:"traer",type:"irregular",ex:"She brought flowers to the party."},
+  {inf:"begin",past:"began",pp:"begun",es:"comenzar",type:"irregular",ex:"The class began earlier than usual."},
+  {inf:"keep",past:"kept",pp:"kept",es:"mantener / guardar",type:"irregular",ex:"She always kept her promise."},
+  {inf:"write",past:"wrote",pp:"written",es:"escribir",type:"irregular",ex:"He wrote a long letter to her."},
+  {inf:"hear",past:"heard",pp:"heard",es:"escuchar / oír",type:"irregular",ex:"I heard a strange noise outside."},
+  {inf:"run",past:"ran",pp:"run",es:"correr",type:"irregular",ex:"She ran five kilometers every morning."},
+  {inf:"buy",past:"bought",pp:"bought",es:"comprar",type:"irregular",ex:"They bought a new car last year."},
+  {inf:"speak",past:"spoke",pp:"spoken",es:"hablar",type:"irregular",ex:"He spoke to the whole class."},
+  {inf:"read",past:"read",pp:"read",es:"leer",type:"irregular",ex:"She read the entire book in one day."},
+  {inf:"eat",past:"ate",pp:"eaten",es:"comer",type:"irregular",ex:"We ate dinner together last night."},
+  {inf:"sleep",past:"slept",pp:"slept",es:"dormir",type:"irregular",ex:"The baby slept for eight hours."},
+  {inf:"drive",past:"drove",pp:"driven",es:"manejar / conducir",type:"irregular",ex:"She drove to work every day."},
+  {inf:"forget",past:"forgot",pp:"forgotten",es:"olvidar",type:"irregular",ex:"I totally forgot my keys again."},
+  {inf:"meet",past:"met",pp:"met",es:"conocer / reunirse",type:"irregular",ex:"We met at school ten years ago."},
+  {inf:"become",past:"became",pp:"become",es:"convertirse / llegar a ser",type:"irregular",ex:"She became a doctor after years of study."},
+  {inf:"bite",past:"bit",pp:"bitten",es:"morder",type:"irregular",ex:"The dog bit the mailman's hand."},
+  {inf:"break",past:"broke",pp:"broken",es:"romper",type:"irregular",ex:"He broke the window by accident."},
+  {inf:"build",past:"built",pp:"built",es:"construir",type:"irregular",ex:"They built a new house last year."},
+  {inf:"catch",past:"caught",pp:"caught",es:"atrapar / tomar",type:"irregular",ex:"She caught the ball with one hand."},
+  {inf:"choose",past:"chose",pp:"chosen",es:"elegir",type:"irregular",ex:"He chose the red shirt to wear."},
+  {inf:"cut",past:"cut",pp:"cut",es:"cortar",type:"irregular",ex:"She cut the vegetables for dinner."},
+  {inf:"draw",past:"drew",pp:"drawn",es:"dibujar",type:"irregular",ex:"The child drew a beautiful picture."},
+  {inf:"drink",past:"drank",pp:"drunk",es:"beber",type:"irregular",ex:"He drank three cups of coffee."},
+  {inf:"fall",past:"fell",pp:"fallen",es:"caer",type:"irregular",ex:"She fell on the ice and hurt her knee."},
+  {inf:"fight",past:"fought",pp:"fought",es:"pelear / luchar",type:"irregular",ex:"They fought for their rights bravely."},
+  {inf:"fly",past:"flew",pp:"flown",es:"volar",type:"irregular",ex:"The bird flew across the ocean."},
+  {inf:"grow",past:"grew",pp:"grown",es:"crecer",type:"irregular",ex:"The plant grew very quickly."},
+  {inf:"hold",past:"held",pp:"held",es:"sostener / sujetar",type:"irregular",ex:"She held his hand tightly."},
+  {inf:"hurt",past:"hurt",pp:"hurt",es:"doler / lastimar",type:"irregular",ex:"He hurt his arm playing football."},
+  {inf:"lose",past:"lost",pp:"lost",es:"perder",type:"irregular",ex:"We lost the game in the final minute."},
+  {inf:"mean",past:"meant",pp:"meant",es:"significar / querer decir",type:"irregular",ex:"I meant to call you sooner."},
+  {inf:"pay",past:"paid",pp:"paid",es:"pagar",type:"irregular",ex:"He paid the bill without complaint."},
+  {inf:"put",past:"put",pp:"put",es:"poner / colocar",type:"irregular",ex:"She put the keys on the table."},
+  {inf:"ride",past:"rode",pp:"ridden",es:"montar / andar en",type:"irregular",ex:"He rode his bike to school."},
+  {inf:"ring",past:"rang",pp:"rung",es:"sonar / llamar",type:"irregular",ex:"The phone rang three times."},
+  {inf:"rise",past:"rose",pp:"risen",es:"levantarse / subir",type:"irregular",ex:"The sun rose at 6 a.m. today."},
+  {inf:"sell",past:"sold",pp:"sold",es:"vender",type:"irregular",ex:"She sold her old car for a good price."},
+  {inf:"send",past:"sent",pp:"sent",es:"enviar / mandar",type:"irregular",ex:"He sent an email to his boss."},
+  {inf:"show",past:"showed",pp:"shown",es:"mostrar / enseñar",type:"irregular",ex:"She showed me how to cook pasta."},
+  {inf:"sing",past:"sang",pp:"sung",es:"cantar",type:"irregular",ex:"The choir sang beautifully."},
+  {inf:"sit",past:"sat",pp:"sat",es:"sentarse",type:"irregular",ex:"He sat next to me on the bus."},
+  {inf:"spend",past:"spent",pp:"spent",es:"gastar / pasar (tiempo)",type:"irregular",ex:"We spent the weekend at the beach."},
+  {inf:"stand",past:"stood",pp:"stood",es:"estar de pie / pararse",type:"irregular",ex:"She stood at the door for ten minutes."},
+  {inf:"steal",past:"stole",pp:"stolen",es:"robar",type:"irregular",ex:"Someone stole my bicycle last night."},
+  {inf:"swim",past:"swam",pp:"swum",es:"nadar",type:"irregular",ex:"He swam across the river."},
+  {inf:"teach",past:"taught",pp:"taught",es:"enseñar",type:"irregular",ex:"She taught English for twenty years."},
+  {inf:"throw",past:"threw",pp:"thrown",es:"lanzar / tirar",type:"irregular",ex:"He threw the ball over the fence."},
+  {inf:"understand",past:"understood",pp:"understood",es:"entender / comprender",type:"irregular",ex:"I finally understood the problem."},
+  {inf:"wake",past:"woke",pp:"woken",es:"despertar",type:"irregular",ex:"She woke up early to watch the sunrise."},
+  {inf:"wear",past:"wore",pp:"worn",es:"usar / llevar puesto",type:"irregular",ex:"He wore a suit to the interview."},
+  {inf:"win",past:"won",pp:"won",es:"ganar",type:"irregular",ex:"Our team won the championship."},
+  // REGULAR
+  {inf:"work",past:"worked",pp:"worked",es:"trabajar",type:"regular",ex:"She worked all day without a break."},
+  {inf:"play",past:"played",pp:"played",es:"jugar / tocar",type:"regular",ex:"The kids played soccer in the park."},
+  {inf:"study",past:"studied",pp:"studied",es:"estudiar",type:"regular",ex:"He studied English every evening."},
+  {inf:"talk",past:"talked",pp:"talked",es:"hablar / conversar",type:"regular",ex:"We talked on the phone for hours."},
+  {inf:"walk",past:"walked",pp:"walked",es:"caminar",type:"regular",ex:"She walked to school every morning."},
+  {inf:"help",past:"helped",pp:"helped",es:"ayudar",type:"regular",ex:"He helped his neighbor carry the bags."},
+  {inf:"start",past:"started",pp:"started",es:"empezar / iniciar",type:"regular",ex:"The movie started five minutes late."},
+  {inf:"finish",past:"finished",pp:"finished",es:"terminar",type:"regular",ex:"She finished all the exercises quickly."},
+  {inf:"love",past:"loved",pp:"loved",es:"amar / querer",type:"regular",ex:"They loved the new restaurant."},
+  {inf:"need",past:"needed",pp:"needed",es:"necesitar",type:"regular",ex:"I needed more time to finish the test."},
+  {inf:"want",past:"wanted",pp:"wanted",es:"querer / desear",type:"regular",ex:"She wanted to travel around the world."},
+  {inf:"learn",past:"learned",pp:"learned",es:"aprender",type:"regular",ex:"He learned to cook during quarantine."},
+  {inf:"listen",past:"listened",pp:"listened",es:"escuchar (atentamente)",type:"regular",ex:"She listened carefully to the teacher."},
+  {inf:"call",past:"called",pp:"called",es:"llamar",type:"regular",ex:"He called his mom every Sunday."},
+  {inf:"open",past:"opened",pp:"opened",es:"abrir",type:"regular",ex:"She opened the window for fresh air."},
+  {inf:"close",past:"closed",pp:"closed",es:"cerrar",type:"regular",ex:"He closed the door quietly."},
+  {inf:"try",past:"tried",pp:"tried",es:"intentar",type:"regular",ex:"She tried her best on the exam."},
+  {inf:"use",past:"used",pp:"used",es:"usar / utilizar",type:"regular",ex:"He used a dictionary to check the word."},
+  {inf:"ask",past:"asked",pp:"asked",es:"preguntar / pedir",type:"regular",ex:"She asked her teacher for help."},
+  {inf:"live",past:"lived",pp:"lived",es:"vivir",type:"regular",ex:"They lived in Madrid for three years."},
 ];
 
-// ===================== STATE =====================
-let fcSourceList = [...VERBS]; // verbs for active filter
-let fcDeck       = [];         // queue: first card is current
-let fcLearned    = new Set();  // infinitives marked as learned
-let fcFlipped    = false;
+// ── STORAGE ──────────────────────────────────────────────
+const LS={L:'veng_l',B:'veng_b',M:'veng_m'};
+const loadL=()=>{try{return new Set(JSON.parse(localStorage.getItem(LS.L)||'[]'))}catch{return new Set()}};
+const saveL=s=>localStorage.setItem(LS.L,JSON.stringify([...s]));
+const loadB=()=>parseInt(localStorage.getItem(LS.B)||'0');
+const saveB=n=>{if(n>loadB())localStorage.setItem(LS.B,n)};
+const loadM=()=>localStorage.getItem(LS.M)||'mc';
+const saveM=m=>localStorage.setItem(LS.M,m);
 
-let qList     = [];
-let qIdx      = 0;
-let qScore    = 0;
-let qAnswered = false;
-let qCurrentAnswer = '';
-const Q_TOTAL = 20;
-
-// ===================== FLASHCARDS =====================
-function startDeck(verbs) {
-    fcSourceList = [...verbs];
-    // Shuffle on start
-    fcDeck = [...verbs].sort(() => Math.random() - 0.5);
-    fcLearned.clear();
-    showCurrentCard();
+// ── NAVIGATION ───────────────────────────────────────────
+function goTo(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById('screen-'+name).classList.add('on');
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  document.querySelector(`.ni[data-s="${name}"]`).classList.add('on');
+  document.querySelectorAll('.tab-pip').forEach(p=>p.classList.remove('on'));
+  document.querySelector(`.tab-pip[data-s="${name}"]`).classList.add('on');
+  if(name==='quiz'&&qList.length===0)startQuiz();
+  if(name==='list')buildList();
 }
 
-function restartDeck() {
-    fcDeck = [...fcSourceList].sort(() => Math.random() - 0.5);
-    fcLearned.clear();
-    document.getElementById('fc-complete').style.display = 'none';
-    document.getElementById('fc-card-area').style.display = '';
-    showCurrentCard();
+// ── FLASHCARDS ───────────────────────────────────────────
+let fcSrc=[...VERBS],fcDeck=[],fcLearned=loadL(),swipeHandled=false;
+let touchX0=0,touchY0=0;
+
+function startDeck(verbs){
+  fcSrc=[...verbs];fcLearned=loadL();
+  fcDeck=verbs.filter(v=>!fcLearned.has(v.inf)).sort(()=>Math.random()-.5);
+  updDeck();
+  if(!fcDeck.length)showDone();else renderCard();
+}
+function restartDeck(){
+  fcLearned.clear();saveL(fcLearned);
+  fcDeck=[...fcSrc].sort(()=>Math.random()-.5);
+  document.getElementById('fc-done').style.display='none';
+  document.getElementById('fc-area').style.display='';
+  updDeck();renderCard();
+}
+function updDeck(){
+  const tot=fcSrc.length,ok=fcLearned.size,left=fcDeck.length;
+  document.getElementById('fc-ok').innerHTML=`<i class="bi bi-check-circle-fill"></i> ${ok} aprendido${ok!==1?'s':''}`;
+  document.getElementById('fc-left').textContent=`${left} por repasar`;
+  document.getElementById('fc-bar').style.width=(ok/tot*100)+'%';
+  document.getElementById('top-score').textContent=`${loadL().size} / ${VERBS.length} ✓`;
+}
+function renderCard(){
+  if(!fcDeck.length)return;
+  const v=fcDeck[0];
+  document.getElementById('fc-inner').classList.remove('flipped');
+  document.getElementById('fc-front').innerHTML=`
+    <span class="vtype ${v.type==='irregular'?'irr':'reg'}">${v.type==='irregular'?'Irregular':'Regular'}</span>
+    <div class="fc-word">${v.inf}</div>
+    <div class="fc-sub">to ${v.inf}</div>
+    <div class="fc-hint"><i class="bi bi-hand-index"></i> Toca para ver las formas</div>`;
+  document.getElementById('fc-back').innerHTML=`
+    <div class="bk-grid">
+      <div class="bk-row"><span class="bk-lbl">Infinitivo</span><span class="bk-val">to ${v.inf}</span></div>
+      <div class="bk-row"><span class="bk-lbl">Pasado</span><span class="bk-val">${v.past}</span></div>
+      <div class="bk-row"><span class="bk-lbl">Participio</span><span class="bk-val">${v.pp}</span></div>
+      <div class="bk-row"><span class="bk-lbl">Español</span><span class="bk-val">${v.es}</span></div>
+    </div>
+    <div class="bk-ex">"${v.ex}"</div>`;
+}
+function markCard(known){
+  const v=fcDeck.shift();
+  if(known){fcLearned.add(v.inf);saveL(fcLearned);}
+  else fcDeck.push(v);
+  updDeck();
+  if(!fcDeck.length)showDone();else renderCard();
+}
+function showDone(){
+  document.getElementById('fc-area').style.display='none';
+  document.getElementById('fc-done').style.display='';
+  document.getElementById('fc-done-sub').textContent=`¡Aprendiste los ${fcLearned.size} verbos del mazo!`;
 }
 
-function showCurrentCard() {
-    fcFlipped = false;
-    document.getElementById('fc-inner').classList.remove('flipped');
-
-    const total   = fcSourceList.length;
-    const learned = fcLearned.size;
-    const pending = fcDeck.length;
-
-    document.getElementById('fc-learned-count').innerHTML =
-        `<i class="bi bi-check-circle-fill"></i> ${learned} aprendido${learned !== 1 ? 's' : ''}`;
-    document.getElementById('fc-pending-count').textContent =
-        `${pending} por repasar`;
-    document.getElementById('fc-bar').style.width =
-        (learned / total * 100) + '%';
-
-    const v = fcDeck[0];
-    document.getElementById('fc-front').innerHTML = `
-        <span class="type-badge ${v.type === 'irregular' ? 'badge-irregular' : 'badge-regular'}">
-            ${v.type === 'irregular' ? 'Irregular' : 'Regular'}
-        </span>
-        <div class="verb-word">${v.inf}</div>
-        <div class="verb-sub">to ${v.inf}</div>
-        <div class="flip-hint"><i class="bi bi-hand-index"></i> Toca para ver las formas</div>
-    `;
-    document.getElementById('fc-back').innerHTML = `
-        <table class="back-rows">
-            <tr><td class="lbl">Infinitivo</td><td class="val">to ${v.inf}</td></tr>
-            <tr><td class="lbl">Pasado simple</td><td class="val">${v.past}</td></tr>
-            <tr><td class="lbl">Participio</td><td class="val">${v.pp}</td></tr>
-            <tr><td class="lbl">Español</td><td class="val">${v.es}</td></tr>
-        </table>
-        <div class="ex-sentence">"${v.ex}"</div>
-    `;
-}
-
-function flipCard() {
-    fcFlipped = !fcFlipped;
-    document.getElementById('fc-inner').classList.toggle('flipped', fcFlipped);
-}
-
-function markCard(known) {
-    const v = fcDeck.shift();
-    if (known) {
-        fcLearned.add(v.inf);
-    } else {
-        fcDeck.push(v); // goes to the end of the queue
-    }
-
-    if (fcDeck.length === 0) {
-        // All learned!
-        document.getElementById('fc-bar').style.width = '100%';
-        document.getElementById('fc-learned-count').innerHTML =
-            `<i class="bi bi-check-circle-fill"></i> ${fcLearned.size} aprendidos`;
-        document.getElementById('fc-pending-count').textContent = '0 por repasar';
-        document.getElementById('fc-card-area').style.display = 'none';
-        document.getElementById('fc-complete').style.display = '';
-        document.getElementById('fc-complete-sub').textContent =
-            `Aprendiste los ${fcLearned.size} verbos del mazo`;
-    } else {
-        showCurrentCard();
-    }
-}
-
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const f = btn.dataset.filter;
-        const verbs = f === 'all' ? [...VERBS] : VERBS.filter(v => v.type === f);
-        document.getElementById('fc-complete').style.display = 'none';
-        document.getElementById('fc-card-area').style.display = '';
-        startDeck(verbs);
-    });
+// touch / click on card
+const fcScene=document.getElementById('fc-scene');
+fcScene.addEventListener('touchstart',e=>{touchX0=e.touches[0].clientX;touchY0=e.touches[0].clientY},{passive:true});
+fcScene.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-touchX0;
+  const dy=e.changedTouches[0].clientY-touchY0;
+  if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>55){
+    swipeHandled=true;markCard(dx>0);
+  }
+},{passive:true});
+fcScene.addEventListener('click',()=>{
+  if(swipeHandled){swipeHandled=false;return;}
+  document.getElementById('fc-inner').classList.toggle('flipped');
 });
 
-// ===================== QUIZ =====================
-const Q_TYPES = [
-    v => ({ label: `¿Cuál es el <b>pasado simple</b> de...?`,    verb: `"${v.inf}"`,  answer: v.past }),
-    v => ({ label: `¿Cuál es el <b>participio pasado</b> de...?`, verb: `"${v.inf}"`,  answer: v.pp   }),
-    v => ({ label: `¿Cómo se dice <b>en inglés</b>...?`,          verb: `"${v.es}"`,   answer: v.inf  }),
+// filter pills
+document.getElementById('fc-filters').querySelectorAll('.pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#fc-filters .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const verbs=btn.dataset.f==='all'?[...VERBS]:VERBS.filter(v=>v.type===btn.dataset.f);
+    document.getElementById('fc-done').style.display='none';
+    document.getElementById('fc-area').style.display='';
+    startDeck(verbs);
+  });
+});
+
+// ── QUIZ ─────────────────────────────────────────────────
+const QTYPES=[
+  v=>({lbl:'¿Cuál es el <b>pasado simple</b> de...?',  verb:v.inf, ans:v.past}),
+  v=>({lbl:'¿Cuál es el <b>participio pasado</b> de...?',verb:v.inf, ans:v.pp}),
+  v=>({lbl:'¿Cómo se dice <b>en inglés</b>...?',       verb:v.es,  ans:v.inf}),
 ];
+let qList=[],qIdx=0,qScore=0,qAns=false,qCurAns='',qCurV=null,qCurQt=null;
+let qMode=loadM();
+const QN=20;
 
-function normalizeAns(s) {
-    return s.trim().toLowerCase().replace(/\s*\/\s*/g, '/');
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let rec=null;
+if(SR){rec=new SR();rec.lang='en-US';rec.continuous=false;rec.interimResults=false;}
+
+function norm(s){return s.trim().toLowerCase().replace(/\s*\/\s*/g,'/');}
+function isOk(t,c){const tn=norm(t),cn=norm(c);if(tn===cn)return true;return cn.split('/').map(p=>p.trim()).includes(tn);}
+
+function setMode(m){
+  qMode=m;saveM(m);
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('on'));
+  document.querySelector(`.mtab[data-m="${m}"]`).classList.add('on');
 }
+document.querySelectorAll('.mtab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    setMode(tab.dataset.m);
+    if(!qAns&&qCurV)renderAns();
+  });
+});
+setMode(loadM());
 
-function isAnswerCorrect(typed, correct) {
-    const t = normalizeAns(typed);
-    const c = normalizeAns(correct);
-    if (t === c) return true;
-    // Accept any variant of "was / were" style answers
-    return c.split('/').map(p => p.trim()).includes(t);
+function startQuiz(){
+  qList=[...VERBS].sort(()=>Math.random()-.5).slice(0,QN);
+  qIdx=0;qScore=0;qAns=false;
+  document.getElementById('q-active').style.display='';
+  document.getElementById('q-results').style.display='none';
+  updQScore();renderQ();
 }
-
-function startQuiz() {
-    qList     = [...VERBS].sort(() => Math.random() - 0.5).slice(0, Q_TOTAL);
-    qIdx      = 0;
-    qScore    = 0;
-    qAnswered = false;
-    document.getElementById('quiz-active').style.display  = '';
-    document.getElementById('quiz-results').style.display = 'none';
-    updateScores();
-    renderQuestion();
+function renderQ(){
+  if(qIdx>=qList.length){showQRes();return;}
+  qAns=false;
+  qCurV=qList[qIdx];
+  qCurQt=QTYPES[Math.floor(Math.random()*QTYPES.length)](qCurV);
+  qCurAns=qCurQt.ans;
+  document.getElementById('q-num').textContent=`${qIdx+1} / ${QN}`;
+  document.getElementById('q-lbl').innerHTML=qCurQt.lbl;
+  document.getElementById('q-verb').textContent=qCurQt.verb;
+  document.getElementById('q-bar').style.width=(qIdx/QN*100)+'%';
+  document.getElementById('q-fb').style.display='none';
+  renderAns();
 }
+function renderAns(){
+  const area=document.getElementById('q-ans-area');
+  area.innerHTML='';
 
-function renderQuestion() {
-    if (qIdx >= qList.length) { showResults(); return; }
-    qAnswered = false;
+  if(qMode==='mc'){
+    const field=qCurAns===qCurV.past?'past':qCurAns===qCurV.pp?'pp':'inf';
+    const wrong=VERBS.filter(x=>x!==qCurV)
+      .map(x=>x[field]).filter((x,i,a)=>a.indexOf(x)===i&&x!==qCurAns)
+      .sort(()=>Math.random()-.5).slice(0,3);
+    const opts=[qCurAns,...wrong].sort(()=>Math.random()-.5);
+    const grid=document.createElement('div');grid.className='mc-grid';
+    opts.forEach(opt=>{
+      const b=document.createElement('button');b.className='mc-opt';b.textContent=opt;
+      b.addEventListener('click',()=>checkMC(b,opt));
+      grid.appendChild(b);
+    });
+    area.appendChild(grid);
 
-    const v  = qList[qIdx];
-    const qt = Q_TYPES[Math.floor(Math.random() * Q_TYPES.length)](v);
-    qCurrentAnswer = qt.answer;
+  } else if(qMode==='type'){
+    area.innerHTML=`
+      <div class="type-wrap">
+        <input id="q-ti" class="type-inp" type="text"
+          placeholder="Escribe tu respuesta…"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="chk-btn" id="q-cb" onclick="checkTyped()">OK</button>
+      </div>
+      <p class="hint-s mt2"><i class="bi bi-keyboard"></i> Enter para comprobar</p>`;
+    const ti=document.getElementById('q-ti');
+    ti.addEventListener('keydown',e=>{if(e.key==='Enter')checkTyped();});
+    setTimeout(()=>ti.focus(),80);
 
-    document.getElementById('q-label').innerHTML = qt.label;
-    document.getElementById('q-verb').textContent = qt.verb;
-
-    const input = document.getElementById('q-input');
-    input.value = '';
-    input.className = 'type-input';
-    input.disabled = false;
-    input.focus();
-
-    document.getElementById('q-check-btn').disabled = false;
-    document.getElementById('q-feedback').style.display = 'none';
-    document.getElementById('q-bar').style.width = (qIdx / Q_TOTAL * 100) + '%';
-}
-
-function checkTypedAnswer() {
-    if (qAnswered) { nextQuestion(); return; }
-
-    const input = document.getElementById('q-input');
-    const typed = input.value.trim();
-    if (!typed) { input.focus(); return; }
-
-    qAnswered = true;
-    const correct = isAnswerCorrect(typed, qCurrentAnswer);
-    if (correct) qScore++;
-
-    input.disabled = true;
-    input.className = 'type-input ' + (correct ? 'correct' : 'wrong');
-    document.getElementById('q-check-btn').disabled = true;
-
-    const box = document.getElementById('q-feedback-box');
-    if (correct) {
-        box.className = 'feedback-box correct';
-        box.innerHTML = `<i class="bi bi-check-circle-fill"></i> ¡Correcto!`;
+  } else {
+    if(!rec){
+      area.innerHTML=`<div class="v-no"><i class="bi bi-mic-mute-fill"></i> Tu navegador no soporta voz. Usa Chrome o Safari.</div>`;
     } else {
-        box.className = 'feedback-box wrong';
-        box.innerHTML = `<i class="bi bi-x-circle-fill"></i> Incorrecto &nbsp;·&nbsp; La respuesta es: <strong>${qCurrentAnswer}</strong>`;
+      area.innerHTML=`
+        <div class="voice-area">
+          <button class="vbtn" id="vbtn" onclick="startVoice()"><i class="bi bi-mic-fill"></i></button>
+          <div class="v-status" id="v-st">Pulsa el micrófono y habla en inglés</div>
+          <div class="v-result" id="v-res"></div>
+        </div>`;
     }
-    document.getElementById('q-feedback').style.display = '';
-
-    qIdx++;
-    updateScores();
+  }
+}
+function checkMC(btn,chosen){
+  if(qAns)return;qAns=true;
+  const ok=isOk(chosen,qCurAns);
+  if(ok)qScore++;
+  document.querySelectorAll('.mc-opt').forEach(b=>{
+    b.disabled=true;
+    if(isOk(b.textContent.trim(),qCurAns))b.classList.add('ok');
+  });
+  if(!ok)btn.classList.add('err');
+  showFb(ok);qIdx++;updQScore();
+}
+function checkTyped(){
+  if(qAns){nextQ();return;}
+  const ti=document.getElementById('q-ti');if(!ti)return;
+  const t=ti.value.trim();if(!t){ti.focus();return;}
+  qAns=true;const ok=isOk(t,qCurAns);if(ok)qScore++;
+  ti.disabled=true;ti.className='type-inp '+(ok?'ok':'err');
+  document.getElementById('q-cb').disabled=true;
+  showFb(ok);qIdx++;updQScore();
+}
+function startVoice(){
+  if(!rec||qAns)return;
+  const btn=document.getElementById('vbtn');
+  const st=document.getElementById('v-st');
+  const res=document.getElementById('v-res');
+  btn.classList.add('rec');st.textContent='Escuchando…';res.textContent='';
+  rec.onresult=e=>{
+    const spoken=e.results[0][0].transcript.trim();
+    res.textContent=`"${spoken}"`;btn.classList.remove('rec');st.textContent='Procesando…';
+    setTimeout(()=>{
+      qAns=true;const ok=isOk(spoken,qCurAns);if(ok)qScore++;
+      showFb(ok);qIdx++;updQScore();
+    },350);
+  };
+  rec.onerror=e=>{
+    btn.classList.remove('rec');
+    st.textContent=e.error==='no-speech'?'No te escuché, intenta de nuevo':'Error: '+e.error;
+  };
+  rec.onend=()=>btn.classList.remove('rec');
+  rec.start();
+}
+function showFb(ok){
+  const box=document.getElementById('q-fb-box');
+  box.className='fb-box '+(ok?'ok':'err');
+  box.innerHTML=ok
+    ?`<i class="bi bi-check-circle-fill"></i><div>¡Correcto!</div>`
+    :`<i class="bi bi-x-circle-fill"></i><div>Incorrecto<div class="fb-sub">La respuesta es: <strong>${qCurAns}</strong></div></div>`;
+  document.getElementById('q-fb').style.display='';
+}
+function nextQ(){renderQ();}
+function updQScore(){
+  document.getElementById('q-ok').textContent=qScore;
+  document.getElementById('q-tot').textContent=qIdx;
+  document.getElementById('q-pct').textContent=qIdx>0?Math.round(qScore/qIdx*100)+'%':'—';
+}
+function showQRes(){
+  document.getElementById('q-active').style.display='none';
+  document.getElementById('q-results').style.display='';
+  document.getElementById('q-bar').style.width='100%';
+  const pct=Math.round(qScore/QN*100);saveB(qScore);
+  document.getElementById('r-ok').textContent=qScore;
+  document.getElementById('r-tot').textContent=QN;
+  document.getElementById('r-pct').textContent=pct+'%';
+  document.getElementById('r-best').textContent=`Mejor puntuación: ${loadB()} / ${QN}`;
+  document.getElementById('r-stars').textContent=pct>=90?'⭐⭐⭐':pct>=70?'⭐⭐':'⭐';
+  document.getElementById('r-title').textContent=pct>=90?'¡Excelente!':pct>=70?'¡Muy bien!':pct>=50?'¡Buen intento!':'¡Sigue practicando!';
 }
 
-function nextQuestion() { renderQuestion(); }
-
-function updateScores() {
-    document.getElementById('q-correct').textContent = qScore;
-    document.getElementById('q-total').textContent   = qIdx;
-    document.getElementById('q-pct').textContent     = qIdx > 0 ? Math.round(qScore / qIdx * 100) + '%' : '—';
+// ── LIST ─────────────────────────────────────────────────
+function buildList(){
+  const ok=loadL();
+  document.getElementById('vlist').innerHTML=VERBS.map(v=>`
+    <div class="vc ${ok.has(v.inf)?'vc-ok':''}" data-s="${v.inf} ${v.past} ${v.pp} ${v.es}">
+      <div class="vc-main">
+        <div class="vc-inf">${v.inf}</div>
+        <div class="vc-forms">${v.past} · ${v.pp}</div>
+        <div class="vc-es">${v.es}</div>
+      </div>
+      <span class="vc-b ${v.type==='irregular'?'vc-irr':'vc-reg'}">${v.type==='irregular'?'Irr.':'Reg.'}</span>
+      ${ok.has(v.inf)?'<i class="bi bi-check-circle-fill vc-chk"></i>':''}
+    </div>`).join('');
+}
+function filterList(){
+  const q=document.getElementById('srch').value.toLowerCase();
+  document.querySelectorAll('.vc').forEach(c=>{
+    c.style.display=c.dataset.s.toLowerCase().includes(q)?'':'none';
+  });
 }
 
-function showResults() {
-    document.getElementById('quiz-active').style.display  = 'none';
-    document.getElementById('quiz-results').style.display = '';
-    document.getElementById('q-bar').style.width = '100%';
-
-    const pct = Math.round(qScore / Q_TOTAL * 100);
-    document.getElementById('r-score').textContent = qScore;
-    document.getElementById('r-total').textContent = Q_TOTAL;
-
-    const grades = [
-        [90, '🏆', '¡Excelente!',    `¡Dominas los verbos en inglés! (${pct}%)`],
-        [70, '🎉', '¡Muy bien!',     `Sigue practicando un poco más. (${pct}%)`],
-        [50, '💪', '¡Buen intento!', `Revisa las flashcards y vuelve a intentarlo. (${pct}%)`],
-        [ 0, '📚', '¡A estudiar!',   `Practica más con las flashcards. (${pct}%)`],
-    ];
-    const [, emoji, title, sub] = grades.find(([min]) => pct >= min);
-    document.getElementById('r-emoji').textContent = emoji;
-    document.getElementById('r-title').textContent = title;
-    document.getElementById('r-sub').textContent   = sub;
-}
-
-// Enter key: check answer, then continue
-document.getElementById('q-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') checkTypedAnswer();
-});
-
-// ===================== WORD LIST =====================
-function buildTable() {
-    document.getElementById('verbs-tbody').innerHTML = VERBS.map(v => `
-        <tr>
-            <td><strong>${v.inf}</strong></td>
-            <td>${v.past}</td>
-            <td>${v.pp}</td>
-            <td>${v.es}</td>
-            <td class="${v.type === 'irregular' ? 'tag-irr' : 'tag-reg'}">
-                ${v.type === 'irregular' ? 'Irregular' : 'Regular'}
-            </td>
-        </tr>
-    `).join('');
-}
-
-function filterTable() {
-    const q = document.getElementById('search-input').value.toLowerCase();
-    document.querySelectorAll('#verbs-tbody tr').forEach(row => {
-        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
-    });
-}
-
-// ===================== MODE TABS =====================
-document.querySelectorAll('[data-mode]').forEach(link => {
-    link.addEventListener('click', e => {
-        e.preventDefault();
-        const mode = link.dataset.mode;
-        document.querySelectorAll('[data-mode]').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-        ['flashcards', 'quiz', 'list'].forEach(m =>
-            document.getElementById('mode-' + m).style.display = m === mode ? '' : 'none'
-        );
-        if (mode === 'quiz' && qList.length === 0) startQuiz();
-    });
-});
-
-// ===================== INIT =====================
+// ── INIT ─────────────────────────────────────────────────
 startDeck(VERBS);
-buildTable();
+buildList();
 </script>
 </body>
 </html>

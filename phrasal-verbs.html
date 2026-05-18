@@ -755,11 +755,12 @@ let qMode=loadM();
 const QN=20;
 
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const SGL=window.SpeechGrammarList||window.webkitSpeechGrammarList;
 let rec=null;
-if(SR){rec=new SR();rec.lang='en-US';rec.continuous=false;rec.interimResults=false;}
+if(SR){rec=new SR();rec.lang='en-US';rec.continuous=false;rec.interimResults=false;rec.maxAlternatives=5;}
 
-function norm(s){return s.trim().toLowerCase().replace(/\s*\/\s*/g,'/');}
-function isOk(t,c){const tn=norm(t),cn=norm(c);if(tn===cn)return true;return cn.split('/').map(p=>p.trim()).includes(tn);}
+function norm(s){return s.trim().toLowerCase().replace(/^(to |the |a |an |it'?s )/,'').replace(/[.,!?'"]/g,'').replace(/\s*\/\s*/g,'/').replace(/\s+/g,' ').trim();}
+function isOk(t,c){const tn=norm(t),cn=norm(c);if(!tn)return false;if(tn===cn)return true;const parts=cn.split('/').map(p=>p.trim()).filter(p=>p);return parts.includes(tn)||parts.includes(tn.replace(/^to /,''));}
 
 function setMode(m){
   qMode=m;saveM(m);
@@ -862,9 +863,17 @@ function startVoice(){
   const btn=document.getElementById('vbtn');
   const st=document.getElementById('v-st');
   const res=document.getElementById('v-res');
+  if(SGL){try{
+    const gl=new SGL();
+    const words=qCurAns.split('/').map(p=>p.trim()).filter(p=>p);
+    gl.addFromString(`#JSGF V1.0; grammar a; public <a> = ${words.join(' | ')} ;`,1);
+    rec.grammars=gl;
+  }catch(e){}}
   btn.classList.add('rec');st.textContent='Escuchando…';res.textContent='';
   rec.onresult=e=>{
-    const spoken=e.results[0][0].transcript.trim();
+    const alts=e.results[0];
+    let spoken=alts[0].transcript.trim();
+    for(let i=0;i<alts.length;i++){if(isOk(alts[i].transcript.trim(),qCurAns)){spoken=alts[i].transcript.trim();break;}}
     res.textContent=`"${spoken}"`;btn.classList.remove('rec');st.textContent='Procesando…';
     setTimeout(()=>{
       qAns=true;const ok=isOk(spoken,qCurAns);if(ok)qScore++;

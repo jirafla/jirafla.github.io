@@ -1,0 +1,19 @@
+{
+  "name": "Aprende Inglés",
+  "short_name": "Inglés",
+  "description": "Aprende inglés con tarjetas tipo Tinder, quiz y voz",
+  "start_url": "/menu.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#EDE8F8",
+  "theme_color": "#3F058A",
+  "lang": "es",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "categories": ["education"],
+  "screenshots": []
+}

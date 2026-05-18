@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Verbos en Inglés · Jirafla</title>
+<title>Phrasal Verbs · Jirafla</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#3F058A">
+<meta name="theme-color" content="#0D9488">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,17 +13,17 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <style>
 :root {
-  --p:    #3F058A;
-  --p2:   #6B2FBF;
+  --p:    #0D9488;
+  --p2:   #0F766E;
   --sec:  #FFC448;
   --ok:   #22C55E;
   --err:  #EF4444;
-  --bg:   #EDE8F8;
+  --bg:   #E6F7F5;
   --surf: #FFFFFF;
   --txt:  #1A1228;
   --mut:  #8B8BA7;
-  --bdr:  rgba(63,5,138,.12);
-  --sh:   0 8px 32px rgba(63,5,138,.13);
+  --bdr:  rgba(13,148,136,.12);
+  --sh:   0 8px 32px rgba(13,148,136,.13);
   --r:    20px;
   --nav:  68px;
 }
@@ -82,7 +82,7 @@ body{
 .ni.on{color:var(--p)}
 .ni-pill{
   position:absolute;top:1px;width:50px;height:32px;
-  border-radius:20px;background:rgba(63,5,138,.1);
+  border-radius:20px;background:rgba(13,148,136,.1);
   opacity:0;transform:scale(.85);transition:opacity .2s,transform .2s;
 }
 .ni.on .ni-pill{opacity:1;transform:scale(1)}
@@ -90,7 +90,7 @@ body{
 .ni-lbl{position:relative;z-index:1}
 
 /* ── SHARED ── */
-.prog-strip{height:5px;background:rgba(63,5,138,.1);border-radius:3px;overflow:hidden}
+.prog-strip{height:5px;background:rgba(13,148,136,.1);border-radius:3px;overflow:hidden}
 .prog-fill{height:100%;background:var(--sec);border-radius:3px;transition:width .4s cubic-bezier(.4,0,.2,1)}
 .pill-row{display:flex;gap:8px;flex-wrap:wrap}
 .pill{padding:.28rem .95rem;border-radius:20px;font-size:.76rem;font-weight:700;
@@ -146,7 +146,7 @@ body{
   justify-content:center;padding:1.8rem 1.6rem;
 }
 .fc-front{background:var(--surf);border:2px solid var(--bdr)}
-.fc-back{background:linear-gradient(138deg,#3F058A 0%,#7B35D9 100%);
+.fc-back{background:linear-gradient(138deg,#0D9488 0%,#14B8A6 100%);
   color:#fff;transform:rotateY(180deg)}
 .vtype{font-size:.65rem;font-weight:800;text-transform:uppercase;
   letter-spacing:.07em;padding:.18rem .65rem;border-radius:20px;margin-bottom:10px}
@@ -181,7 +181,7 @@ body{
 .mbtn.no{background:var(--surf);border-color:#e0e0e0;color:#999}
 .mbtn.no:hover,.mbtn.no:active{border-color:var(--err);color:var(--err);background:#FEF2F2}
 .mbtn.yes{background:var(--p);color:#fff;border-color:var(--p)}
-.mbtn.yes:hover,.mbtn.yes:active{background:#2d0466;border-color:#2d0466}
+.mbtn.yes:hover,.mbtn.yes:active{background:#0a7670;border-color:#0a7670}
 
 /* complete */
 .done-card{background:var(--surf);border-radius:var(--r);
@@ -199,7 +199,7 @@ body{
 .sc-num{font-size:1.65rem;font-weight:900;line-height:1}
 .sc-lbl{font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;opacity:.75;margin-top:2px}
 
-.mtabs{display:flex;background:rgba(63,5,138,.08);
+.mtabs{display:flex;background:rgba(13,148,136,.08);
   border-radius:12px;padding:4px;gap:2px;margin-bottom:12px}
 .mtab{flex:1;padding:.48rem .3rem;border-radius:9px;
   border:none;background:none;font-size:.74rem;font-weight:700;
@@ -226,17 +226,17 @@ body{
   text-align:center;transition:all .18s;line-height:1.3;
   box-shadow:0 2px 8px rgba(0,0,0,.04);
 }
-.mc-opt:hover:not(:disabled){border-color:var(--p);color:var(--p);background:#F5F0FF}
+.mc-opt:hover:not(:disabled){border-color:var(--p);color:var(--p);background:#E6F7F5}
 .mc-opt.ok{background:#D1FAE5;border-color:var(--ok);color:#065F46}
 .mc-opt.err{background:#FEF2F2;border-color:var(--err);color:#991B1B}
 .mc-opt:disabled{cursor:default}
 
 /* type */
 .type-wrap{display:flex;border-radius:14px;overflow:hidden;
-  box-shadow:0 2px 16px rgba(63,5,138,.1)}
+  box-shadow:0 2px 16px rgba(13,148,136,.1)}
 .type-inp{
   flex:1;padding:.95rem 1rem;
-  border:2px solid #e8e0f5;border-right:none;
+  border:2px solid #d0ede9;border-right:none;
   font-size:1rem;font-weight:700;color:var(--txt);
   font-family:'Inter',sans-serif;outline:none;
   transition:border-color .2s,background .2s;
@@ -250,7 +250,7 @@ body{
   border:none;font-size:.85rem;font-weight:700;
   font-family:'Inter',sans-serif;white-space:nowrap;transition:background .18s;
 }
-.chk-btn:hover{background:#2d0466}
+.chk-btn:hover{background:#0a7670}
 .chk-btn:disabled{opacity:.4;cursor:default}
 
 /* voice */
@@ -260,7 +260,7 @@ body{
   width:84px;height:84px;border-radius:50%;
   background:var(--p);color:#fff;border:none;font-size:1.9rem;
   position:relative;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 24px rgba(63,5,138,.35);transition:transform .15s,background .2s;
+  box-shadow:0 6px 24px rgba(13,148,136,.35);transition:transform .15s,background .2s;
 }
 .vbtn:hover{transform:scale(1.05)}
 .vbtn:active{transform:scale(.96)}
@@ -292,12 +292,12 @@ body{
   display:flex;align-items:center;justify-content:center;gap:6px;
   transition:background .18s;
 }
-.next-btn:hover{background:#2d0466}
+.next-btn:hover{background:#0a7670}
 .hint-s{font-size:.7rem;color:var(--mut);text-align:center;margin-top:5px}
 
 /* results */
 .res-card{
-  background:linear-gradient(138deg,#3F058A 0%,#7B35D9 100%);
+  background:linear-gradient(138deg,#0D9488 0%,#14B8A6 100%);
   border-radius:var(--r);padding:2.2rem 1.5rem;
   text-align:center;color:#fff;box-shadow:var(--sh);
 }
@@ -338,7 +338,7 @@ body{
   font-size:.9rem;font-family:'Inter',sans-serif;outline:none;
   background:var(--surf);transition:border-color .2s,box-shadow .2s;
 }
-.srch:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(63,5,138,.1)}
+.srch:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(13,148,136,.1)}
 .vlist{display:flex;flex-direction:column;gap:7px;margin-top:12px}
 .vc{
   background:var(--surf);border-radius:16px;
@@ -367,9 +367,9 @@ body{
 <!-- TOP BAR -->
 <div class="top-bar">
   <div class="top-row">
-    <a href="menu.html" class="back-lnk"><i class="bi bi-arrow-left"></i> Inicio</a>
-    <span class="app-brand">Verbos en Inglés</span>
-    <span class="top-score" id="top-score">0 / 85 ✓</span>
+    <a href="menu.html" class="back-lnk">← Inicio</a>
+    <span class="app-brand">Phrasal Verbs</span>
+    <span class="top-score" id="top-score">0 / 60 ✓</span>
   </div>
   <div class="tab-bar">
     <div class="tab-pip on"  data-s="cards"></div>
@@ -381,15 +381,10 @@ body{
 <!-- ══ CARDS ══ -->
 <div class="screen on" id="screen-cards">
   <div class="pad">
-    <div class="pill-row mt3" id="fc-filters">
-      <button class="pill on" data-f="all">Todos · 85</button>
-      <button class="pill"    data-f="irregular">Irregulares · 65</button>
-      <button class="pill"    data-f="regular">Regulares · 20</button>
-    </div>
 
     <div class="deck-row mt3">
       <span class="deck-ok" id="fc-ok"><i class="bi bi-check-circle-fill"></i> 0 aprendidos</span>
-      <span class="deck-left" id="fc-left">85 por repasar</span>
+      <span class="deck-left" id="fc-left">60 por repasar</span>
       <button class="sm-btn" onclick="restartDeck()"><i class="bi bi-arrow-repeat"></i> Reiniciar</button>
     </div>
     <div class="prog-strip mt2 mb3" style="margin-bottom:14px">
@@ -427,7 +422,7 @@ body{
       <div class="done-card">
         <div class="done-ico">🏆</div>
         <div class="done-h">¡Lo lograste!</div>
-        <div class="done-sub" id="fc-done-sub">Aprendiste todos los verbos</div>
+        <div class="done-sub" id="fc-done-sub">¡Aprendiste los phrasal verbs del mazo!</div>
         <button class="mbtn yes" style="max-width:260px;margin:0 auto" onclick="restartDeck()">
           <i class="bi bi-arrow-repeat"></i> Volver a empezar
         </button>
@@ -457,10 +452,10 @@ body{
     <div id="q-active">
       <div class="q-card">
         <div class="q-top">
-          <span class="q-lbl" id="q-lbl">¿Pasado simple de...?</span>
+          <span class="q-lbl" id="q-lbl">¿Cuál es el phrasal verb en inglés?</span>
           <span class="q-num" id="q-num">1 / 20</span>
         </div>
-        <div class="q-verb" id="q-verb">go</div>
+        <div class="q-verb" id="q-verb"></div>
       </div>
       <div id="q-ans-area"></div>
       <div id="q-fb" style="display:none" class="mt3">
@@ -525,99 +520,71 @@ body{
 
 <script>
 // ── DATA ──────────────────────────────────────────────────
-const VERBS=[
-  {inf:"be",past:"was / were",pp:"been",es:"ser / estar",type:"irregular",ex:"She was very happy yesterday."},
-  {inf:"have",past:"had",pp:"had",es:"tener",type:"irregular",ex:"They had a wonderful time."},
-  {inf:"do",past:"did",pp:"done",es:"hacer",type:"irregular",ex:"He did all his homework."},
-  {inf:"go",past:"went",pp:"gone",es:"ir",type:"irregular",ex:"We went to the park on Sunday."},
-  {inf:"come",past:"came",pp:"come",es:"venir",type:"irregular",ex:"She came home very late."},
-  {inf:"see",past:"saw",pp:"seen",es:"ver",type:"irregular",ex:"I saw a great movie last night."},
-  {inf:"get",past:"got",pp:"gotten",es:"obtener / conseguir",type:"irregular",ex:"He got a new job this week."},
-  {inf:"make",past:"made",pp:"made",es:"hacer / fabricar",type:"irregular",ex:"She made a delicious cake."},
-  {inf:"take",past:"took",pp:"taken",es:"tomar / llevar",type:"irregular",ex:"He took the bus to school."},
-  {inf:"know",past:"knew",pp:"known",es:"saber / conocer",type:"irregular",ex:"I knew the answer immediately."},
-  {inf:"think",past:"thought",pp:"thought",es:"pensar",type:"irregular",ex:"She thought about it all day."},
-  {inf:"give",past:"gave",pp:"given",es:"dar",type:"irregular",ex:"He gave me a birthday gift."},
-  {inf:"find",past:"found",pp:"found",es:"encontrar",type:"irregular",ex:"We finally found the lost keys."},
-  {inf:"tell",past:"told",pp:"told",es:"decir / contar",type:"irregular",ex:"She always told the truth."},
-  {inf:"feel",past:"felt",pp:"felt",es:"sentir",type:"irregular",ex:"I felt very tired after work."},
-  {inf:"leave",past:"left",pp:"left",es:"dejar / salir",type:"irregular",ex:"He left the office at noon."},
-  {inf:"bring",past:"brought",pp:"brought",es:"traer",type:"irregular",ex:"She brought flowers to the party."},
-  {inf:"begin",past:"began",pp:"begun",es:"comenzar",type:"irregular",ex:"The class began earlier than usual."},
-  {inf:"keep",past:"kept",pp:"kept",es:"mantener / guardar",type:"irregular",ex:"She always kept her promise."},
-  {inf:"write",past:"wrote",pp:"written",es:"escribir",type:"irregular",ex:"He wrote a long letter to her."},
-  {inf:"hear",past:"heard",pp:"heard",es:"escuchar / oír",type:"irregular",ex:"I heard a strange noise outside."},
-  {inf:"run",past:"ran",pp:"run",es:"correr",type:"irregular",ex:"She ran five kilometers every morning."},
-  {inf:"buy",past:"bought",pp:"bought",es:"comprar",type:"irregular",ex:"They bought a new car last year."},
-  {inf:"speak",past:"spoke",pp:"spoken",es:"hablar",type:"irregular",ex:"He spoke to the whole class."},
-  {inf:"read",past:"read",pp:"read",es:"leer",type:"irregular",ex:"She read the entire book in one day."},
-  {inf:"eat",past:"ate",pp:"eaten",es:"comer",type:"irregular",ex:"We ate dinner together last night."},
-  {inf:"sleep",past:"slept",pp:"slept",es:"dormir",type:"irregular",ex:"The baby slept for eight hours."},
-  {inf:"drive",past:"drove",pp:"driven",es:"manejar / conducir",type:"irregular",ex:"She drove to work every day."},
-  {inf:"forget",past:"forgot",pp:"forgotten",es:"olvidar",type:"irregular",ex:"I totally forgot my keys again."},
-  {inf:"meet",past:"met",pp:"met",es:"conocer / reunirse",type:"irregular",ex:"We met at school ten years ago."},
-  {inf:"become",past:"became",pp:"become",es:"convertirse / llegar a ser",type:"irregular",ex:"She became a doctor after years of study."},
-  {inf:"bite",past:"bit",pp:"bitten",es:"morder",type:"irregular",ex:"The dog bit the mailman's hand."},
-  {inf:"break",past:"broke",pp:"broken",es:"romper",type:"irregular",ex:"He broke the window by accident."},
-  {inf:"build",past:"built",pp:"built",es:"construir",type:"irregular",ex:"They built a new house last year."},
-  {inf:"catch",past:"caught",pp:"caught",es:"atrapar / tomar",type:"irregular",ex:"She caught the ball with one hand."},
-  {inf:"choose",past:"chose",pp:"chosen",es:"elegir",type:"irregular",ex:"He chose the red shirt to wear."},
-  {inf:"cut",past:"cut",pp:"cut",es:"cortar",type:"irregular",ex:"She cut the vegetables for dinner."},
-  {inf:"draw",past:"drew",pp:"drawn",es:"dibujar",type:"irregular",ex:"The child drew a beautiful picture."},
-  {inf:"drink",past:"drank",pp:"drunk",es:"beber",type:"irregular",ex:"He drank three cups of coffee."},
-  {inf:"fall",past:"fell",pp:"fallen",es:"caer",type:"irregular",ex:"She fell on the ice and hurt her knee."},
-  {inf:"fight",past:"fought",pp:"fought",es:"pelear / luchar",type:"irregular",ex:"They fought for their rights bravely."},
-  {inf:"fly",past:"flew",pp:"flown",es:"volar",type:"irregular",ex:"The bird flew across the ocean."},
-  {inf:"grow",past:"grew",pp:"grown",es:"crecer",type:"irregular",ex:"The plant grew very quickly."},
-  {inf:"hold",past:"held",pp:"held",es:"sostener / sujetar",type:"irregular",ex:"She held his hand tightly."},
-  {inf:"hurt",past:"hurt",pp:"hurt",es:"doler / lastimar",type:"irregular",ex:"He hurt his arm playing football."},
-  {inf:"lose",past:"lost",pp:"lost",es:"perder",type:"irregular",ex:"We lost the game in the final minute."},
-  {inf:"mean",past:"meant",pp:"meant",es:"significar / querer decir",type:"irregular",ex:"I meant to call you sooner."},
-  {inf:"pay",past:"paid",pp:"paid",es:"pagar",type:"irregular",ex:"He paid the bill without complaint."},
-  {inf:"put",past:"put",pp:"put",es:"poner / colocar",type:"irregular",ex:"She put the keys on the table."},
-  {inf:"ride",past:"rode",pp:"ridden",es:"montar / andar en",type:"irregular",ex:"He rode his bike to school."},
-  {inf:"ring",past:"rang",pp:"rung",es:"sonar / llamar",type:"irregular",ex:"The phone rang three times."},
-  {inf:"rise",past:"rose",pp:"risen",es:"levantarse / subir",type:"irregular",ex:"The sun rose at 6 a.m. today."},
-  {inf:"sell",past:"sold",pp:"sold",es:"vender",type:"irregular",ex:"She sold her old car for a good price."},
-  {inf:"send",past:"sent",pp:"sent",es:"enviar / mandar",type:"irregular",ex:"He sent an email to his boss."},
-  {inf:"show",past:"showed",pp:"shown",es:"mostrar / enseñar",type:"irregular",ex:"She showed me how to cook pasta."},
-  {inf:"sing",past:"sang",pp:"sung",es:"cantar",type:"irregular",ex:"The choir sang beautifully."},
-  {inf:"sit",past:"sat",pp:"sat",es:"sentarse",type:"irregular",ex:"He sat next to me on the bus."},
-  {inf:"spend",past:"spent",pp:"spent",es:"gastar / pasar (tiempo)",type:"irregular",ex:"We spent the weekend at the beach."},
-  {inf:"stand",past:"stood",pp:"stood",es:"estar de pie / pararse",type:"irregular",ex:"She stood at the door for ten minutes."},
-  {inf:"steal",past:"stole",pp:"stolen",es:"robar",type:"irregular",ex:"Someone stole my bicycle last night."},
-  {inf:"swim",past:"swam",pp:"swum",es:"nadar",type:"irregular",ex:"He swam across the river."},
-  {inf:"teach",past:"taught",pp:"taught",es:"enseñar",type:"irregular",ex:"She taught English for twenty years."},
-  {inf:"throw",past:"threw",pp:"thrown",es:"lanzar / tirar",type:"irregular",ex:"He threw the ball over the fence."},
-  {inf:"understand",past:"understood",pp:"understood",es:"entender / comprender",type:"irregular",ex:"I finally understood the problem."},
-  {inf:"wake",past:"woke",pp:"woken",es:"despertar",type:"irregular",ex:"She woke up early to watch the sunrise."},
-  {inf:"wear",past:"wore",pp:"worn",es:"usar / llevar puesto",type:"irregular",ex:"He wore a suit to the interview."},
-  {inf:"win",past:"won",pp:"won",es:"ganar",type:"irregular",ex:"Our team won the championship."},
-  // REGULAR
-  {inf:"work",past:"worked",pp:"worked",es:"trabajar",type:"regular",ex:"She worked all day without a break."},
-  {inf:"play",past:"played",pp:"played",es:"jugar / tocar",type:"regular",ex:"The kids played soccer in the park."},
-  {inf:"study",past:"studied",pp:"studied",es:"estudiar",type:"regular",ex:"He studied English every evening."},
-  {inf:"talk",past:"talked",pp:"talked",es:"hablar / conversar",type:"regular",ex:"We talked on the phone for hours."},
-  {inf:"walk",past:"walked",pp:"walked",es:"caminar",type:"regular",ex:"She walked to school every morning."},
-  {inf:"help",past:"helped",pp:"helped",es:"ayudar",type:"regular",ex:"He helped his neighbor carry the bags."},
-  {inf:"start",past:"started",pp:"started",es:"empezar / iniciar",type:"regular",ex:"The movie started five minutes late."},
-  {inf:"finish",past:"finished",pp:"finished",es:"terminar",type:"regular",ex:"She finished all the exercises quickly."},
-  {inf:"love",past:"loved",pp:"loved",es:"amar / querer",type:"regular",ex:"They loved the new restaurant."},
-  {inf:"need",past:"needed",pp:"needed",es:"necesitar",type:"regular",ex:"I needed more time to finish the test."},
-  {inf:"want",past:"wanted",pp:"wanted",es:"querer / desear",type:"regular",ex:"She wanted to travel around the world."},
-  {inf:"learn",past:"learned",pp:"learned",es:"aprender",type:"regular",ex:"He learned to cook during quarantine."},
-  {inf:"listen",past:"listened",pp:"listened",es:"escuchar (atentamente)",type:"regular",ex:"She listened carefully to the teacher."},
-  {inf:"call",past:"called",pp:"called",es:"llamar",type:"regular",ex:"He called his mom every Sunday."},
-  {inf:"open",past:"opened",pp:"opened",es:"abrir",type:"regular",ex:"She opened the window for fresh air."},
-  {inf:"close",past:"closed",pp:"closed",es:"cerrar",type:"regular",ex:"He closed the door quietly."},
-  {inf:"try",past:"tried",pp:"tried",es:"intentar",type:"regular",ex:"She tried her best on the exam."},
-  {inf:"use",past:"used",pp:"used",es:"usar / utilizar",type:"regular",ex:"He used a dictionary to check the word."},
-  {inf:"ask",past:"asked",pp:"asked",es:"preguntar / pedir",type:"regular",ex:"She asked her teacher for help."},
-  {inf:"live",past:"lived",pp:"lived",es:"vivir",type:"regular",ex:"They lived in Madrid for three years."},
+const ITEMS=[
+  {pv:"give up",   es:"rendirse / abandonar",              ex:"He gave up trying to fix the car."},
+  {pv:"give in",   es:"ceder / capitular",                 ex:"She finally gave in to his demands."},
+  {pv:"give away", es:"regalar / revelar",                 ex:"He gave away his old clothes."},
+  {pv:"give back", es:"devolver",                          ex:"Give back what you borrowed."},
+  {pv:"take off",  es:"despegar / quitarse (ropa)",        ex:"The plane took off on time."},
+  {pv:"take on",   es:"asumir / contratar",                ex:"She took on too much work."},
+  {pv:"take over", es:"hacerse cargo / apoderarse",        ex:"He took over the company at 30."},
+  {pv:"take up",   es:"empezar (hobby) / ocupar espacio",  ex:"She took up yoga last year."},
+  {pv:"take out",  es:"sacar / llevar a comer fuera",      ex:"He took out the trash."},
+  {pv:"take care of",es:"cuidar",                          ex:"She takes care of her grandmother."},
+  {pv:"look up",   es:"buscar (en diccionario)",           ex:"Look it up in the dictionary."},
+  {pv:"look for",  es:"buscar",                            ex:"I'm looking for my keys."},
+  {pv:"look after",es:"cuidar",                            ex:"She looks after the kids."},
+  {pv:"look into", es:"investigar / examinar",             ex:"The police looked into the case."},
+  {pv:"look forward to",es:"esperar con ansias",           ex:"I look forward to seeing you."},
+  {pv:"put off",   es:"posponer / aplazar",                ex:"Don't put off your homework."},
+  {pv:"put on",    es:"ponerse (ropa) / encender",         ex:"Put on your coat, it's cold."},
+  {pv:"put up with",es:"aguantar / tolerar",               ex:"I can't put up with this noise."},
+  {pv:"put out",   es:"apagar / extinguir",                ex:"Please put out that cigarette."},
+  {pv:"set up",    es:"establecer / montar",               ex:"They set up a new company."},
+  {pv:"set off",   es:"salir / desencadenar",              ex:"We set off early in the morning."},
+  {pv:"set back",  es:"retrasar / costar (dinero)",        ex:"The delay set the project back."},
+  {pv:"set aside", es:"reservar / separar",                ex:"Set aside some money for later."},
+  {pv:"break up",  es:"romper (relación) / separarse",     ex:"They broke up after two years."},
+  {pv:"break down",es:"averiarse / derrumbarse",           ex:"My car broke down on the highway."},
+  {pv:"break into",es:"irrumpir / entrar a la fuerza",     ex:"Someone broke into our house."},
+  {pv:"break out", es:"estallar / escaparse",              ex:"A fire broke out in the building."},
+  {pv:"come up with",es:"ocurrírsele / proponer",          ex:"She came up with a great idea."},
+  {pv:"come across",es:"encontrarse con / parecer",        ex:"I came across an old photo."},
+  {pv:"come back", es:"volver / regresar",                 ex:"Come back home before dark."},
+  {pv:"come up",   es:"surgir / acercarse",                ex:"A problem came up at work."},
+  {pv:"go on",     es:"continuar / suceder",               ex:"Please go on with your story."},
+  {pv:"go out",    es:"salir / apagarse",                  ex:"We went out for dinner."},
+  {pv:"go over",   es:"revisar / repasar",                 ex:"Let's go over the plan again."},
+  {pv:"go through",es:"atravesar / pasar por",             ex:"She went through a tough time."},
+  {pv:"go ahead",  es:"adelante / proceder",               ex:"Go ahead and start without me."},
+  {pv:"turn on",   es:"encender / activar",                ex:"Turn on the lights, please."},
+  {pv:"turn off",  es:"apagar / desactivar",               ex:"Turn off the TV and sleep."},
+  {pv:"turn up",   es:"aparecer / subir el volumen",       ex:"He turned up two hours late."},
+  {pv:"turn down", es:"rechazar / bajar el volumen",       ex:"She turned down the offer."},
+  {pv:"run out of",es:"quedarse sin",                      ex:"We ran out of coffee."},
+  {pv:"run into",  es:"encontrarse con / chocar con",      ex:"I ran into my old teacher."},
+  {pv:"run away",  es:"huir / escaparse",                  ex:"The dog ran away from home."},
+  {pv:"get up",    es:"levantarse",                        ex:"I got up at six this morning."},
+  {pv:"get along", es:"llevarse bien",                     ex:"They get along very well."},
+  {pv:"get over",  es:"superar / recuperarse",             ex:"She got over the breakup quickly."},
+  {pv:"get rid of",es:"deshacerse de",                     ex:"Get rid of those old magazines."},
+  {pv:"get away",  es:"escaparse / irse de vacaciones",    ex:"We need to get away for a week."},
+  {pv:"figure out",es:"descubrir / resolver",              ex:"I can't figure out this puzzle."},
+  {pv:"find out",  es:"descubrir / enterarse",             ex:"She found out the truth."},
+  {pv:"work out",  es:"funcionar / ejercitarse",           ex:"Things will work out fine."},
+  {pv:"pick up",   es:"recoger / aprender rápido",         ex:"She picked up Spanish quickly."},
+  {pv:"call off",  es:"cancelar",                          ex:"They called off the meeting."},
+  {pv:"hold on",   es:"esperar / aferrarse",               ex:"Hold on, I'll be right back."},
+  {pv:"bring up",  es:"criar / mencionar",                 ex:"She brought up an interesting point."},
+  {pv:"show up",   es:"aparecer / presentarse",            ex:"He didn't show up to the party."},
+  {pv:"end up",    es:"terminar / acabar",                 ex:"We ended up staying all night."},
+  {pv:"make up",   es:"inventar / reconciliarse",          ex:"She made up a story."},
+  {pv:"hang out",  es:"pasar el tiempo / salir (informal)",ex:"We hung out at the beach."},
+  {pv:"carry out", es:"llevar a cabo / realizar",          ex:"They carried out the plan."},
 ];
 
 // ── STORAGE ──────────────────────────────────────────────
-const LS={L:'veng_l',B:'veng_b',M:'veng_m'};
+const LS={L:'phvl',B:'phvb',M:'phvm'};
 const loadL=()=>{try{return new Set(JSON.parse(localStorage.getItem(LS.L)||'[]'))}catch{return new Set()}};
 const saveL=s=>localStorage.setItem(LS.L,JSON.stringify([...s]));
 const loadB=()=>parseInt(localStorage.getItem(LS.B)||'0');
@@ -638,12 +605,12 @@ function goTo(name){
 }
 
 // ── FLASHCARDS ───────────────────────────────────────────
-let fcSrc=[...VERBS],fcDeck=[],fcLearned=loadL();
+let fcSrc=[...ITEMS],fcDeck=[],fcLearned=loadL();
 let dragging=false,dragX0=0,dragY0=0,dragDX=0,dragDY=0,dragT0=0,animating=false,lastTouchEnd=0;
 
-function startDeck(verbs){
-  fcSrc=[...verbs];fcLearned=loadL();
-  fcDeck=verbs.filter(v=>!fcLearned.has(v.inf)).sort(()=>Math.random()-.5);
+function startDeck(items){
+  fcSrc=[...items];fcLearned=loadL();
+  fcDeck=items.filter(v=>!fcLearned.has(v.pv)).sort(()=>Math.random()-.5);
   updDeck();
   if(!fcDeck.length)showDone();else renderCard();
 }
@@ -655,33 +622,30 @@ function restartDeck(){
   updDeck();renderCard();
 }
 function updDeck(){
-  const tot=fcSrc.length,ok=fcLearned.size,left=fcDeck.length;
+  const tot=ITEMS.length,ok=fcLearned.size,left=fcDeck.length;
   document.getElementById('fc-ok').innerHTML=`<i class="bi bi-check-circle-fill"></i> ${ok} aprendido${ok!==1?'s':''}`;
   document.getElementById('fc-left').textContent=`${left} por repasar`;
   document.getElementById('fc-bar').style.width=(ok/tot*100)+'%';
-  document.getElementById('top-score').textContent=`${loadL().size} / ${VERBS.length} ✓`;
+  document.getElementById('top-score').textContent=`${loadL().size} / 60 ✓`;
 }
 function renderCard(){
   if(!fcDeck.length)return;
   const v=fcDeck[0];
   document.getElementById('fc-inner').classList.remove('flipped');
   document.getElementById('fc-front').innerHTML=`
-    <span class="vtype ${v.type==='irregular'?'irr':'reg'}">${v.type==='irregular'?'Irregular':'Regular'}</span>
-    <div class="fc-word">${v.inf}</div>
-    <div class="fc-sub">to ${v.inf}</div>
-    <div class="fc-hint"><i class="bi bi-hand-index"></i> Toca para ver las formas</div>`;
+    <span class="vtype irr">Phrasal Verb</span>
+    <div class="fc-word">${v.pv}</div>
+    <div class="fc-hint"><i class="bi bi-hand-index"></i> Toca para ver el significado</div>`;
   document.getElementById('fc-back').innerHTML=`
     <div class="bk-grid">
-      <div class="bk-row"><span class="bk-lbl">Infinitivo</span><span class="bk-val">to ${v.inf}</span></div>
-      <div class="bk-row"><span class="bk-lbl">Pasado</span><span class="bk-val">${v.past}</span></div>
-      <div class="bk-row"><span class="bk-lbl">Participio</span><span class="bk-val">${v.pp}</span></div>
+      <div class="bk-row"><span class="bk-lbl">Phrasal Verb</span><span class="bk-val">${v.pv}</span></div>
       <div class="bk-row"><span class="bk-lbl">Español</span><span class="bk-val">${v.es}</span></div>
     </div>
     <div class="bk-ex">"${v.ex}"</div>`;
 }
 function markCard(known){
   const v=fcDeck.shift();
-  if(known){fcLearned.add(v.inf);saveL(fcLearned);}
+  if(known){fcLearned.add(v.pv);saveL(fcLearned);}
   else fcDeck.push(v);
   updDeck();
   if(!fcDeck.length)showDone();else renderCard();
@@ -689,7 +653,7 @@ function markCard(known){
 function showDone(){
   document.getElementById('fc-area').style.display='none';
   document.getElementById('fc-done').style.display='';
-  document.getElementById('fc-done-sub').textContent=`¡Aprendiste los ${fcLearned.size} verbos del mazo!`;
+  document.getElementById('fc-done-sub').textContent=`¡Aprendiste los phrasal verbs del mazo!`;
 }
 
 // ── TINDER SWIPE ──────────────────────────────────────────
@@ -782,23 +746,9 @@ fcWrap.addEventListener('mousedown', onDown);
 document.addEventListener('mousemove',onMove);
 document.addEventListener('mouseup',  onUp);
 
-// filter pills
-document.getElementById('fc-filters').querySelectorAll('.pill').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('#fc-filters .pill').forEach(b=>b.classList.remove('on'));
-    btn.classList.add('on');
-    const verbs=btn.dataset.f==='all'?[...VERBS]:VERBS.filter(v=>v.type===btn.dataset.f);
-    document.getElementById('fc-done').style.display='none';
-    document.getElementById('fc-area').style.display='';
-    startDeck(verbs);
-  });
-});
-
 // ── QUIZ ─────────────────────────────────────────────────
 const QTYPES=[
-  v=>({lbl:'¿Cuál es el <b>pasado simple</b> de...?',  verb:v.inf, ans:v.past}),
-  v=>({lbl:'¿Cuál es el <b>participio pasado</b> de...?',verb:v.inf, ans:v.pp}),
-  v=>({lbl:'¿Cómo se dice <b>en inglés</b>...?',       verb:v.es,  ans:v.inf}),
+  v=>({lbl:'¿Cuál es el <b>phrasal verb</b> en inglés?', verb:v.es, ans:v.pv}),
 ];
 let qList=[],qIdx=0,qScore=0,qAns=false,qCurAns='',qCurV=null,qCurQt=null;
 let qMode=loadM();
@@ -825,7 +775,7 @@ document.querySelectorAll('.mtab').forEach(tab=>{
 setMode(loadM());
 
 function startQuiz(){
-  qList=[...VERBS].sort(()=>Math.random()-.5).slice(0,QN);
+  qList=[...ITEMS].sort(()=>Math.random()-.5).slice(0,QN);
   qIdx=0;qScore=0;qAns=false;
   document.getElementById('q-active').style.display='';
   document.getElementById('q-results').style.display='none';
@@ -849,9 +799,8 @@ function renderAns(){
   area.innerHTML='';
 
   if(qMode==='mc'){
-    const field=qCurAns===qCurV.past?'past':qCurAns===qCurV.pp?'pp':'inf';
-    const wrong=VERBS.filter(x=>x!==qCurV)
-      .map(x=>x[field]).filter((x,i,a)=>a.indexOf(x)===i&&x!==qCurAns)
+    const wrong=ITEMS.filter(x=>x!==qCurV)
+      .map(x=>x.pv).filter((x,i,a)=>a.indexOf(x)===i&&x!==qCurAns)
       .sort(()=>Math.random()-.5).slice(0,3);
     const opts=[qCurAns,...wrong].sort(()=>Math.random()-.5);
     const grid=document.createElement('div');grid.className='mc-grid';
@@ -959,15 +908,14 @@ function showQRes(){
 // ── LIST ─────────────────────────────────────────────────
 function buildList(){
   const ok=loadL();
-  document.getElementById('vlist').innerHTML=VERBS.map(v=>`
-    <div class="vc ${ok.has(v.inf)?'vc-ok':''}" data-s="${v.inf} ${v.past} ${v.pp} ${v.es}">
+  document.getElementById('vlist').innerHTML=ITEMS.map(v=>`
+    <div class="vc ${ok.has(v.pv)?'vc-ok':''}" data-s="${v.pv} ${v.es}">
       <div class="vc-main">
-        <div class="vc-inf">${v.inf}</div>
-        <div class="vc-forms">${v.past} · ${v.pp}</div>
+        <div class="vc-inf">${v.pv}</div>
         <div class="vc-es">${v.es}</div>
+        <div class="vc-forms" style="font-style:italic;color:var(--mut)">${v.ex}</div>
       </div>
-      <span class="vc-b ${v.type==='irregular'?'vc-irr':'vc-reg'}">${v.type==='irregular'?'Irr.':'Reg.'}</span>
-      ${ok.has(v.inf)?'<i class="bi bi-check-circle-fill vc-chk"></i>':''}
+      ${ok.has(v.pv)?'<i class="bi bi-check-circle-fill vc-chk"></i>':''}
     </div>`).join('');
 }
 function filterList(){
@@ -978,7 +926,7 @@ function filterList(){
 }
 
 // ── INIT ─────────────────────────────────────────────────
-startDeck(VERBS);
+startDeck(ITEMS);
 buildList();
 </script>
 </body>

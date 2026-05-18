@@ -107,11 +107,11 @@ body{
   display:flex;align-items:center;gap:4px}
 .deck-left{font-size:.8rem;color:var(--mut)}
 
-.fc-scene{perspective:1100px;height:278px;width:100%;
+.fc-scene{perspective:1100px;height:360px;width:100%;
   user-select:none;-webkit-user-select:none}
 
 /* ── TINDER STACK ── */
-#fc-stack{position:relative;height:278px;touch-action:none}
+#fc-stack{position:relative;height:360px;touch-action:none}
 #fc-behind{
   position:absolute;inset:0;border-radius:var(--r);
   background:var(--surf);border:2px solid var(--bdr);
@@ -147,7 +147,20 @@ body{
 }
 .fc-front{background:var(--surf);border:2px solid var(--bdr)}
 .fc-back{background:linear-gradient(138deg,#0D9488 0%,#14B8A6 100%);
-  color:#fff;transform:rotateY(180deg)}
+  color:#fff;transform:rotateY(180deg);
+  justify-content:flex-start;padding:1.4rem 1.4rem;overflow-y:auto}
+.bk-examples{width:100%;display:flex;flex-direction:column;gap:5px;margin-top:10px}
+.bk-ex-item{font-size:.73rem;font-style:italic;opacity:.82;line-height:1.45;
+  display:flex;gap:6px}
+.ex-num{font-weight:900;font-style:normal;opacity:1;flex-shrink:0;
+  background:rgba(255,255,255,.22);border-radius:50%;
+  width:16px;height:16px;display:flex;align-items:center;justify-content:center;
+  font-size:.6rem;margin-top:1px}
+.speak-btn{display:flex;align-items:center;justify-content:center;gap:7px;
+  width:100%;margin-top:12px;padding:9px 14px;border-radius:20px;
+  background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.35);
+  color:#fff;font-size:.82rem;font-weight:700;cursor:pointer;flex-shrink:0}
+.speak-btn:active{background:rgba(255,255,255,.35)}
 .vtype{font-size:.65rem;font-weight:800;text-transform:uppercase;
   letter-spacing:.07em;padding:.18rem .65rem;border-radius:20px;margin-bottom:10px}
 .irr{background:var(--sec);color:#7a5000}
@@ -521,66 +534,66 @@ body{
 <script>
 // ── DATA ──────────────────────────────────────────────────
 const ITEMS=[
-  {pv:"give up",   es:"rendirse / abandonar",              ex:"He gave up trying to fix the car."},
-  {pv:"give in",   es:"ceder / capitular",                 ex:"She finally gave in to his demands."},
-  {pv:"give away", es:"regalar / revelar",                 ex:"He gave away his old clothes."},
-  {pv:"give back", es:"devolver",                          ex:"Give back what you borrowed."},
-  {pv:"take off",  es:"despegar / quitarse (ropa)",        ex:"The plane took off on time."},
-  {pv:"take on",   es:"asumir / contratar",                ex:"She took on too much work."},
-  {pv:"take over", es:"hacerse cargo / apoderarse",        ex:"He took over the company at 30."},
-  {pv:"take up",   es:"empezar (hobby) / ocupar espacio",  ex:"She took up yoga last year."},
-  {pv:"take out",  es:"sacar / llevar a comer fuera",      ex:"He took out the trash."},
-  {pv:"take care of",es:"cuidar",                          ex:"She takes care of her grandmother."},
-  {pv:"look up",   es:"buscar (en diccionario)",           ex:"Look it up in the dictionary."},
-  {pv:"look for",  es:"buscar",                            ex:"I'm looking for my keys."},
-  {pv:"look after",es:"cuidar",                            ex:"She looks after the kids."},
-  {pv:"look into", es:"investigar / examinar",             ex:"The police looked into the case."},
-  {pv:"look forward to",es:"esperar con ansias",           ex:"I look forward to seeing you."},
-  {pv:"put off",   es:"posponer / aplazar",                ex:"Don't put off your homework."},
-  {pv:"put on",    es:"ponerse (ropa) / encender",         ex:"Put on your coat, it's cold."},
-  {pv:"put up with",es:"aguantar / tolerar",               ex:"I can't put up with this noise."},
-  {pv:"put out",   es:"apagar / extinguir",                ex:"Please put out that cigarette."},
-  {pv:"set up",    es:"establecer / montar",               ex:"They set up a new company."},
-  {pv:"set off",   es:"salir / desencadenar",              ex:"We set off early in the morning."},
-  {pv:"set back",  es:"retrasar / costar (dinero)",        ex:"The delay set the project back."},
-  {pv:"set aside", es:"reservar / separar",                ex:"Set aside some money for later."},
-  {pv:"break up",  es:"romper (relación) / separarse",     ex:"They broke up after two years."},
-  {pv:"break down",es:"averiarse / derrumbarse",           ex:"My car broke down on the highway."},
-  {pv:"break into",es:"irrumpir / entrar a la fuerza",     ex:"Someone broke into our house."},
-  {pv:"break out", es:"estallar / escaparse",              ex:"A fire broke out in the building."},
-  {pv:"come up with",es:"ocurrírsele / proponer",          ex:"She came up with a great idea."},
-  {pv:"come across",es:"encontrarse con / parecer",        ex:"I came across an old photo."},
-  {pv:"come back", es:"volver / regresar",                 ex:"Come back home before dark."},
-  {pv:"come up",   es:"surgir / acercarse",                ex:"A problem came up at work."},
-  {pv:"go on",     es:"continuar / suceder",               ex:"Please go on with your story."},
-  {pv:"go out",    es:"salir / apagarse",                  ex:"We went out for dinner."},
-  {pv:"go over",   es:"revisar / repasar",                 ex:"Let's go over the plan again."},
-  {pv:"go through",es:"atravesar / pasar por",             ex:"She went through a tough time."},
-  {pv:"go ahead",  es:"adelante / proceder",               ex:"Go ahead and start without me."},
-  {pv:"turn on",   es:"encender / activar",                ex:"Turn on the lights, please."},
-  {pv:"turn off",  es:"apagar / desactivar",               ex:"Turn off the TV and sleep."},
-  {pv:"turn up",   es:"aparecer / subir el volumen",       ex:"He turned up two hours late."},
-  {pv:"turn down", es:"rechazar / bajar el volumen",       ex:"She turned down the offer."},
-  {pv:"run out of",es:"quedarse sin",                      ex:"We ran out of coffee."},
-  {pv:"run into",  es:"encontrarse con / chocar con",      ex:"I ran into my old teacher."},
-  {pv:"run away",  es:"huir / escaparse",                  ex:"The dog ran away from home."},
-  {pv:"get up",    es:"levantarse",                        ex:"I got up at six this morning."},
-  {pv:"get along", es:"llevarse bien",                     ex:"They get along very well."},
-  {pv:"get over",  es:"superar / recuperarse",             ex:"She got over the breakup quickly."},
-  {pv:"get rid of",es:"deshacerse de",                     ex:"Get rid of those old magazines."},
-  {pv:"get away",  es:"escaparse / irse de vacaciones",    ex:"We need to get away for a week."},
-  {pv:"figure out",es:"descubrir / resolver",              ex:"I can't figure out this puzzle."},
-  {pv:"find out",  es:"descubrir / enterarse",             ex:"She found out the truth."},
-  {pv:"work out",  es:"funcionar / ejercitarse",           ex:"Things will work out fine."},
-  {pv:"pick up",   es:"recoger / aprender rápido",         ex:"She picked up Spanish quickly."},
-  {pv:"call off",  es:"cancelar",                          ex:"They called off the meeting."},
-  {pv:"hold on",   es:"esperar / aferrarse",               ex:"Hold on, I'll be right back."},
-  {pv:"bring up",  es:"criar / mencionar",                 ex:"She brought up an interesting point."},
-  {pv:"show up",   es:"aparecer / presentarse",            ex:"He didn't show up to the party."},
-  {pv:"end up",    es:"terminar / acabar",                 ex:"We ended up staying all night."},
-  {pv:"make up",   es:"inventar / reconciliarse",          ex:"She made up a story."},
-  {pv:"hang out",  es:"pasar el tiempo / salir (informal)",ex:"We hung out at the beach."},
-  {pv:"carry out", es:"llevar a cabo / realizar",          ex:"They carried out the plan."},
+  {pv:"give up",      es:"rendirse / abandonar",            exs:["He gave up trying to fix the car.","She gave up her dream of becoming a singer.","Don't give up — you're almost there!"]},
+  {pv:"give in",      es:"ceder / capitular",               exs:["She finally gave in to his demands.","The kids begged so much that he gave in.","Don't give in to pressure from others."]},
+  {pv:"give away",    es:"regalar / revelar",               exs:["He gave away his old clothes.","She accidentally gave away the surprise.","They gave away free samples at the store."]},
+  {pv:"give back",    es:"devolver",                        exs:["Give back what you borrowed.","He gave back the book he borrowed last week.","The company gave back part of the profits to charity."]},
+  {pv:"take off",     es:"despegar / quitarse (ropa)",      exs:["The plane took off on time.","She took off her coat when she came inside.","His career really took off after that film."]},
+  {pv:"take on",      es:"asumir / contratar",              exs:["She took on too much work.","The company took on fifty new employees.","He wasn't ready to take on such a big project."]},
+  {pv:"take over",    es:"hacerse cargo / apoderarse",      exs:["He took over the company at 30.","She took over the management role.","The new CEO took over in January."]},
+  {pv:"take up",      es:"empezar (hobby) / ocupar espacio",exs:["She took up yoga last year.","The sofa takes up too much space.","He took up painting after he retired."]},
+  {pv:"take out",     es:"sacar / llevar a comer fuera",    exs:["He took out the trash.","She took him out for dinner on his birthday.","Can you take out the recycling?"]},
+  {pv:"take care of", es:"cuidar",                          exs:["She takes care of her grandmother.","He took care of the problem right away.","Who will take care of the dog while we travel?"]},
+  {pv:"look up",      es:"buscar (en diccionario)",         exs:["Look it up in the dictionary.","She looked up the nearest pharmacy online.","I always look up words I don't know."]},
+  {pv:"look for",     es:"buscar",                          exs:["I'm looking for my keys.","He's looking for a new job.","What are you looking for in a partner?"]},
+  {pv:"look after",   es:"cuidar",                          exs:["She looks after the kids.","He looked after the house while we were away.","Who looks after your cat when you travel?"]},
+  {pv:"look into",    es:"investigar / examinar",           exs:["The police looked into the case.","We should look into cheaper alternatives.","The manager promised to look into the complaint."]},
+  {pv:"look forward to",es:"esperar con ansias",            exs:["I look forward to seeing you.","She looks forward to weekends.","We're really looking forward to the trip."]},
+  {pv:"put off",      es:"posponer / aplazar",              exs:["Don't put off your homework.","The meeting was put off until next week.","Stop putting off things you can do today."]},
+  {pv:"put on",       es:"ponerse (ropa) / encender",       exs:["Put on your coat, it's cold.","She put on some music while cooking.","He put on a great show last night."]},
+  {pv:"put up with",  es:"aguantar / tolerar",              exs:["I can't put up with this noise.","How do you put up with him?","She had to put up with a lot of stress."]},
+  {pv:"put out",      es:"apagar / extinguir",              exs:["Please put out that cigarette.","The firefighters put out the blaze quickly.","Can you put out the lights before you leave?"]},
+  {pv:"set up",       es:"establecer / montar",             exs:["They set up a new company.","She set up a meeting for next Monday.","He set up his computer in the new office."]},
+  {pv:"set off",      es:"salir / desencadenar",            exs:["We set off early in the morning.","The smoke detector was set off by burnt toast.","They set off on their road trip with a full tank."]},
+  {pv:"set back",     es:"retrasar / costar (dinero)",      exs:["The delay set the project back.","Bad weather set back the construction schedule.","The illness set him back several weeks."]},
+  {pv:"set aside",    es:"reservar / separar",              exs:["Set aside some money for later.","She set aside time each day to read.","He set aside his feelings and focused on work."]},
+  {pv:"break up",     es:"romper (relación) / separarse",   exs:["They broke up after two years.","She cried when they broke up.","The couple broke up over a misunderstanding."]},
+  {pv:"break down",   es:"averiarse / derrumbarse",         exs:["My car broke down on the highway.","She broke down in tears when she heard the news.","Their communication broke down completely."]},
+  {pv:"break into",   es:"irrumpir / entrar a la fuerza",   exs:["Someone broke into our house.","The thief broke into the store at midnight.","She broke into a smile when she saw him."]},
+  {pv:"break out",    es:"estallar / escaparse",            exs:["A fire broke out in the building.","Three prisoners broke out of jail last night.","War broke out in the region."]},
+  {pv:"come up with", es:"ocurrírsele / proponer",          exs:["She came up with a great idea.","Can you come up with a better solution?","He came up with the plan at the last minute."]},
+  {pv:"come across",  es:"encontrarse con / parecer",       exs:["I came across an old photo.","She came across some interesting articles.","He comes across as very confident."]},
+  {pv:"come back",    es:"volver / regresar",               exs:["Come back home before dark.","The fashion trend came back this year.","She came back from the trip full of energy."]},
+  {pv:"come up",      es:"surgir / acercarse",              exs:["A problem came up at work.","She came up to me and introduced herself.","Something unexpected came up and I had to cancel."]},
+  {pv:"go on",        es:"continuar / suceder",             exs:["Please go on with your story.","What's going on here?","The show must go on."]},
+  {pv:"go out",       es:"salir / apagarse",                exs:["We went out for dinner.","The lights went out during the storm.","She goes out with friends every Friday."]},
+  {pv:"go over",      es:"revisar / repasar",               exs:["Let's go over the plan again.","She went over the report before sending it.","We went over the vocabulary before the test."]},
+  {pv:"go through",   es:"atravesar / pasar por",           exs:["She went through a tough time.","He went through all the documents carefully.","The bill went through parliament last week."]},
+  {pv:"go ahead",     es:"adelante / proceder",             exs:["Go ahead and start without me.","Feel free to go ahead with the project.","She gave him the nod to go ahead."]},
+  {pv:"turn on",      es:"encender / activar",              exs:["Turn on the lights, please.","She turned on the TV after dinner.","He turned on the heater because it was cold."]},
+  {pv:"turn off",     es:"apagar / desactivar",             exs:["Turn off the TV and sleep.","Don't forget to turn off the gas.","She turned off her phone during the meeting."]},
+  {pv:"turn up",      es:"aparecer / subir el volumen",     exs:["He turned up two hours late.","Can you turn up the music a bit?","She turned up at the party unexpectedly."]},
+  {pv:"turn down",    es:"rechazar / bajar el volumen",     exs:["She turned down the offer.","Could you turn down the volume, please?","He turned down the job because of the salary."]},
+  {pv:"run out of",   es:"quedarse sin",                    exs:["We ran out of coffee.","She ran out of time before finishing the exam.","They ran out of ideas after the first hour."]},
+  {pv:"run into",     es:"encontrarse con / chocar con",    exs:["I ran into my old teacher.","We ran into some unexpected problems.","She ran into him at the supermarket."]},
+  {pv:"run away",     es:"huir / escaparse",                exs:["The dog ran away from home.","As a child, he once ran away to his friend's house.","Stop running away from your problems."]},
+  {pv:"get up",       es:"levantarse",                      exs:["I got up at six this morning.","She gets up early every day to exercise.","What time do you usually get up?"]},
+  {pv:"get along",    es:"llevarse bien",                   exs:["They get along very well.","How are you getting along with your new boss?","The kids get along great with each other."]},
+  {pv:"get over",     es:"superar / recuperarse",           exs:["She got over the breakup quickly.","It took him months to get over the illness.","I can't get over how beautiful that sunset was."]},
+  {pv:"get rid of",   es:"deshacerse de",                   exs:["Get rid of those old magazines.","She got rid of all her ex's photos.","It's hard to get rid of bad habits."]},
+  {pv:"get away",     es:"escaparse / irse de vacaciones",  exs:["We need to get away for a week.","The thief tried to get away but was caught.","How did he get away with it for so long?"]},
+  {pv:"figure out",   es:"descubrir / resolver",            exs:["I can't figure out this puzzle.","She finally figured out how to use the software.","Can you figure out what went wrong?"]},
+  {pv:"find out",     es:"descubrir / enterarse",           exs:["She found out the truth.","How did you find out about the party?","He found out that he had won the prize."]},
+  {pv:"work out",     es:"funcionar / ejercitarse",         exs:["Things will work out fine.","She works out at the gym every morning.","Can you work out the answer to this problem?"]},
+  {pv:"pick up",      es:"recoger / aprender rápido",       exs:["She picked up Spanish quickly.","Can you pick up the kids from school?","He picked up a few tips from the expert."]},
+  {pv:"call off",     es:"cancelar",                        exs:["They called off the meeting.","The event was called off due to bad weather.","She called off the wedding at the last minute."]},
+  {pv:"hold on",      es:"esperar / aferrarse",             exs:["Hold on, I'll be right back.","Hold on tight when the car turns.","She held on to her dream despite all the obstacles."]},
+  {pv:"bring up",     es:"criar / mencionar",               exs:["She brought up an interesting point.","He was brought up by his grandparents.","Why do you always bring up the past?"]},
+  {pv:"show up",      es:"aparecer / presentarse",          exs:["He didn't show up to the party.","She always shows up on time.","Only ten people showed up to the meeting."]},
+  {pv:"end up",       es:"terminar / acabar",               exs:["We ended up staying all night.","He ended up choosing the blue shirt.","If you don't study, you'll end up regretting it."]},
+  {pv:"make up",      es:"inventar / reconciliarse",        exs:["She made up a story.","They fought but made up the next day.","He made up an excuse for being late."]},
+  {pv:"hang out",     es:"pasar el tiempo / salir (informal)",exs:["We hung out at the beach.","She loves hanging out with her friends.","We used to hang out at that café all the time."]},
+  {pv:"carry out",    es:"llevar a cabo / realizar",        exs:["They carried out the plan.","The surgery was carried out successfully.","She carried out her duties with great care."]},
 ];
 
 // ── STORAGE ──────────────────────────────────────────────
@@ -641,7 +654,12 @@ function renderCard(){
       <div class="bk-row"><span class="bk-lbl">Phrasal Verb</span><span class="bk-val">${v.pv}</span></div>
       <div class="bk-row"><span class="bk-lbl">Español</span><span class="bk-val">${v.es}</span></div>
     </div>
-    <div class="bk-ex">"${v.ex}"</div>`;
+    <div class="bk-examples">
+      ${v.exs.map((s,i)=>`<div class="bk-ex-item"><span class="ex-num">${i+1}</span><span>"${s}"</span></div>`).join('')}
+    </div>
+    <button class="speak-btn" onclick="event.stopPropagation();speakCurrent()">
+      <i class="bi bi-volume-up-fill"></i> Escuchar pronunciación
+    </button>`;
 }
 function markCard(known){
   const v=fcDeck.shift();
@@ -667,6 +685,7 @@ function getXY(e){return e.touches?{x:e.touches[0].clientX,y:e.touches[0].client
 
 function onDown(e){
   if(animating)return;
+  if(e.target.closest('.speak-btn'))return;
   if(e.type==='mousedown'&&Date.now()-lastTouchEnd<600)return;
   dragging=true;dragDX=0;dragDY=0;dragT0=Date.now();
   const c=getXY(e);dragX0=c.x;dragY0=c.y;
@@ -935,6 +954,15 @@ function filterList(){
 }
 
 // ── INIT ─────────────────────────────────────────────────
+function speak(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.82;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function speakCurrent(){if(fcDeck.length)speak(fcDeck[0].pv);}
+
 startDeck(ITEMS);
 buildList();
 </script>

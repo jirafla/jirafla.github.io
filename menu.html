@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Aprende Inglés · Jirafla</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#3F058A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+:root{
+  --p:#3F058A;--p2:#6B2FBF;--sec:#FFC448;
+  --bg:#EDE8F8;--surf:#FFFFFF;--txt:#1A1228;--mut:#8B8BA7;
+  --bdr:rgba(63,5,138,.12);--sh:0 8px 32px rgba(63,5,138,.13);--r:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);
+  min-height:100vh;
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:calc(24px + env(safe-area-inset-bottom));
+  overscroll-behavior:none;-webkit-tap-highlight-color:transparent;
+}
+
+/* ── TOP BAR ── */
+.top-bar{
+  background:var(--p);color:#fff;
+  padding:14px 18px 14px;
+  position:sticky;top:0;z-index:60;
+}
+.top-row{display:flex;align-items:center;justify-content:space-between}
+.app-brand{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.back-lnk{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.7);
+  display:flex;align-items:center;gap:3px;text-decoration:none}
+.back-lnk:hover{color:#fff}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(145deg,var(--p),var(--p2));
+  color:#fff;text-align:center;
+  padding:32px 20px 36px;
+}
+.hero-flag{font-size:3rem;margin-bottom:12px;line-height:1}
+.hero-h{font-size:1.6rem;font-weight:900;letter-spacing:-.03em;margin-bottom:6px}
+.hero-sub{font-size:.9rem;opacity:.8;font-weight:500}
+
+/* ── MODULES GRID ── */
+.mod-section{padding:20px 16px;max-width:520px;margin:0 auto}
+.section-lbl{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--mut);margin-bottom:12px}
+.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.mod-card{
+  background:var(--surf);border-radius:var(--r);padding:16px 14px 14px;
+  box-shadow:var(--sh);text-decoration:none;color:var(--txt);
+  display:flex;flex-direction:column;gap:5px;
+  position:relative;overflow:hidden;
+  transition:transform .18s,box-shadow .18s;
+  -webkit-tap-highlight-color:transparent;
+}
+.mod-card:active:not(.disabled){transform:scale(.97)}
+.mod-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--mod-clr,var(--p));
+}
+.mod-card.disabled{opacity:.5;pointer-events:none}
+.mod-ico{font-size:1.8rem;line-height:1;margin-bottom:2px}
+.mod-name{font-size:.9rem;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.mod-desc{font-size:.68rem;color:var(--mut);font-weight:500;line-height:1.3}
+.mod-count{font-size:.68rem;font-weight:700;color:var(--mod-clr,var(--p));margin-top:2px}
+
+.prog-wrap{display:flex;align-items:center;gap:6px;margin-top:6px}
+.prog-strip{flex:1;height:4px;background:rgba(0,0,0,.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--mod-clr,var(--p));border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.prog-pct{font-size:.6rem;font-weight:800;color:var(--mod-clr,var(--p));min-width:24px;text-align:right}
+
+.soon-badge{
+  position:absolute;top:10px;right:10px;
+  font-size:.52rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;
+  background:var(--bg);color:var(--mut);
+  padding:2px 6px;border-radius:20px;
+}
+.mod-card.disabled .mod-count{color:var(--mut)}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:8px 16px 24px;font-size:.7rem;color:var(--mut)}
+.footer a{color:var(--p);text-decoration:none;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-row">
+    <a href="index.html" class="back-lnk"><i class="bi bi-arrow-left"></i> Jirafla</a>
+    <span class="app-brand">Aprende Inglés</span>
+    <span></span>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-flag">🇬🇧</div>
+  <div class="hero-h">Aprende Inglés</div>
+  <div class="hero-sub">Elige un módulo para practicar</div>
+</div>
+
+<div class="mod-section">
+  <div class="section-lbl">Módulos disponibles</div>
+  <div class="mod-grid">
+
+    <a href="verbos.html" class="mod-card" style="--mod-clr:#3F058A">
+      <div class="mod-ico">✏️</div>
+      <div class="mod-name">Verbos</div>
+      <div class="mod-desc">Irregulares y regulares</div>
+      <div class="mod-count" id="cnt-v">85 verbos</div>
+      <div class="prog-wrap">
+        <div class="prog-strip"><div class="prog-fill" id="pfill-v" style="width:0%"></div></div>
+        <span class="prog-pct" id="ppct-v">0%</span>
+      </div>
+    </a>
+
+    <a href="phrasal-verbs.html" class="mod-card" style="--mod-clr:#0D9488">
+      <div class="mod-ico">🔗</div>
+      <div class="mod-name">Phrasal Verbs</div>
+      <div class="mod-desc">Verbos compuestos</div>
+      <div class="mod-count" id="cnt-phv">60 phrasal verbs</div>
+      <div class="prog-wrap">
+        <div class="prog-strip"><div class="prog-fill" id="pfill-phv" style="width:0%"></div></div>
+        <span class="prog-pct" id="ppct-phv">0%</span>
+      </div>
+    </a>
+
+    <a href="objetos.html" class="mod-card" style="--mod-clr:#EA580C">
+      <div class="mod-ico">🏠</div>
+      <div class="mod-name">Objetos del Hogar</div>
+      <div class="mod-desc">Vocabulario cotidiano</div>
+      <div class="mod-count" id="cnt-obj">60 objetos</div>
+      <div class="prog-wrap">
+        <div class="prog-strip"><div class="prog-fill" id="pfill-obj" style="width:0%"></div></div>
+        <span class="prog-pct" id="ppct-obj">0%</span>
+      </div>
+    </a>
+
+    <div class="mod-card disabled" style="--mod-clr:#6B7280">
+      <div class="soon-badge">Próximamente</div>
+      <div class="mod-ico">🔢</div>
+      <div class="mod-name">Números y Tiempo</div>
+      <div class="mod-desc">Horas, fechas, cantidades</div>
+      <div class="mod-count">~50 items</div>
+    </div>
+
+    <div class="mod-card disabled" style="--mod-clr:#6B7280">
+      <div class="soon-badge">Próximamente</div>
+      <div class="mod-ico">🎨</div>
+      <div class="mod-name">Adjetivos</div>
+      <div class="mod-desc">Calificar y describir</div>
+      <div class="mod-count">~60 adjetivos</div>
+    </div>
+
+    <div class="mod-card disabled" style="--mod-clr:#6B7280">
+      <div class="soon-badge">Próximamente</div>
+      <div class="mod-ico">📍</div>
+      <div class="mod-name">Preposiciones</div>
+      <div class="mod-desc">in, on, at, by, for…</div>
+      <div class="mod-count">~40 preposiciones</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">Hecho con ❤️ por <a href="index.html">Jirafla</a></div>
+
+<script>
+function readProg(key){
+  try{return new Set(JSON.parse(localStorage.getItem(key)||'[]')).size}
+  catch{return 0}
+}
+function showProg(id,key,total){
+  const n=readProg(key);
+  const pct=total>0?Math.round(n/total*100):0;
+  document.getElementById('pfill-'+id).style.width=pct+'%';
+  document.getElementById('ppct-'+id).textContent=pct+'%';
+  if(n>0)document.getElementById('cnt-'+id).textContent=`${n} / ${total} ✓`;
+}
+showProg('v','veng_l',85);
+showProg('phv','phvl',60);
+showProg('obj','objl',60);
+</script>
+</body>
+</html>

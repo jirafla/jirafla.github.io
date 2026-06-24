@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Jirafla</title>
+    <title>Jirafla | Senior Product Designer & UX Strategist</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="UX/UI, Product Designer, UX Strategist, AI Design, Design Systems, Figma" name="keywords">
+    <meta content="Senior Product Designer & UX Strategist con más de 8 años liderando productos digitales en entornos multiculturales." name="description">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -14,7 +14,7 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -30,13 +30,38 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        .lang-btn {
+            border: 2px solid var(--primary, #06A3DA);
+            background: transparent;
+            color: var(--primary, #06A3DA);
+            padding: 4px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            margin-left: 14px;
+            line-height: 1.5;
+        }
+        .lang-btn:hover {
+            background: var(--primary, #06A3DA);
+            color: #fff;
+        }
+        .lang-btn .flag {
+            margin-right: 5px;
+            font-style: normal;
+        }
+    </style>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
+
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Cargando...</span>
+            <span class="sr-only" data-i18n="spinner-loading">Cargando...</span>
         </div>
     </div>
     <!-- Spinner End -->
@@ -52,17 +77,20 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between py-4 py-lg-0" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="#home" class="nav-item nav-link active">Inicio</a>
-                <a href="#about" class="nav-item nav-link">Sobre Mi</a>
-                <a href="#team" class="nav-item nav-link">Enfoque</a>
+                <a href="#home" class="nav-item nav-link active" data-i18n="nav-home">Inicio</a>
+                <a href="#about" class="nav-item nav-link" data-i18n="nav-about">Sobre Mí</a>
+                <a href="#team" class="nav-item nav-link" data-i18n="nav-focus">Enfoque</a>
             </div>
-            <a href="index.html" class="navbar-brand bg-primary py-3 px-4 mx-3 d-none d-lg-block align-items-center">
-                <img class="img-fluid" src="img/logo.png" alt="" width="80%">
+            <a href="index.html" class="navbar-brand bg-primary py-3 px-4 mx-3 d-none d-lg-block">
+                <img class="img-fluid" src="img/logo.png" alt="Jirafla" width="80%">
             </a>
-            <div class="navbar-nav me-auto py-0">
-                <a href="#skill" class="nav-item nav-link">Skills</a>
-                <a href="#project" class="nav-item nav-link">Proyectos</a>
-                <a href="#contact" class="nav-item nav-link">Contacto</a>
+            <div class="navbar-nav me-auto py-0 d-flex align-items-center">
+                <a href="#skill" class="nav-item nav-link" data-i18n="nav-skills">Skills</a>
+                <a href="#project" class="nav-item nav-link" data-i18n="nav-projects">Proyectos</a>
+                <a href="#contact" class="nav-item nav-link" data-i18n="nav-contact">Contacto</a>
+                <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">
+                    <span class="flag" id="langFlag">🇺🇸</span><span id="langLabel">EN</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -73,30 +101,33 @@
     <div class="container-fluid bg-light my-6 mt-0" id="home">
         <div class="container">
             <div class="row g-5 align-items-center">
-                <div class="col-lg-6 py-6 pb-0 pt-lg-0 intro-top">
-                    <h3 class="text-primary mb-3">👋Hola, soy</h3>
+                <div class="col-lg-6 py-6 pb-0 pt-lg-0">
+                    <h3 class="text-primary mb-3" data-i18n="hero-greeting">👋Hola, soy</h3>
                     <h1 class="display-3 mb-3">Andrés Felipe Londoño</h1>
                     <h2 class="typed-text-output d-inline"></h2>
-                    <div class="typed-text d-none">Diseñador UX/UI, Product Designer, Consultor UX, Diseñador multimedia, Desarrollador Front</div>
+                    <div class="typed-text d-none"
+                         data-typed-es="Senior Product Designer,UX Strategist,AI-Integrated Design,Consultor UX,Desarrollador Front"
+                         data-typed-en="Senior Product Designer,UX Strategist,AI-Integrated Design,UX Consultant,Front-End Developer">
+                        Senior Product Designer,UX Strategist,AI-Integrated Design,Consultor UX,Desarrollador Front
+                    </div>
                     <div class="d-flex align-items-center pt-5">
-                        <a href="CV-Andres-Londono.pdf" target="_blank" class="btn btn-primary py-3 px-4 me-5">Descargar CV</a>
-                       
+                        <a href="CV-Andres-Londono.pdf" target="_blank" class="btn btn-primary py-3 px-4 me-5" data-i18n="hero-btn">Descargar CV</a>
                     </div>
                 </div>
-                <div class="col-lg-6 imagen-top">
-                    <img class="img-fluid" src="img/profile.png" alt="">
+                <div class="col-lg-6">
+                    <img class="img-fluid" src="img/profile.png" alt="Andrés Felipe Londoño">
                 </div>
             </div>
         </div>
     </div>
     <!-- Header End -->
 
-<div class="container down">
-    <div class="text-center">
-        <img src="img/down.gif" alt="">
+    <div class="container down">
+        <div class="text-center">
+            <img src="img/down.gif" alt="">
+        </div>
     </div>
-</div>
-   
+
 
     <!-- About Start -->
     <div class="container-xxl py-6" id="about">
@@ -105,89 +136,89 @@
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="d-flex align-items-center mb-5">
                         <div class="years flex-shrink-0 text-center me-4">
-                            <h1 class="display-1 mb-0">7</h1>
-                            <h5 class="mb-0">Años</h5>
+                            <h1 class="display-1 mb-0">8+</h1>
+                            <h5 class="mb-0" data-i18n="about-years-label">Años</h5>
                         </div>
-                        <h3 class="lh-base mb-0">de experiencia laboral, enfocados a la creación de productos multimediales</h3>
+                        <h3 class="lh-base mb-0" data-i18n="about-heading">de experiencia liderando productos digitales en entornos multiculturales</h3>
                     </div>
-                    <p class="mb-4">Poseo gran nivel de liderazgo, orientación al logro de objetivos corporativos. Me gusta generar y llevar a cabo proyectos estratégicos, corporativos y de emprendimiento desde la planeación, análisis, mercadeo, ejecución y divulgación🔥.</p>
-                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i>Acompañamiento en creación de productos</p>
-                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i>Concimieno en productos B2B, B2C, B2B2C</p>
-                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i>Desarrollo acorde a necesidad o a medida</p>
+                    <p class="mb-4" data-i18n="about-p1">Senior Product Designer con más de 8 años de experiencia liderando el diseño de productos digitales en entornos multiculturales (Colombia, Ecuador, Chile). Especializado en UX/UI strategy, design systems y prototipado interactivo multiplataforma. Actualmente integrando metodologías de Inteligencia Artificial en flujos de investigación UX, ideación y desarrollo de productos. 🔥</p>
+                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i><span data-i18n="about-check1">Acompañamiento en creación de productos</span></p>
+                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i><span data-i18n="about-check2">Conocimiento en productos B2B, B2C, B2B2C</span></p>
+                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i><span data-i18n="about-check3">Desarrollo acorde a necesidad o a medida</span></p>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="row g-3 mb-4">
                         <div class="col-sm-12">
                             <img class="img-fluid rounded" src="img/about-1.jpg" alt="">
                         </div>
-                        
                     </div>
                     <div class="d-flex align-items-center mb-3">
-                        <h5 class="border-end pe-3 me-3 mb-0">Estudiantes</h5>
+                        <h5 class="border-end pe-3 me-3 mb-0" data-i18n="about-students-label">Estudiantes</h5>
                         <h2 class="text-primary fw-bold mb-0" data-toggle="counter-up">145</h2>
                     </div>
-                    <p class="mb-4">He dictado cursos/talleres de manejo de herramientas UI, talleres de investigación Research y planeación de ideas de productos.</p>
-                   
+                    <p class="mb-4" data-i18n="about-students-desc">He dictado cursos/talleres de manejo de herramientas UI, talleres de investigación Research y planeación de ideas de productos.</p>
                 </div>
             </div>
         </div>
     </div>
     <!-- About End -->
-     <!-- Team Start -->
-     <div class="container-xxl py-6 pb-5" id="team">
+
+
+    <!-- Team Start -->
+    <div class="container-xxl py-6 pb-5" id="team">
         <div class="container">
             <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-6">
-                    <h1 class="display-5 mb-0">Enfoque</h1>
+                <div class="col-lg-6">
+                    <h1 class="display-5 mb-0" data-i18n="focus-heading">Enfoque</h1>
                 </div>
-                <div class="col-6 text-lg-end">
-                    <a class="btn btn-primary py-3 px-5" href="https://www.linkedin.com/in/jirafla/" target="_blank">Linkedin</a>
+                <div class="col-lg-6 text-lg-end">
+                    <a class="btn btn-primary py-3 px-5" href="https://www.linkedin.com/in/jirafla/" target="_blank">LinkedIn</a>
                 </div>
             </div>
             <div class="row g-4">
-                <div class="col-md-4 text-center fadeInUp" data-wow-delay="0.1s">
+                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item position-relative">
-                        <img class="img-fluid jirafa" src="img/team-1.png" alt="">
+                        <img class="img-fluid rounded" src="img/team-1.png" alt="">
                         <div class="team-text bg-white rounded-end p-4">
                             <div>
                                 <h5>Andrés Felipe Londoño</h5>
-                                <span>Diseñador?</span>
+                                <span data-i18n="focus-subtitle">Diseñador?</span>
                             </div>
+                            <i class="fa fa-arrow-right fa-2x text-primary"></i>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8 wow fadeInUp enfoquecss" data-wow-delay="0.3s">
-                    <p>Diseñador con experiencia en distintas áreas multimediales (branding, animación, diseño web, diseño de interactivos, maquetación web). Actualmente desempeñando cargos de Product designer y diseño interactivo en multiplataforma con más de 8 años de experiencia en el campo.</p>
+                    <p data-i18n="focus-p">Diseñador con experiencia en distintas áreas multimediales (branding, animación, diseño web, diseño de interactivos, maquetación web). Actualmente desempeñando roles de Product Designer y UX Strategist con más de 8 años de experiencia en el campo.</p>
                     <ul>
-                        <li>Investigo: voz de usuario, journeys, puntos de interacción, decisiones, tendencias  encontrando la mejor opción para el <b>levantamiento de las necesidades de los posibles usuarios</b>, enfocando el producto a un target y objetivo específico.</li>
-                        <li>Genero ideas innovadoras a través de la <b>necesidad de negocio</b>, enfocadas a mejora continua o lanzamiento de nuevos productos.</li>
-                        <li><b>Itero en cada decisión tomada</b>, garantizando que el usuario obtenga un producto mínimo viable o servicio efectivo, y que su proceso dentro de este sea simple e intuitivo.</li>
-                        <li><b>Esquematizo en wireframes y mockups interactivos</b> cada una de las pantallas o páginas en un diseño web con las que interactúa un usuario.</li>
-                        <li>Estoy al tanto de <b>tendencias visuales</b> que potencialicen el diseño web.</li>
-                        <li>Defino y organiza todos los <b>componentes que pueden hacer parte del Design System</b> (botones, acordeones, tooltips, carruseles, etc.) teniendo en cuenta la composición y jerarquías de información, entendiendo las proporciones manejadas en diferentes dispositivos.                      </li>
-                        <li>Garantizo la <b>integración y funcionalidad técnica frontend para el desarrollo</b>, adaptando el diseño de una web a diversos dispositivos y navegadores con herramientas de maquetación (HTML y CSS) y desarrollo web (CMS y Frameworks).</li>
-                        <li>Proyectos End to End</li>
+                        <li data-i18n-html="focus-li1">Investigo: voz de usuario, journeys, puntos de interacción, decisiones, tendencias encontrando la mejor opción para el <b>levantamiento de las necesidades de los posibles usuarios</b>, enfocando el producto a un target y objetivo específico.</li>
+                        <li data-i18n-html="focus-li2">Genero ideas innovadoras a través de la <b>necesidad de negocio</b>, enfocadas a mejora continua o lanzamiento de nuevos productos.</li>
+                        <li data-i18n-html="focus-li3"><b>Itero en cada decisión tomada</b>, garantizando que el usuario obtenga un producto mínimo viable o servicio efectivo, y que su proceso dentro de este sea simple e intuitivo.</li>
+                        <li data-i18n-html="focus-li4"><b>Esquematizo en wireframes y mockups interactivos</b> cada una de las pantallas o páginas en un diseño web con las que interactúa un usuario.</li>
+                        <li data-i18n-html="focus-li5">Estoy al tanto de <b>tendencias visuales</b> que potencialicen el diseño web.</li>
+                        <li data-i18n-html="focus-li6">Defino y organizo todos los <b>componentes que pueden hacer parte del Design System</b> (botones, acordeones, tooltips, carruseles, etc.) teniendo en cuenta la composición y jerarquías de información.</li>
+                        <li data-i18n-html="focus-li7">Garantizo la <b>integración y funcionalidad técnica frontend para el desarrollo</b>, adaptando el diseño de una web a diversos dispositivos y navegadores.</li>
+                        <li data-i18n-html="focus-li8">Proyectos <b>End to End</b> con integración de IA en flujos de trabajo.</li>
                     </ul>
                 </div>
-               
             </div>
         </div>
     </div>
     <!-- Team End -->
+
 
     <!-- Expertise Start -->
     <div class="container-xxl py-6 pb-5" id="skill">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <h1 class="display-5 mb-5">Skills & Experiencia</h1>
-                    
-                    <h3 class="mb-4">Skills</h3>
+                    <h1 class="display-5 mb-5" data-i18n="skills-heading">Skills & Experiencia</h1>
+                    <h3 class="mb-4" data-i18n="skills-subheading">Skills</h3>
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <div class="skill mb-4">
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Diseño de interfaz y prototipado</h6>
+                                    <h6 class="font-weight-bold" data-i18n="skill-1">Diseño de interfaz y prototipado</h6>
                                     <h6 class="font-weight-bold">95%</h6>
                                 </div>
                                 <div class="progress">
@@ -196,7 +227,7 @@
                             </div>
                             <div class="skill mb-4">
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Investigación y testeo</h6>
+                                    <h6 class="font-weight-bold" data-i18n="skill-2">Investigación y testeo</h6>
                                     <h6 class="font-weight-bold">90%</h6>
                                 </div>
                                 <div class="progress">
@@ -205,7 +236,7 @@
                             </div>
                             <div class="skill mb-4">
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Desarrollo Front (HTML, CSS, JS)</h6>
+                                    <h6 class="font-weight-bold" data-i18n="skill-3">Desarrollo Front (HTML, CSS, JS)</h6>
                                     <h6 class="font-weight-bold">80%</h6>
                                 </div>
                                 <div class="progress">
@@ -216,7 +247,7 @@
                         <div class="col-md-6">
                             <div class="skill mb-4">
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Gestión y colaboración</h6>
+                                    <h6 class="font-weight-bold" data-i18n="skill-4">Gestión y colaboración</h6>
                                     <h6 class="font-weight-bold">90%</h6>
                                 </div>
                                 <div class="progress">
@@ -225,7 +256,7 @@
                             </div>
                             <div class="skill mb-4">
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Growth / Marketing</h6>
+                                    <h6 class="font-weight-bold" data-i18n="skill-5">Growth / Marketing</h6>
                                     <h6 class="font-weight-bold">65%</h6>
                                 </div>
                                 <div class="progress">
@@ -234,7 +265,7 @@
                             </div>
                             <div class="skill mb-4">
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Diseño corporativo</h6>
+                                    <h6 class="font-weight-bold" data-i18n="skill-6">Diseño corporativo</h6>
                                     <h6 class="font-weight-bold">85%</h6>
                                 </div>
                                 <div class="progress">
@@ -247,62 +278,75 @@
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                     <ul class="nav nav-pills rounded border border-2 border-primary mb-5">
                         <li class="nav-item w-50">
-                            <button class="nav-link w-100 py-3 fs-5 active" data-bs-toggle="pill" href="#tab-1">Experiencia</button>
+                            <button class="nav-link w-100 py-3 fs-5 active" data-bs-toggle="pill" href="#tab-1" data-i18n="tab-experience">Experiencia</button>
                         </li>
                         <li class="nav-item w-50">
-                            <button class="nav-link w-100 py-3 fs-5" data-bs-toggle="pill" href="#tab-2">Educación</button>
+                            <button class="nav-link w-100 py-3 fs-5" data-bs-toggle="pill" href="#tab-2" data-i18n="tab-education">Educación</button>
                         </li>
                     </ul>
                     <div class="tab-content">
+                        <!-- Experience Tab -->
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <div class="row gy-5 gx-4">
                                 <div class="col-sm-6">
-                                    <h5>Sr Product Designer</h5>
+                                    <h5 data-i18n="exp-1-title">Sr Product Designer / UX Strategist</h5>
                                     <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2023 - Presente</p>
-                                    <h6 class="mb-0">CentroHub - Ecuador</h6>
+                                    <p class="text-primary mb-1" data-i18n="exp-1-date">Mar 2023 - Presente</p>
+                                    <h6 class="mb-0" data-i18n="exp-1-company">CentroHub - Ecuador</h6>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h5>Product Designer</h5>
+                                    <h5 data-i18n="exp-2-title">Product Designer</h5>
                                     <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2022 - 2023</p>
-                                    <h6 class="mb-0">AIRA Virtual - Chile</h6>
+                                    <p class="text-primary mb-1" data-i18n="exp-2-date">Ene 2022 - Mar 2023</p>
+                                    <h6 class="mb-0" data-i18n="exp-2-company">AIRA Virtual - Chile</h6>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h5>Diseñador interactivo UX/UI</h5>
+                                    <h5 data-i18n="exp-3-title">Diseñador UX/UI & Interactivo</h5>
                                     <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2017 - 2022</p>
-                                    <h6 class="mb-0">Geostigma Media - Colombia</h6>
+                                    <p class="text-primary mb-1" data-i18n="exp-3-date">Mar 2017 - Ene 2022</p>
+                                    <h6 class="mb-0" data-i18n="exp-3-company">Geostigma Media - Colombia</h6>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h5>Diseñador Multimedia</h5>
+                                    <h5 data-i18n="exp-4-title">Productor Multimedia</h5>
                                     <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2016 - 2017</p>
-                                    <h6 class="mb-0">Comfacauca - Colombia</h6>
+                                    <p class="text-primary mb-1" data-i18n="exp-4-date">Mar 2016 - Oct 2016</p>
+                                    <h6 class="mb-0" data-i18n="exp-4-company">Comfama - Colombia</h6>
                                 </div>
                             </div>
                         </div>
+                        <!-- Education Tab -->
                         <div id="tab-2" class="tab-pane fade show p-0">
                             <div class="row gy-5 gx-4">
                                 <div class="col-sm-6">
-                                    <h5>Diseño UX/UI</h5>
+                                    <h5 data-i18n="edu-1-title">Product Management, Visión y Estrategia</h5>
                                     <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2022</p>
-                                    <h6 class="mb-0">Coderhouse</h6>
+                                    <p class="text-primary mb-1" data-i18n="edu-1-date">Mar 2026</p>
+                                    <h6 class="mb-0" data-i18n="edu-1-institution">Universidad de Palermo</h6>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h5>Diseño Gráfico</h5>
+                                    <h5 data-i18n="edu-2-title">Introducción a Product Management</h5>
                                     <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2017 - 2023</p>
-                                    <h6 class="mb-0">Universidad del Cauca</h6>
+                                    <p class="text-primary mb-1" data-i18n="edu-2-date">Ene 2025</p>
+                                    <h6 class="mb-0" data-i18n="edu-2-institution">IBM · Online</h6>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h5>Productor Multimedia</h5>
+                                    <h5 data-i18n="edu-3-title">Diseño UX/UI</h5>
                                     <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2014 - 2016</p>
-                                    <h6 class="mb-0">SENA</h6>
+                                    <p class="text-primary mb-1" data-i18n="edu-3-date">Dic 2022</p>
+                                    <h6 class="mb-0" data-i18n="edu-3-institution">Coderhouse</h6>
                                 </div>
-                               
+                                <div class="col-sm-6">
+                                    <h5 data-i18n="edu-4-title">Diseño Gráfico</h5>
+                                    <hr class="text-primary my-2">
+                                    <p class="text-primary mb-1" data-i18n="edu-4-date">2017 - 2023</p>
+                                    <h6 class="mb-0" data-i18n="edu-4-institution">Universidad del Cauca</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h5 data-i18n="edu-5-title">Técnico en Producción Multimedia</h5>
+                                    <hr class="text-primary my-2">
+                                    <p class="text-primary mb-1" data-i18n="edu-5-date">2014 - 2016</p>
+                                    <h6 class="mb-0" data-i18n="edu-5-institution">SENA</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -313,31 +357,25 @@
     <!-- Expertise End -->
 
 
-    <!-- Service Start -->
-    
-
-
-    <!-- Service End -->
-
-
     <!-- Projects Start -->
     <div class="container-xxl py-6 pt-5" id="project">
         <div class="container">
             <div class="row g-5 mb-5 align-items-center wow fadeInUp" data-wow-delay="0.1s">
                 <div class="col-lg-6">
-                    <h1 class="display-5 mb-0">Mis Proyectos</h1>
+                    <h1 class="display-5 mb-0" data-i18n="projects-heading">Mis Proyectos</h1>
                 </div>
                 <div class="col-lg-6 text-lg-end">
                     <ul class="list-inline mx-n3 mb-0" id="portfolio-flters">
-                        <li class="mx-3 active" data-filter="*">Todos</li>
-                        <li class="mx-3" data-filter=".first">Geostigma</li>
-                        <li class="mx-3" data-filter=".second">AiraVirtual</li>
-                        <li class="mx-3" data-filter=".tercer">CentroHub</li>
-                        <li class="mx-3" data-filter=".propio">Propio</li>
+                        <li class="mx-3 active" data-filter="*" data-i18n="filter-all">Todos</li>
+                        <li class="mx-3" data-filter=".first" data-i18n="filter-geo">Geostigma</li>
+                        <li class="mx-3" data-filter=".second" data-i18n="filter-aira">AiraVirtual</li>
+                        <li class="mx-3" data-filter=".tercer" data-i18n="filter-centro">CentroHub</li>
+                        <li class="mx-3" data-filter=".propio" data-i18n="filter-own">Propio</li>
                     </ul>
                 </div>
             </div>
-            <!-- Lightbox Modal -->
+
+            <!-- Custom Lightbox -->
             <div id="lightbox" class="lightbox">
                 <span class="close" onclick="closeLightbox()">&times;</span>
                 <div class="lightbox-content row align-items-center">
@@ -350,31 +388,14 @@
                     </div>
                 </div>
             </div>
+
             <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.1s">
 
-                <div class="col-lg-4 col-md-6 portfolio-item propio">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-16.jpg">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-16.jpg', 'Biu Carpool', 'Proyecto personal enfocado en facilitar el transporte mediante carpool para estudiantes y trabajadores con rutinas de movilidad establecidas. El proyecto busca optimizar los desplazamientos diarios, promoviendo el uso compartido de vehículos para reducir costos y contribuir a la sostenibilidad. Además, se trabajó en el diseño de la marca y la creación de elementos gráficos que refuerzan la identidad visual de la plataforma.')"><i class="fa fa-eye"></i></a>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item tercer">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-17.jpg">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-17.jpg', 'Declara Facilito', 'Diseño y planeación de una aplicación financiera enfocada en la visualización de facturas electrónicas generadas en Ecuador. La aplicación permite a los usuarios gestionar sus gastos de manera eficiente, categorizando facturas, visualizando reportes por periodos específicos y configurando alertas para mantenerse al tanto de sus finanzas. Este enfoque facilita una mejor organización financiera y ofrece herramientas para el control y seguimiento de los gastos.')"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.declarafacilito.com" target="_blank"><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-lg-4 col-md-6 portfolio-item second">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-10.jpg">
+                        <img class="img-fluid" src="img/project-10.jpg" alt="Aira Virtual">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-10.jpg', 'Aira Virtual', 'Trabajé como Product Designer, me enfoqué en la actualización del Design System, la generación de nuevo contenido y la implementación de funcionalidades y mejoras continuas. Lideré el equipo de diseño, realizando investigaciones exhaustivas y negociaciones con stakeholders para alinear los objetivos del proyecto. Además, fui responsable del control de calidad (QA) de las funcionalidades implementadas, asegurando un producto final coherente y funcional.')"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('aira')"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://aira.airavirtual.com" target="_blank"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
@@ -382,41 +403,38 @@
 
                 <div class="col-lg-4 col-md-6 portfolio-item propio">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-15.jpg">
+                        <img class="img-fluid" src="img/project-15.jpg" alt="Creuni">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-15.jpg', 'Creuni', 'Proyecto personal que tiene como objetivo ayudar a estudiantes universitarios a crear perfiles profesionales y obtener experiencia laboral mientras estudian. El proyecto se encuentra en la fase de prototipado, buscando facilitar la transición de los estudiantes al mundo laboral a través de oportunidades reales que les permitan adquirir habilidades prácticas y construir una red profesional desde una etapa temprana.')"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('creuni')"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.creuni.com" target="_blank"><i class="fa fa-link"></i></a>
-                            
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-14.jpg">
+                        <img class="img-fluid" src="img/project-14.jpg" alt="LectorAmi">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-14.jpg', 'LectorAmi - IntelectualPlus', 'Creación de plataforma educativa con enfoque en gamificación y juegos interactivos. El proyecto incluyó el diseño completo de la plataforma y el desarrollo de un Design System para garantizar una experiencia de usuario coherente y eficaz. Se utilizó contenido de libros educativos para aprender a leer y para lectura rápida, integrando elementos interactivos y didácticos para facilitar el aprendizaje y mantener el interés de los usuarios.')"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('lectorami')"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.lectorami.com" target="_blank"><i class="fa fa-link"></i></a>
-                            
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-13.jpg">
+                        <img class="img-fluid" src="img/project-13.jpg" alt="Fundación Mundo Mujer">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-13.jpg', 'Educación Fundación Mundo Mujer', 'Generación e ideación de cursos, talleres y actividades a través de Moodle con un enfoque en educación financiera para menores de edad. El proyecto incluyó la creación de contenido educativo innovador, como videos interactivos y juegos utilizando H5P, para fomentar un aprendizaje dinámico y atractivo en el ámbito de la educación financiera.')"><i class="fa fa-eye"></i></a>
-                            
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('mundomujer')"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-12.jpg">
+                        <img class="img-fluid" src="img/project-12.jpg" alt="Tifer">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-12.jpg', 'Tifer', 'Generación de idea y desarrollo de aplicación especializada en servicios diarios de delivery, que abarcó desde el moldeamiento de la idea inicial hasta la investigación exhaustiva de las necesidades del usuario y del público objetivo. Se crearon perfiles detallados para la aplicación, seguidos del diseño y prototipado para asegurar que la plataforma ofreciera una experiencia optimizada para la solicitud y entrega de servicios diarios.')"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('tifer')"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.tifer.com.co" target="_blank"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
@@ -424,29 +442,27 @@
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-11.jpg">
+                        <img class="img-fluid" src="img/project-11.jpg" alt="Auditoría UX Nequi">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-11.jpg', 'Auditoría UX Nequi', 'Auditoría UX/UI de la primera aplicación de Nequi, que incluyó una revisión detallada del cumplimiento de accesibilidad y la funcionalidad bancaria. La auditoría se centró en evaluar la adecuación de la aplicación a las necesidades de los usuarios, examinando los procesos de transferencia y retiro en cajeros automáticos para asegurar una experiencia de usuario fluida y eficiente.')"><i class="fa fa-eye"></i></a>
-                            
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('nequi')"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-9.jpg">
+                        <img class="img-fluid" src="img/project-9.jpg" alt="Coprocenva">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-9.jpg', 'Coprocenva', 'Portal de Educación Financiera Coprocenva, incluyendo diseño, prototipado y desarrollo de la base gráfica. El proyecto también implicó un acompañamiento continuo para asegurar una implementación efectiva y la adaptación del portal a las necesidades de los usuarios. Se creó una plataforma educativa visualmente atractiva y funcional, enfocada en proporcionar recursos y herramientas para la gestión financiera.')"><i class="fa fa-eye"></i></a>
-                            
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('coprocenva')"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-8.jpg">
+                        <img class="img-fluid" src="img/project-8.jpg" alt="Junta Prosemanasanta">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-8.jpg', 'Junta Prosemanasanta', 'Portal Prosemana Santa, que abarcó la investigación de usuario para comprender sus necesidades, así como la fotografía para capturar elementos visuales clave. Se desarrolló una guía de estilos y colorimetría para asegurar una coherencia visual en todo el portal. El diseño y prototipado se realizaron con un enfoque en el desarrollo de una Progressive Web App (PWA), ofreciendo una experiencia de usuario fluida y accesible en diversas plataformas y dispositivos.')"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('prosemana')"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.procesionespopayan.com" target="_blank"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
@@ -454,19 +470,18 @@
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-7.jpg">
+                        <img class="img-fluid" src="img/project-7.jpg" alt="Manatí">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-7.jpg', 'Comercio - Manati', 'Manati, investigación exhaustiva de usuarios, generación de diseño, y prototipado para el desarrollo del e-commerce. El proyecto incluyó la programación en WordPress, creando una plataforma intuitiva y adaptada a las necesidades del negocio. Se abordaron todas las fases del proceso, desde la comprensión de los usuarios hasta la implementación final, garantizando una experiencia de compra eficiente y atractiva.')"><i class="fa fa-eye"></i></a>
-                            
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('manati')"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-6.jpg">
+                        <img class="img-fluid" src="img/project-6.jpg" alt="Salud EPS SOS">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-6.jpg', 'Salud EPS SOS', 'SOS, creación del diseño, prototipado y desarrollo del portal web en Wordpress,con un enfoque integral en Usuarios, Empresas y Proveedores. El proyecto incluyó acompañamiento continuo durante todas las fases del desarrollo, desde el diseño inicial hasta la implementación final, asegurando una plataforma funcional y eficiente que satisface las necesidades de todos los actores involucrados.')"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('sos')"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.sos.com.co" target="_blank"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
@@ -474,9 +489,9 @@
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-5.jpg">
+                        <img class="img-fluid" src="img/project-5.jpg" alt="Instituto ITA">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-5.jpg', 'Instituto ITA', 'Instituto ITA, proceso integral de investigación, diseño y prototipado del portal web con un enfoque educativo. El proyecto se centró en crear una experiencia digital accesible y funcional, diseñada específicamente para satisfacer las necesidades de estudiantes y docentes, facilitando la navegación y el acceso a los recursos educativos del instituto.')"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('ita')"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://ita.edu.co" target="_blank"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
@@ -484,20 +499,19 @@
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-1.jpg">
+                        <img class="img-fluid" src="img/project-1.jpg" alt="Seguros Solidaria">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-1.jpg', 'Seguros Solidaria', 'Estructuración e implementación del portal para clientes e intermediarios, acompañado de un exhaustivo proceso de investigación para comprender las necesidades de los usuarios. Se realizó una categorización detallada de personas para asegurar la personalización de la experiencia, además de llevar a cabo talleres de prueba y error que permitieron ajustar el diseño según el feedback recibido. También se diseñó el portal para empresas y se formuló un catálogo de servicios adaptado a cada ambiente. Como parte del desarrollo, se implementaron plantillas en HTML, CSS y JavaScript para garantizar una estructura sólida y adaptable.')"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('solidaria')"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.solidaria.com.co/WA_DigitalClient/#/login" target="_blank"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
-                    
                 </div>
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-2.jpg" alt="">
+                        <img class="img-fluid" src="img/project-2.jpg" alt="Seguros Mapfre">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-2.jpg', 'Seguros Mapfre', 'Investigación con el usuario enfocada en entender sus necesidades y expectativas, seguida de un rediseño exhaustivo y la estimación de flujos óptimos para productos digitales como cotizadores de pólizas (Vida, Autos, Exequias y SOAT), panel de administración e interfaz de catálogo comercial. Se brindó a las empresas la posibilidad de personalizar la interfaz eligiendo el esquema de colores que mejor se adaptara a su identidad visual, lo que permitió una experiencia más alineada con su marca y preferencias.')"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('mapfre')"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://digital.mapfre.com.co/iModelWeb/vista/autoscme/autoscmeinicio.jsf" target="_blank"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
@@ -505,37 +519,26 @@
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-3.jpg">
+                        <img class="img-fluid" src="img/project-3.jpg" alt="Confiar Banca">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-3.jpg', 'Confiar Banca', 'Integración e implementación pionera de la funcionalidad Transfiya, con un enfoque innovador en usuarios menores de edad. El proceso permitió a estos usuarios solicitar, enviar, aceptar y rechazar dinero de manera interbancaria de forma segura y fácil. Este desarrollo se centró en ofrecer una experiencia fluida y adaptada a las necesidades de un público joven, promoviendo la inclusión financiera desde edades tempranas.')"><i class="fa fa-eye"></i></a>
-                            
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('confiar')"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
-                    
                 </div>
 
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-4.jpg" alt="">
+                        <img class="img-fluid" src="img/project-4.jpg" alt="Pechera Homecenter">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" data-lightbox="portfolio" onclick="openLightbox('img/project-4.jpg', 'Pechera - Homecenter', 'Diseño y acompañamiento para la creación y mejora continua de la aplicación destinada a optimizar las tareas diarias de los trabajadores. La app facilita la organización eficiente de productos en tienda, la gestión de pedidos en casilleros, el reciclaje de materiales y el abastecimiento de SKUs, mejorando la productividad y asegurando un control más preciso del inventario y los procesos operativos.')"><i class="fa fa-eye"></i></a>
-                            
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" onclick="openLightbox('pechera')"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
-                
                 </div>
+
             </div>
         </div>
     </div>
     <!-- Projects End -->
-
-
-   
-
-
-    <!-- Testimonial Start -->
-    
-    <!-- Testimonial End -->
 
 
     <!-- Contact Start -->
@@ -543,45 +546,40 @@
         <div class="container py-5">
             <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="col-lg-8">
-                    <h1 class="display-5 mb-0">Trabajemos juntos en proyectos ganadores 🔥</h1>
+                    <h1 class="display-5 mb-0" data-i18n="contact-heading">Trabajemos juntos en proyectos ganadores 🔥</h1>
                 </div>
                 <div class="col-lg-4 text-lg-end">
-                    <a class="btn btn-primary py-3 px-5" href="https://wa.link/ay7j2p" target="_blank">Saludame!</a>
+                    <a class="btn btn-primary py-3 px-5" href="https://wa.link/ay7j2p" target="_blank" data-i18n="contact-btn">¡Saludame!</a>
                 </div>
             </div>
             <div class="row g-5 justify-content-center">
                 <div class="col-lg-7 col-md-7 wow fadeInUp" data-wow-delay="0.1s">
-                    <p class="mb-2">Me ubico en:</p>
-                    <h3 class="fw-bold">Curazao, Bello - Antioquia - Colombia</h3>
+                    <p class="mb-2" data-i18n="contact-location-label">Me ubico en:</p>
+                    <h3 class="fw-bold" data-i18n="contact-location">Medellín, Colombia</h3>
                     <hr class="w-100">
-                    <p class="mb-2">Escribeme o llamame al:</p>
+                    <p class="mb-2" data-i18n="contact-phone-label">Escríbeme o llámame al:</p>
                     <h3 class="fw-bold">+57 319 433 8591</h3>
                     <hr class="w-100">
-                    <p class="mb-2">Mi mail:</p>
-                    <h3 class="fw-bold">jirafla@gmail.com o afla2010@live.com</h3>
+                    <p class="mb-2" data-i18n="contact-email-label">Mi mail:</p>
+                    <h3 class="fw-bold">afla2010@live.com</h3>
                     <hr class="w-100">
-                    <p class="mb-2">Más de mi en:</p>
+                    <p class="mb-2" data-i18n="contact-more-label">Más de mí en:</p>
                     <div class="d-flex pt-2">
-                        <a class="btn btn-square btn-primary me-2" href="https://www.linkedin.com/in/jirafla/"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-square btn-primary me-2" href="https://www.linkedin.com/in/jirafla/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
     <!-- Contact End -->
 
 
-    
-
     <!-- Copyright Start -->
     <div class="container-fluid bg-dark text-white py-4">
-            <div class="container">
-                <div class="row ">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom text-secondary">Jirafla</a>, All Right Reserved.
-                    </div>
-                  
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="border-bottom text-secondary">Jirafla</a>, <span data-i18n="footer-rights">All Right Reserved.</span>
                 </div>
             </div>
         </div>
@@ -604,9 +602,347 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/isotope/isotope.pkgd.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
-
-    <!-- Template Javascript -->
     <script src="js/main.js"></script>
-</body>
 
+    <!-- i18n + Lightbox Script -->
+    <script>
+    // ─── TRANSLATIONS ─────────────────────────────────────────────────────────
+    var translations = {
+        es: {
+            'nav-home': 'Inicio',
+            'nav-about': 'Sobre Mí',
+            'nav-focus': 'Enfoque',
+            'nav-skills': 'Skills',
+            'nav-projects': 'Proyectos',
+            'nav-contact': 'Contacto',
+            'hero-greeting': '👋Hola, soy',
+            'hero-btn': 'Descargar CV',
+            'hero-typed': 'Senior Product Designer,UX Strategist,AI-Integrated Design,Consultor UX,Desarrollador Front',
+            'about-years-label': 'Años',
+            'about-heading': 'de experiencia liderando productos digitales en entornos multiculturales',
+            'about-p1': 'Senior Product Designer con más de 8 años de experiencia liderando el diseño de productos digitales en entornos multiculturales (Colombia, Ecuador, Chile). Especializado en UX/UI strategy, design systems y prototipado interactivo multiplataforma. Actualmente integrando metodologías de Inteligencia Artificial en flujos de investigación UX, ideación y desarrollo de productos. 🔥',
+            'about-check1': 'Acompañamiento en creación de productos',
+            'about-check2': 'Conocimiento en productos B2B, B2C, B2B2C',
+            'about-check3': 'Desarrollo acorde a necesidad o a medida',
+            'about-students-label': 'Estudiantes',
+            'about-students-desc': 'He dictado cursos/talleres de manejo de herramientas UI, talleres de investigación Research y planeación de ideas de productos.',
+            'focus-heading': 'Enfoque',
+            'focus-subtitle': 'Diseñador?',
+            'focus-p': 'Diseñador con experiencia en distintas áreas multimediales (branding, animación, diseño web, diseño de interactivos, maquetación web). Actualmente desempeñando roles de Product Designer y UX Strategist con más de 8 años de experiencia en el campo.',
+            'focus-li1': 'Investigo: voz de usuario, journeys, puntos de interacción, decisiones, tendencias encontrando la mejor opción para el <b>levantamiento de las necesidades de los posibles usuarios</b>, enfocando el producto a un target y objetivo específico.',
+            'focus-li2': 'Genero ideas innovadoras a través de la <b>necesidad de negocio</b>, enfocadas a mejora continua o lanzamiento de nuevos productos.',
+            'focus-li3': '<b>Itero en cada decisión tomada</b>, garantizando que el usuario obtenga un producto mínimo viable o servicio efectivo, y que su proceso dentro de este sea simple e intuitivo.',
+            'focus-li4': '<b>Esquematizo en wireframes y mockups interactivos</b> cada una de las pantallas o páginas en un diseño web con las que interactúa un usuario.',
+            'focus-li5': 'Estoy al tanto de <b>tendencias visuales</b> que potencialicen el diseño web.',
+            'focus-li6': 'Defino y organizo todos los <b>componentes que pueden hacer parte del Design System</b> (botones, acordeones, tooltips, carruseles, etc.) teniendo en cuenta la composición y jerarquías de información.',
+            'focus-li7': 'Garantizo la <b>integración y funcionalidad técnica frontend para el desarrollo</b>, adaptando el diseño de una web a diversos dispositivos y navegadores.',
+            'focus-li8': 'Proyectos <b>End to End</b> con integración de IA en flujos de trabajo.',
+            'skills-heading': 'Skills & Experiencia',
+            'skills-subheading': 'Skills',
+            'skill-1': 'Diseño de interfaz y prototipado',
+            'skill-2': 'Investigación y testeo',
+            'skill-3': 'Desarrollo Front (HTML, CSS, JS)',
+            'skill-4': 'Gestión y colaboración',
+            'skill-5': 'Growth / Marketing',
+            'skill-6': 'Diseño corporativo',
+            'tab-experience': 'Experiencia',
+            'tab-education': 'Educación',
+            'exp-1-title': 'Sr Product Designer / UX Strategist',
+            'exp-1-date': 'Mar 2023 - Presente',
+            'exp-1-company': 'CentroHub - Ecuador',
+            'exp-2-title': 'Product Designer',
+            'exp-2-date': 'Ene 2022 - Mar 2023',
+            'exp-2-company': 'AIRA Virtual - Chile',
+            'exp-3-title': 'Diseñador UX/UI & Interactivo',
+            'exp-3-date': 'Mar 2017 - Ene 2022',
+            'exp-3-company': 'Geostigma Media - Colombia',
+            'exp-4-title': 'Productor Multimedia',
+            'exp-4-date': 'Mar 2016 - Oct 2016',
+            'exp-4-company': 'Comfama - Colombia',
+            'edu-1-title': 'Product Management, Visión y Estrategia',
+            'edu-1-date': 'Mar 2026',
+            'edu-1-institution': 'Universidad de Palermo',
+            'edu-2-title': 'Introducción a Product Management',
+            'edu-2-date': 'Ene 2025',
+            'edu-2-institution': 'IBM · Online',
+            'edu-3-title': 'Diseño UX/UI',
+            'edu-3-date': 'Dic 2022',
+            'edu-3-institution': 'Coderhouse',
+            'edu-4-title': 'Diseño Gráfico',
+            'edu-4-date': '2017 - 2023',
+            'edu-4-institution': 'Universidad del Cauca',
+            'edu-5-title': 'Técnico en Producción Multimedia',
+            'edu-5-date': '2014 - 2016',
+            'edu-5-institution': 'SENA',
+            'projects-heading': 'Mis Proyectos',
+            'filter-all': 'Todos',
+            'filter-geo': 'Geostigma',
+            'filter-aira': 'AiraVirtual',
+            'filter-centro': 'CentroHub',
+            'filter-own': 'Propio',
+            'contact-heading': 'Trabajemos juntos en proyectos ganadores 🔥',
+            'contact-btn': '¡Saludame!',
+            'contact-location-label': 'Me ubico en:',
+            'contact-location': 'Medellín, Colombia',
+            'contact-phone-label': 'Escríbeme o llámame al:',
+            'contact-email-label': 'Mi mail:',
+            'contact-more-label': 'Más de mí en:',
+            'footer-rights': 'All Right Reserved.',
+            'spinner-loading': 'Cargando...',
+            // Projects lightbox
+            'project-aira-title': 'Aira Virtual',
+            'project-aira-desc': 'Trabajé como Product Designer, enfocado en la actualización del Design System, generación de nuevo contenido e implementación de funcionalidades y mejoras continuas. Lideré el equipo de diseño, realizando investigaciones exhaustivas y negociaciones con stakeholders para alinear los objetivos del proyecto. Responsable del control de calidad (QA) de las funcionalidades implementadas.',
+            'project-creuni-title': 'Creuni',
+            'project-creuni-desc': 'Proyecto personal para ayudar a estudiantes universitarios a crear perfiles profesionales y obtener experiencia laboral mientras estudian. El proyecto está en fase de prototipado, buscando facilitar la transición al mundo laboral a través de oportunidades reales que les permitan adquirir habilidades prácticas.',
+            'project-lectorami-title': 'LectorAmi - IntelectualPlus',
+            'project-lectorami-desc': 'Creación de plataforma educativa con enfoque en gamificación y juegos interactivos. Incluye el diseño completo de la plataforma y el desarrollo de un Design System para garantizar una experiencia de usuario coherente. Contenido de libros educativos integrado para aprendizaje de lectura y lectura rápida.',
+            'project-mundomujer-title': 'Educación Fundación Mundo Mujer',
+            'project-mundomujer-desc': 'Generación e ideación de cursos, talleres y actividades en Moodle con enfoque en educación financiera para menores de edad. Incluye videos interactivos y juegos con H5P para fomentar un aprendizaje dinámico y atractivo.',
+            'project-tifer-title': 'Tifer',
+            'project-tifer-desc': 'Generación de idea y desarrollo de aplicación especializada en servicios diarios de delivery. Cubre desde el moldeamiento de la idea inicial hasta la investigación de necesidades del usuario, creación de perfiles detallados, diseño y prototipado.',
+            'project-nequi-title': 'Auditoría UX Nequi',
+            'project-nequi-desc': 'Auditoría UX/UI de la primera aplicación de Nequi, incluyendo revisión detallada de accesibilidad y funcionalidad bancaria. Evaluación de procesos de transferencia y retiro en cajeros automáticos para asegurar una experiencia de usuario fluida.',
+            'project-coprocenva-title': 'Coprocenva',
+            'project-coprocenva-desc': 'Portal de Educación Financiera Coprocenva: diseño, prototipado y desarrollo de la base gráfica. Acompañamiento continuo para asegurar una implementación efectiva y adaptada a las necesidades de los usuarios.',
+            'project-prosemana-title': 'Junta Prosemanasanta',
+            'project-prosemana-desc': 'Portal Prosemana Santa: investigación de usuario, fotografía, guía de estilos y colorimetría para asegurar coherencia visual. Diseño y prototipado con enfoque en el desarrollo de una Progressive Web App (PWA) para una experiencia fluida en múltiples plataformas.',
+            'project-manati-title': 'Comercio - Manatí',
+            'project-manati-desc': 'Investigación exhaustiva de usuarios, generación de diseño y prototipado para desarrollo de e-commerce. Programación en WordPress, creando una plataforma intuitiva y adaptada a las necesidades del negocio.',
+            'project-sos-title': 'Salud EPS SOS',
+            'project-sos-desc': 'Creación del diseño, prototipado y desarrollo del portal web en WordPress con enfoque integral en Usuarios, Empresas y Proveedores. Acompañamiento continuo en todas las fases del desarrollo.',
+            'project-ita-title': 'Instituto ITA',
+            'project-ita-desc': 'Proceso integral de investigación, diseño y prototipado del portal web con enfoque educativo. Experiencia digital accesible y funcional diseñada para satisfacer las necesidades de estudiantes y docentes.',
+            'project-solidaria-title': 'Seguros Solidaria',
+            'project-solidaria-desc': 'Estructuración e implementación del portal para clientes e intermediarios. Investigación de usuario, categorización de personas, talleres de prueba y error, diseño del portal empresarial e implementación de plantillas en HTML, CSS y JavaScript.',
+            'project-mapfre-title': 'Seguros Mapfre',
+            'project-mapfre-desc': 'Investigación con el usuario, rediseño y estimación de flujos para productos digitales: cotizadores de pólizas (Vida, Autos, Exequias y SOAT), panel de administración e interfaz de catálogo comercial.',
+            'project-confiar-title': 'Confiar Banca',
+            'project-confiar-desc': 'Integración pionera de la funcionalidad Transfiya con enfoque innovador en usuarios menores de edad. Permite solicitar, enviar, aceptar y rechazar dinero de forma interbancaria de manera segura, promoviendo la inclusión financiera desde edades tempranas.',
+            'project-pechera-title': 'Pechera - Homecenter',
+            'project-pechera-desc': 'Diseño y acompañamiento para la creación y mejora continua de aplicación para optimizar tareas diarias de trabajadores. Facilita la organización de productos en tienda, gestión de pedidos en casilleros, reciclaje de materiales y abastecimiento de SKUs.'
+        },
+        en: {
+            'nav-home': 'Home',
+            'nav-about': 'About',
+            'nav-focus': 'Focus',
+            'nav-skills': 'Skills',
+            'nav-projects': 'Projects',
+            'nav-contact': 'Contact',
+            'hero-greeting': '👋Hi, I\'m',
+            'hero-btn': 'Download CV',
+            'hero-typed': 'Senior Product Designer,UX Strategist,AI-Integrated Design,UX Consultant,Front-End Developer',
+            'about-years-label': 'Years',
+            'about-heading': 'of experience leading digital products across multicultural environments',
+            'about-p1': 'Senior Product Designer with 8+ years of experience leading digital product design across multicultural environments (Colombia, Ecuador, Chile). Specialized in UX/UI strategy, design systems, and interactive prototyping across platforms. Currently integrating Artificial Intelligence methodologies into UX research, ideation, and product development workflows. 🔥',
+            'about-check1': 'Product creation support and accompaniment',
+            'about-check2': 'Knowledge in B2B, B2C, B2B2C products',
+            'about-check3': 'Custom and tailored development',
+            'about-students-label': 'Students',
+            'about-students-desc': 'I have taught UI tools courses/workshops, UX Research workshops, and product idea planning sessions.',
+            'focus-heading': 'Focus',
+            'focus-subtitle': 'Designer?',
+            'focus-p': 'Designer with experience across various multimedia areas (branding, animation, web design, interactive design, web development). Currently working as Product Designer and UX Strategist with 8+ years of field experience.',
+            'focus-li1': 'I research: user voice, journeys, interaction points, decisions, and trends to find the best approach for <b>understanding potential user needs</b>, focusing the product on a specific target and objective.',
+            'focus-li2': 'I generate innovative ideas driven by <b>business needs</b>, focused on continuous improvement or new product launches.',
+            'focus-li3': '<b>I iterate on every decision</b>, ensuring users get an effective MVP or service with a simple and intuitive process.',
+            'focus-li4': '<b>I wireframe and prototype interactively</b> every screen or page a user interacts with in a web design.',
+            'focus-li5': 'I stay updated on <b>visual trends</b> that enhance web design.',
+            'focus-li6': 'I define and organize all <b>Design System components</b> (buttons, accordions, tooltips, carousels, etc.) considering composition and information hierarchy.',
+            'focus-li7': 'I ensure <b>frontend technical integration for development</b>, adapting web designs to various devices and browsers.',
+            'focus-li8': '<b>End-to-End projects</b> with AI integration in workflows.',
+            'skills-heading': 'Skills & Experience',
+            'skills-subheading': 'Skills',
+            'skill-1': 'UI Design & Prototyping',
+            'skill-2': 'Research & Testing',
+            'skill-3': 'Front-End Development (HTML, CSS, JS)',
+            'skill-4': 'Management & Collaboration',
+            'skill-5': 'Growth / Marketing',
+            'skill-6': 'Corporate Design',
+            'tab-experience': 'Experience',
+            'tab-education': 'Education',
+            'exp-1-title': 'Sr Product Designer / UX Strategist',
+            'exp-1-date': 'Mar 2023 - Present',
+            'exp-1-company': 'CentroHub - Ecuador',
+            'exp-2-title': 'Product Designer',
+            'exp-2-date': 'Jan 2022 - Mar 2023',
+            'exp-2-company': 'AIRA Virtual - Chile',
+            'exp-3-title': 'UX/UI & Interactive Designer',
+            'exp-3-date': 'Mar 2017 - Jan 2022',
+            'exp-3-company': 'Geostigma Media - Colombia',
+            'exp-4-title': 'Multimedia Producer',
+            'exp-4-date': 'Mar 2016 - Oct 2016',
+            'exp-4-company': 'Comfama - Colombia',
+            'edu-1-title': 'Product Management, Vision & Strategy',
+            'edu-1-date': 'Mar 2026',
+            'edu-1-institution': 'Universidad de Palermo',
+            'edu-2-title': 'Introduction to Product Management',
+            'edu-2-date': 'Jan 2025',
+            'edu-2-institution': 'IBM · Online',
+            'edu-3-title': 'UX/UI Design',
+            'edu-3-date': 'Dec 2022',
+            'edu-3-institution': 'Coderhouse',
+            'edu-4-title': 'Graphic Design',
+            'edu-4-date': '2017 - 2023',
+            'edu-4-institution': 'Universidad del Cauca',
+            'edu-5-title': 'Multimedia Production Technician',
+            'edu-5-date': '2014 - 2016',
+            'edu-5-institution': 'SENA',
+            'projects-heading': 'My Projects',
+            'filter-all': 'All',
+            'filter-geo': 'Geostigma',
+            'filter-aira': 'AiraVirtual',
+            'filter-centro': 'CentroHub',
+            'filter-own': 'Own',
+            'contact-heading': 'Let\'s work together on winning projects 🔥',
+            'contact-btn': 'Say hi!',
+            'contact-location-label': 'I\'m located in:',
+            'contact-location': 'Medellín, Colombia',
+            'contact-phone-label': 'Write or call me at:',
+            'contact-email-label': 'My email:',
+            'contact-more-label': 'More about me:',
+            'footer-rights': 'All Right Reserved.',
+            'spinner-loading': 'Loading...',
+            // Projects lightbox
+            'project-aira-title': 'Aira Virtual',
+            'project-aira-desc': 'I worked as Product Designer, focusing on updating the Design System, generating new content, and implementing features and continuous improvements. I led the design team, conducting thorough research and stakeholder negotiations to align project objectives. Also responsible for quality assurance (QA) of implemented features.',
+            'project-creuni-title': 'Creuni',
+            'project-creuni-desc': 'Personal project aimed at helping university students create professional profiles and gain work experience while studying. Currently in the prototyping phase, seeking to ease the transition into the job market through real opportunities that help build practical skills and a professional network.',
+            'project-lectorami-title': 'LectorAmi - IntelectualPlus',
+            'project-lectorami-desc': 'Creation of an educational platform focused on gamification and interactive games. Includes the full platform design and a Design System for a consistent user experience. Educational book content integrated for reading and speed-reading learning.',
+            'project-mundomujer-title': 'Fundación Mundo Mujer Education',
+            'project-mundomujer-desc': 'Creation and design of courses, workshops, and activities through Moodle with a focus on financial education for minors. Includes interactive videos and games using H5P to foster dynamic and engaging learning.',
+            'project-tifer-title': 'Tifer',
+            'project-tifer-desc': 'Idea generation and development of a specialized app for daily delivery services. Covers the full process from initial concept to user research, detailed persona creation, design, and prototyping.',
+            'project-nequi-title': 'UX Audit – Nequi',
+            'project-nequi-desc': 'UX/UI audit of Nequi\'s first application, including a detailed review of accessibility compliance and banking functionality. Evaluation of transfer and ATM withdrawal processes to ensure a smooth user experience.',
+            'project-coprocenva-title': 'Coprocenva',
+            'project-coprocenva-desc': 'Financial Education Portal for Coprocenva: design, prototyping, and graphic base development. Continuous support to ensure effective implementation adapted to user needs.',
+            'project-prosemana-title': 'Junta Prosemanasanta',
+            'project-prosemana-desc': 'Prosemana Santa portal: user research, photography, style guide, and color palette. Design and prototyping focused on developing a Progressive Web App (PWA) for a smooth cross-platform experience.',
+            'project-manati-title': 'E-commerce – Manatí',
+            'project-manati-desc': 'Thorough user research, design, and prototyping for e-commerce development. WordPress programming creating an intuitive platform adapted to business needs.',
+            'project-sos-title': 'Salud EPS SOS',
+            'project-sos-desc': 'Design, prototyping, and development of the web portal in WordPress with a comprehensive focus on Users, Companies, and Providers. Continuous support through all development phases.',
+            'project-ita-title': 'Instituto ITA',
+            'project-ita-desc': 'Comprehensive research, design, and prototyping of the educational web portal. Accessible and functional digital experience designed for students and teachers.',
+            'project-solidaria-title': 'Seguros Solidaria',
+            'project-solidaria-desc': 'Implementation of the portal for clients and intermediaries. User research, persona categorization, trial-and-error workshops, enterprise portal design, and HTML/CSS/JavaScript template implementation.',
+            'project-mapfre-title': 'Seguros Mapfre',
+            'project-mapfre-desc': 'User research, redesign, and flow estimation for digital products: policy quoters (Life, Auto, Funeral, and SOAT), admin panel, and commercial catalog interface.',
+            'project-confiar-title': 'Confiar Banca',
+            'project-confiar-desc': 'Pioneer integration of the Transfiya functionality with an innovative focus on minor users. Allows secure interbank money requests, sends, accepts, and rejections — promoting financial inclusion from an early age.',
+            'project-pechera-title': 'Pechera – Homecenter',
+            'project-pechera-desc': 'Design and support for the creation and continuous improvement of an app to optimize workers\' daily tasks. Facilitates product organization in-store, locker order management, material recycling, and SKU restocking.'
+        }
+    };
+
+    // ─── PROJECT IMAGES ───────────────────────────────────────────────────────
+    var projectImages = {
+        'aira':       'img/project-10.jpg',
+        'creuni':     'img/project-15.jpg',
+        'lectorami':  'img/project-14.jpg',
+        'mundomujer': 'img/project-13.jpg',
+        'tifer':      'img/project-12.jpg',
+        'nequi':      'img/project-11.jpg',
+        'coprocenva': 'img/project-9.jpg',
+        'prosemana':  'img/project-8.jpg',
+        'manati':     'img/project-7.jpg',
+        'sos':        'img/project-6.jpg',
+        'ita':        'img/project-5.jpg',
+        'solidaria':  'img/project-1.jpg',
+        'mapfre':     'img/project-2.jpg',
+        'confiar':    'img/project-3.jpg',
+        'pechera':    'img/project-4.jpg'
+    };
+
+    // ─── STATE ────────────────────────────────────────────────────────────────
+    var currentLang = 'es';
+    var typedInstance = null;
+
+    // ─── APPLY TRANSLATIONS ───────────────────────────────────────────────────
+    function applyTranslations(lang) {
+        var t = translations[lang];
+        // textContent elements
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+            var key = el.getAttribute('data-i18n');
+            if (t[key] !== undefined) el.textContent = t[key];
+        });
+        // innerHTML elements (bold tags etc.)
+        document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+            var key = el.getAttribute('data-i18n-html');
+            if (t[key] !== undefined) el.innerHTML = t[key];
+        });
+        // lang attribute on <html>
+        document.documentElement.lang = lang;
+    }
+
+    // ─── TYPED.JS RE-INIT ─────────────────────────────────────────────────────
+    function reinitTyped(lang) {
+        var outputEl = document.querySelector('.typed-text-output');
+        var typedEl  = document.querySelector('.typed-text');
+        var strings  = (typedEl.getAttribute('data-typed-' + lang) || translations[lang]['hero-typed']).split(',');
+
+        // Destroy existing instance (main.js or previous toggle)
+        if (typedInstance) {
+            try { typedInstance.destroy(); } catch(e) {}
+        }
+        // Clean up any leftover cursors
+        document.querySelectorAll('.typed-cursor').forEach(function(c) { c.remove(); });
+        outputEl.innerHTML = '';
+
+        typedInstance = new Typed('.typed-text-output', {
+            strings:   strings,
+            typeSpeed:  100,
+            backSpeed:   20,
+            backDelay: 4000,
+            loop:      true
+        });
+    }
+
+    // ─── TOGGLE LANGUAGE ─────────────────────────────────────────────────────
+    function toggleLanguage() {
+        currentLang = currentLang === 'es' ? 'en' : 'es';
+        applyTranslations(currentLang);
+        reinitTyped(currentLang);
+        // Update button label & flag
+        if (currentLang === 'en') {
+            document.getElementById('langLabel').textContent = 'ES';
+            document.getElementById('langFlag').textContent  = '🇨🇴';
+        } else {
+            document.getElementById('langLabel').textContent = 'EN';
+            document.getElementById('langFlag').textContent  = '🇺🇸';
+        }
+    }
+
+    // ─── LIGHTBOX ─────────────────────────────────────────────────────────────
+    function openLightbox(key) {
+        var t    = translations[currentLang];
+        var img  = projectImages[key] || '';
+        var title = t['project-' + key + '-title'] || key;
+        var desc  = t['project-' + key + '-desc']  || '';
+        document.getElementById('lightboxImage').src          = img;
+        document.getElementById('lightboxTitle').textContent  = title;
+        document.getElementById('lightboxDescription').textContent = desc;
+        document.getElementById('lightbox').style.display    = 'flex';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+    }
+
+    // Close lightbox on outside click
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) closeLightbox();
+    });
+
+    // ─── INIT ─────────────────────────────────────────────────────────────────
+    // Override main.js typed init after page load
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            reinitTyped('es');
+        }, 600);
+    });
+    </script>
+
+</body>
 </html>

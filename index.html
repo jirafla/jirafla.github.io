@@ -105,10 +105,7 @@
                     <h3 class="text-primary mb-3" data-i18n="hero-greeting">👋Hola, soy</h3>
                     <h1 class="display-3 mb-3">Andrés Felipe Londoño</h1>
                     <h2 class="typed-text-output d-inline"></h2>
-                    <div class="typed-text d-none"
-                         data-typed-es="Senior Product Designer, UX Strategist, AI-Integrated Design, Consultor UX, Desarrollador Front"
-                         data-typed-en="Senior Product Designer, UX Strategist, AI-Integrated Design, UX Consultant, Front-End Developer">
-                    </div>
+                    <div class="typed-text d-none">Diseñador UX/UI, Product Designer, Consultor UX, Diseñador multimedia, Desarrollador Front</div>
                     <div class="d-flex align-items-center pt-5">
                         <a href="CV-Andres-Londono.pdf" target="_blank" class="btn btn-primary py-3 px-4 me-5" data-i18n="hero-btn">Descargar CV</a>
                     </div>
@@ -856,7 +853,6 @@
 
     // ─── STATE ────────────────────────────────────────────────────────────────
     var currentLang = 'en';
-    var typedInstance = null;
 
     // ─── APPLY TRANSLATIONS ───────────────────────────────────────────────────
     function applyTranslations(lang) {
@@ -875,34 +871,10 @@
         document.documentElement.lang = lang;
     }
 
-    // ─── TYPED.JS RE-INIT ─────────────────────────────────────────────────────
-    function reinitTyped(lang) {
-        var outputEl = document.querySelector('.typed-text-output');
-        var typedEl  = document.querySelector('.typed-text');
-        var strings  = (typedEl.getAttribute('data-typed-' + lang) || translations[lang]['hero-typed']).split(', ');
-
-        // Destroy existing instance (main.js or previous toggle)
-        if (typedInstance) {
-            try { typedInstance.destroy(); } catch(e) {}
-        }
-        // Clean up any leftover cursors
-        document.querySelectorAll('.typed-cursor').forEach(function(c) { c.remove(); });
-        outputEl.innerHTML = '';
-
-        typedInstance = new Typed('.typed-text-output', {
-            strings:   strings,
-            typeSpeed:  100,
-            backSpeed:   20,
-            backDelay: 4000,
-            loop:      true
-        });
-    }
-
     // ─── TOGGLE LANGUAGE ─────────────────────────────────────────────────────
     function toggleLanguage() {
         currentLang = currentLang === 'es' ? 'en' : 'es';
         applyTranslations(currentLang);
-        reinitTyped(currentLang);
         // Update button label & flag
         if (currentLang === 'en') {
             document.getElementById('langLabel').textContent = 'ES';
@@ -935,16 +907,8 @@
     });
 
     // ─── INIT ─────────────────────────────────────────────────────────────────
-    // Apply translations immediately when DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
         applyTranslations('en');
-    });
-
-    // Init typed.js after main.js has had a chance to run (and fail silently on empty div)
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            reinitTyped('en');
-        }, 200);
     });
     </script>
 

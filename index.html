@@ -106,9 +106,8 @@
                     <h1 class="display-3 mb-3">Andrés Felipe Londoño</h1>
                     <h2 class="typed-text-output d-inline"></h2>
                     <div class="typed-text d-none"
-                         data-typed-es="Senior Product Designer,UX Strategist,AI-Integrated Design,Consultor UX,Desarrollador Front"
-                         data-typed-en="Senior Product Designer,UX Strategist,AI-Integrated Design,UX Consultant,Front-End Developer">
-                        Senior Product Designer,UX Strategist,AI-Integrated Design,Consultor UX,Desarrollador Front
+                         data-typed-es="Senior Product Designer, UX Strategist, AI-Integrated Design, Consultor UX, Desarrollador Front"
+                         data-typed-en="Senior Product Designer, UX Strategist, AI-Integrated Design, UX Consultant, Front-End Developer">
                     </div>
                     <div class="d-flex align-items-center pt-5">
                         <a href="CV-Andres-Londono.pdf" target="_blank" class="btn btn-primary py-3 px-4 me-5" data-i18n="hero-btn">Descargar CV</a>
@@ -880,7 +879,7 @@
     function reinitTyped(lang) {
         var outputEl = document.querySelector('.typed-text-output');
         var typedEl  = document.querySelector('.typed-text');
-        var strings  = (typedEl.getAttribute('data-typed-' + lang) || translations[lang]['hero-typed']).split(',');
+        var strings  = (typedEl.getAttribute('data-typed-' + lang) || translations[lang]['hero-typed']).split(', ');
 
         // Destroy existing instance (main.js or previous toggle)
         if (typedInstance) {
@@ -936,12 +935,16 @@
     });
 
     // ─── INIT ─────────────────────────────────────────────────────────────────
-    // Override main.js typed init after page load
+    // Apply translations immediately when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        applyTranslations('en');
+    });
+
+    // Init typed.js after main.js has had a chance to run (and fail silently on empty div)
     window.addEventListener('load', function() {
         setTimeout(function() {
-            applyTranslations('en');
             reinitTyped('en');
-        }, 600);
+        }, 200);
     });
     </script>
 

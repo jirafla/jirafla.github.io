@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -89,7 +89,7 @@
                 <a href="#project" class="nav-item nav-link" data-i18n="nav-projects">Proyectos</a>
                 <a href="#contact" class="nav-item nav-link" data-i18n="nav-contact">Contacto</a>
                 <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">
-                    <span class="flag" id="langFlag">🇺🇸</span><span id="langLabel">EN</span>
+                    <span class="flag" id="langFlag">🇨🇴</span><span id="langLabel">ES</span>
                 </button>
             </div>
         </div>
@@ -856,7 +856,7 @@
     };
 
     // ─── STATE ────────────────────────────────────────────────────────────────
-    var currentLang = 'es';
+    var currentLang = 'en';
     var typedInstance = null;
 
     // ─── APPLY TRANSLATIONS ───────────────────────────────────────────────────
@@ -939,7 +939,8 @@
     // Override main.js typed init after page load
     window.addEventListener('load', function() {
         setTimeout(function() {
-            reinitTyped('es');
+            applyTranslations('en');
+            reinitTyped('en');
         }, 600);
     });
     </script>

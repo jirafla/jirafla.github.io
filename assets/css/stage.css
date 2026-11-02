@@ -14,6 +14,20 @@
   transform-style: preserve-3d;
 }
 
+/* En 3D, cada caja de la pila cuenta para el clic según su profundidad: al inclinarse, el
+   selector quedaba detrás del contenedor y Chrome le daba el clic al contenedor. Solo el
+   selector recibe el puntero; lo demás es decorativo. */
+.hero__stage-float,
+.hero__stage-inner,
+.stage-layer,
+.layer-chip {
+  pointer-events: none;
+}
+
+.picker {
+  pointer-events: auto;
+}
+
 .hero__stage-inner {
   /* --d multiplica la distancia entre capas; --ex/--ey/--es giran y alejan la pila al separarla */
   --d: 1;

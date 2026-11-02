@@ -12,7 +12,18 @@
     <meta property="og:url" content="https://jirafla.github.io/">
     <link rel="icon" href="img/favicon.ico">
 
-    <script>document.documentElement.classList.replace('no-js', 'js');</script>
+    <script>
+        // JS activo y, si se permite movimiento, el nombre del hero arranca "en edición" (los cursores lo terminan)
+        (function (root) {
+            root.classList.replace('no-js', 'js');
+            var off = false;
+            try { off = localStorage.getItem('jirafla-collab') === 'off'; } catch (e) {}
+            if (!off && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                root.classList.add('scene-hero');
+                setTimeout(function () { root.classList.remove('scene-hero'); }, 6000);
+            }
+        })(document.documentElement);
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +31,7 @@
     <link rel="stylesheet" href="assets/css/tokens.css">
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/multiplayer.css">
     <script type="module" src="assets/js/main.js"></script>
 </head>
 
@@ -44,6 +56,17 @@
             </ul>
         </nav>
         <div class="topbar__actions">
+            <!-- Quién está en el archivo -->
+            <div class="presence" aria-hidden="true">
+                <span style="--c: var(--cursor-andres)">A</span>
+                <span style="--c: var(--cursor-pm)">PM</span>
+                <span style="--c: var(--cursor-dev)">D</span>
+                <span style="--c: var(--cursor-ia)" data-i18n="mp-ia">IA</span>
+            </div>
+            <button class="btn btn--small collab-toggle" type="button" id="collab-toggle" aria-pressed="false" aria-label="Pausar colaboradores">
+                <svg class="collab-toggle__pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                <svg class="collab-toggle__play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5Z"/></svg>
+            </button>
             <button class="btn btn--small lang-toggle" type="button" id="lang-toggle" aria-label="Switch to English" data-i18n-attr="aria-label:lang-switch-label">
                 <span data-i18n="lang-switch">EN</span>
             </button>
@@ -65,7 +88,7 @@
             <div class="frame__body hero">
                 <div class="hero__text">
                     <p class="hero__greeting" data-i18n="hero-greeting">👋Hola, soy</p>
-                    <h1 class="hero__name" id="hero-title">Andrés Felipe <span class="hero__surname">Londoño</span></h1>
+                    <h1 class="hero__name" id="hero-title"><span>Andrés</span> <span>Felipe</span> <span>Londoño</span></h1>
                     <p class="hero__role" data-i18n="hero-role">Senior Product Designer &amp; UX Strategist</p>
                     <p class="hero__intro" data-i18n="hero-intro">Diseño productos digitales con estrategia, research e IA: banca, movilidad, educación y servicio al cliente en Colombia, Ecuador y Chile.</p>
                     <div class="hero__actions">
@@ -80,14 +103,30 @@
                         <span data-i18n="contact-location">Medellín, Colombia</span>
                     </p>
                 </div>
-                <figure class="hero__portrait">
-                    <img src="assets/img/retrato-560.webp"
-                         srcset="assets/img/retrato-560.webp 560w, assets/img/retrato-1100.webp 1100w"
-                         sizes="(min-width: 1024px) 460px, 86vw"
-                         width="1100" height="1391"
-                         alt="Andrés Felipe Londoño sonriendo, con saco morado, junto a un selector de color"
-                         data-i18n-attr="alt:hero-portrait-alt"
-                         fetchpriority="high">
+                <figure class="hero__portrait hero__stage">
+                    <div class="hero__stage-inner">
+                        <img src="assets/img/retrato-560.webp"
+                             srcset="assets/img/retrato-560.webp 560w, assets/img/retrato-1100.webp 1100w"
+                             sizes="(min-width: 1024px) 460px, 86vw"
+                             width="1100" height="1391"
+                             alt="Andrés Felipe Londoño sonriendo, con saco morado, junto a un selector de color"
+                             data-i18n-attr="alt:hero-portrait-alt"
+                             fetchpriority="high">
+                        <!-- Capas flotantes del archivo (decorativas) -->
+                        <div class="layer-chip layer-chip--swatch" aria-hidden="true">
+                            <span class="layer-chip__swatch"></span>
+                            <span>Brand / Primary</span>
+                            <b>#3F058A</b>
+                        </div>
+                        <div class="layer-chip layer-chip--component" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 21 12l-9 9-9-9Z"/></svg>
+                            <span>Senior / Product Designer</span>
+                        </div>
+                        <div class="layer-chip layer-chip--layout" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                            <span>Auto layout · 24</span>
+                        </div>
+                    </div>
                 </figure>
             </div>
         </section>

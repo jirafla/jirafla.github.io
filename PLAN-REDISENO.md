@@ -256,7 +256,7 @@ scripts/optimize-images.py
 | **F2 · Chrome de Figma** | Barra superior, panel de capas / barra inferior, frames con etiqueta, lienzo con puntos, hojas inferiores | Navegación con teclado y táctil |
 | 🔎 **Revisión contigo** | Vista previa en móvil y desktop | Tu visto bueno a estructura y estética |
 | **F3 · Secciones** | Hero, sobre mí, flujo de enfoque, sliders, historial, proyectos (filtros + detalle), contacto | Cada sección en los 4 breakpoints |
-| **F4 · Punteros colaborativos** | Motor + guiones por sección, cursor "Tú", pausa, *reduced motion* | Sin CLS, 60 fps en móvil emulado |
+| **F4 · Punteros colaborativos** ✅ (adelantada a pedido) | Motor (`assets/js/cursors.js`) + guiones por sección (`assets/js/scenes.js`), cursor "Tú" / ping táctil, presencia y pausa, *reduced motion*. Hero con nombre que se estira en vivo y capas 3D que siguen el mouse | Probado a 390 y 1440 px; sin desborde horizontal |
 | 🔎 **Revisión contigo** | La coreografía completa | Ajustes de ritmo y personalidad |
 | **F5 · 3D** | Hero en vista explotada, color picker vivo, inclinación de tarjetas, transición a detalle | Fluidez en gama media; fallback sin 3D |
 | **F6 · QA** | Dispositivos, Safari iOS, ES/EN, accesibilidad, Lighthouse | Metas de la sección 7 cumplidas |

@@ -320,7 +320,20 @@ const additions = {
         'contact-now': 'ahora',
         'contact-reply': 'Responder a Andrés…',
         'contact-email-btn': 'Escribir un correo',
-        'footer-note': 'Diseñado y construido por Andrés en un archivo que nunca se cierra.'
+        'footer-note': 'Diseñado y construido por Andrés en un archivo que nunca se cierra.',
+        'mp-you': 'Tú',
+        'mp-andres': 'Andrés',
+        'mp-pm': 'PM',
+        'mp-dev': 'Dev',
+        'mp-ia': 'IA',
+        'mp-c-hero': '¡Este perfil encaja! ¿Agendamos? 🙌',
+        'mp-c-about': 'B2B, B2C y B2B2C, revisado ✅',
+        'mp-c-focus': 'Flujo conectado de punta a punta ✨',
+        'mp-c-skills': 'Front al 80 %: nos vamos a entender 🤝',
+        'mp-c-projects': 'Este caso me encanta 👌',
+        'mp-c-contact': '¡Hola Andrés! Vi tu portfolio y me gustaría hablar…',
+        'collab-pause': 'Pausar colaboradores',
+        'collab-play': 'Ver colaboradores trabajando'
     },
     en: {
         'skip-link': 'Skip to content',
@@ -352,7 +365,20 @@ const additions = {
         'contact-now': 'now',
         'contact-reply': 'Reply to Andrés…',
         'contact-email-btn': 'Send an email',
-        'footer-note': 'Designed and built by Andrés in a file that never closes.'
+        'footer-note': 'Designed and built by Andrés in a file that never closes.',
+        'mp-you': 'You',
+        'mp-andres': 'Andrés',
+        'mp-pm': 'PM',
+        'mp-dev': 'Dev',
+        'mp-ia': 'AI',
+        'mp-c-hero': 'This profile fits! Shall we schedule? 🙌',
+        'mp-c-about': 'B2B, B2C and B2B2C, checked ✅',
+        'mp-c-focus': 'Flow connected end to end ✨',
+        'mp-c-skills': '80% front-end: we will get along 🤝',
+        'mp-c-projects': 'Love this case 👌',
+        'mp-c-contact': 'Hi Andrés! I saw your portfolio and would love to talk…',
+        'collab-pause': 'Pause collaborators',
+        'collab-play': 'Show collaborators at work'
     }
 };
 

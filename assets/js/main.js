@@ -1,4 +1,5 @@
 import { translations } from './i18n.js';
+import { heroDepth, startCollaboration, visitorCursor } from './scenes.js';
 
 const LANG_KEY = 'jirafla-lang';
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -6,6 +7,8 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
 // ─── Idioma ──────────────────────────────────────────────────────────────────
 let lang = 'es';
+let collab = null;
+let you = null;
 
 function storedLang() {
     try {
@@ -51,6 +54,8 @@ function applyTranslations(next) {
         });
     });
     if (sheet.open) fillSheet(visibleProjects()[current]);
+    collab?.relabel();
+    you?.relabel();
 }
 
 $('#lang-toggle').addEventListener('click', () => {
@@ -113,6 +118,7 @@ function openSheet(project) {
         sheet.showModal();
         document.documentElement.classList.add('sheet-open');
         history.pushState({ sheet: true }, '');
+        collab?.suspend();
     }
     $('.sheet__inner', sheet).scrollTop = 0;
 }
@@ -144,6 +150,7 @@ sheet.addEventListener('click', (event) => {
 sheet.addEventListener('close', () => {
     document.documentElement.classList.remove('sheet-open');
     if (history.state?.sheet) history.back();
+    collab?.resume();
 });
 
 // Botón "Atrás" del teléfono: cierra la hoja en vez de salir del sitio
@@ -192,3 +199,8 @@ const spy = new IntersectionObserver(
 $$('main > .frame').forEach((frame) => spy.observe(frame));
 
 if (preferredLang() !== 'es') applyTranslations(preferredLang());
+
+// ─── El archivo cobra vida: colaboradores, cursor propio y profundidad ───────
+collab = startCollaboration({ t });
+you = visitorCursor({ t });
+heroDepth();

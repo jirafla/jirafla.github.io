@@ -64,7 +64,7 @@
 .hero__portrait {
   justify-self: center;
   width: min(100%, 420px);
-  /* Arriba queda el botón "Capas en 3D"; abajo, el retrato toca el borde del frame */
+  /* Arriba queda el botón "Vista 3D"; abajo, el retrato toca el borde del frame */
   margin-top: var(--space-7);
   margin-bottom: calc(-1 * var(--frame-pad));
 }
@@ -178,13 +178,15 @@
   grid-column: 1;
 }
 
+/* El título va a todo el ancho; debajo, la nota "¿Diseñador?" junto a la jirafa, como si ella la dijera */
+.focus__intro > .section-title,
 .focus__intro > .prose {
   grid-column: 1 / -1;
 }
 
 .focus__question {
   justify-self: start;
-  align-self: start;
+  align-self: center;
   padding: var(--space-1) var(--space-3);
   background: var(--amber);
   color: var(--on-brand);
@@ -197,7 +199,7 @@
 
 .focus__giraffe {
   grid-column: 2;
-  grid-row: 1 / span 2;
+  grid-row: 2;
   align-self: end;
   width: clamp(88px, 24vw, 170px);
 }

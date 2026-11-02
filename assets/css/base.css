@@ -351,63 +351,46 @@ mark {
   }
 }
 
-/* ─── Barra inferior (móvil y tablet) ─────────────────────────────────────── */
-.toolbar {
+/* ─── Botón flotante de capas (móvil y tablet) ───────────────────────────── */
+/* La navegación vive en las capas, como en Figma: un solo botón al alcance del pulgar */
+.layers-fab {
   position: fixed;
-  left: 50%;
-  bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+  right: calc(var(--space-4) + env(safe-area-inset-right));
+  bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
   z-index: var(--z-chrome);
-  translate: -50% 0;
-  width: min(100% - 2 * var(--space-4), 420px);
-  padding: var(--space-1);
-  background: var(--frame-raised);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-4);
-  box-shadow: 0 12px 32px -12px oklch(0 0 0 / 0.7);
-}
-
-.toolbar ul {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  padding: 0;
-  list-style: none;
-}
-
-.toolbar a,
-.toolbar button {
-  display: grid;
-  width: 100%;
-  border: 0;
-  background: none;
-  justify-items: center;
-  gap: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   min-height: 52px;
-  padding: var(--space-2) 0 var(--space-1);
-  border-radius: var(--radius-3);
-  color: var(--ink-3);
-  font-size: 0.6875rem;
-  line-height: 1.2;
-  text-decoration: none;
-  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  padding: 0 var(--space-5) 0 var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--frame-raised);
+  box-shadow: 0 12px 32px -12px oklch(0 0 0 / 0.7);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
-.toolbar button {
-  font-family: inherit;
-}
-
-.toolbar svg {
+.layers-fab svg {
   width: 20px;
   height: 20px;
+  color: var(--brand);
 }
 
-.toolbar a[aria-current="true"] {
-  background: var(--select-wash);
-  color: var(--ink);
+.layers-fab:hover {
+  border-color: var(--ink-3);
 }
 
-/* Desde 1200 px la navegación vive en el panel de capas (o arriba, si se ocultan los paneles) */
+.layers-fab:active {
+  transform: translateY(1px);
+}
+
+/* Desde 1200 px las capas están siempre a la vista en el panel izquierdo */
 @media (min-width: 1200px) {
-  .toolbar {
+  .layers-fab {
     display: none;
   }
 }

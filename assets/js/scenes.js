@@ -500,7 +500,7 @@ export function visitorCursor({ t }) {
     if (!matchMedia('(pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) {
         // En táctil: un "ping" con tu nombre donde tocas el lienzo
         document.addEventListener('pointerdown', (event) => {
-            if (event.pointerType !== 'touch' || event.target.closest('a, button, dialog, .toolbar, .topbar')) return;
+            if (event.pointerType !== 'touch' || event.target.closest('a, button, dialog, .layers-fab, .topbar')) return;
             const ping = document.createElement('div');
             ping.className = 'mp-ping';
             ping.style.translate = `${event.pageX}px ${event.pageY}px`;

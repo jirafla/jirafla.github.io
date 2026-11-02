@@ -14,9 +14,9 @@ OUT = ROOT / "assets" / "img"
 
 # nombre de origen -> (nombre de salida, anchos)
 JOBS = {
-    "profile.png": ("retrato", (560, 1100)),
-    "team-1.png": ("jirafa", (360, 550)),
-    "about-1.jpg": ("taller", (480, 930)),
+    "profile.png": ("retrato", (560, 800, 1100)),
+    "team-1.png": ("jirafa", (96, 200, 360, 550)),
+    "about-1.jpg": ("taller", (480, 640, 930)),
     "logo.png": ("logo", (188,)),
 }
 for n in [*range(1, 16), *range(18, 26)]:  # 16 y 17 no se usan en el sitio
@@ -134,6 +134,33 @@ def portrait_layer(im):
     return Image.fromarray(a.round().astype(np.uint8), "RGBA")
 
 
+def favicons():
+    """Íconos sobre un cuadro morado de marca: la "J" del logotipo para la pestaña (a 32 px la
+    jirafa se vuelve una mancha) y la jirafa de línea para la pantalla de inicio."""
+    from PIL import ImageDraw, ImageFilter
+
+    logo = Image.open(SRC / "logo.png").convert("RGBA")
+    giraffe = logo.crop((4, 6, 68, 91))
+    ImageDraw.Draw(giraffe).rectangle((44, 34, 64, 85), fill=(0, 0, 0, 0))  # quita la "J" que se cruza
+    letter = logo.crop((48, 36, 70, 80))
+    for size, name, mark_src, height, thicken in (
+        (32, "favicon-32.png", letter, 0.64, 3),
+        (180, "apple-touch-icon.png", giraffe, 0.78, 1),
+    ):
+        scale = 8
+        big = size * scale
+        tile = Image.new("RGBA", (big, big), (0, 0, 0, 0))
+        ImageDraw.Draw(tile).rounded_rectangle((0, 0, big - 1, big - 1), radius=big // 5, fill=(63, 5, 138, 255))
+        mark_h = round(big * height)
+        mark = mark_src.resize((round(mark_src.width * mark_h / mark_src.height), mark_h), Image.LANCZOS)
+        # En tamaños chicos el trazo fino se pierde: se engrosa antes de reducir
+        alpha = mark.split()[3].filter(ImageFilter.MaxFilter(scale * thicken | 1))
+        white = Image.new("RGBA", mark.size, (255, 255, 255, 255))
+        white.putalpha(alpha)
+        tile.alpha_composite(white, ((big - mark.width) // 2, (big - mark_h) // 2))
+        tile.resize((size, size), Image.LANCZOS).save(OUT / name, optimize=True)
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     before = after = 0
@@ -156,6 +183,7 @@ def main():
                 dest = OUT / f"{out_stem}-{w}.webp"
                 image.resize((w, h), Image.LANCZOS).save(dest, "WEBP", quality=80, method=6)
                 after += dest.stat().st_size
+    favicons()
     print(f"img/ original: {before / 1e6:.1f} MB -> assets/img/: {after / 1e6:.2f} MB")
 
 

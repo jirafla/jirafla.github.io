@@ -161,7 +161,7 @@ Cada frame lleva su etiqueta arriba a la izquierda, como en Figma (`Hero / Deskt
 1. **Hero en vista explotada:** 5–6 capas (cuadrícula del frame · círculo + selección · retrato · color picker · nombre · badges).
    - Desktop: paralaje con el mouse, y la pila se aplana al hacer scroll.
    - Móvil: 3 capas con menos profundidad. Usa el giroscopio si el usuario toca "Activar 3D" (iOS pide permiso); si no, hace una órbita lenta automática.
-   - *Hecho en F5:* sin giroscopio (pedía permiso en iOS y mueve el retrato mientras se lee). En táctil, la pila flota sola y se queda quieta al tocar el selector; el botón "Capas en 3D" separa las capas en cualquier pantalla.
+   - *Hecho en F5:* sin giroscopio (pedía permiso en iOS y mueve el retrato mientras se lee). En táctil, la pila flota sola y se queda quieta al tocar el selector; el botón "Vista 3D" separa las capas en cualquier pantalla.
 2. **Tarjetas de proyecto:** inclinación en hover (desktop). En móvil, una rotación sutil ligada al scroll del carrusel.
 3. **Transición tarjeta → detalle:** "zoom al frame" con View Transitions API, con *fallback* de fade.
 
@@ -194,7 +194,7 @@ TELÉFONO 390×844                       DETALLE DE PROYECTO (hoja)
 └──────────────────────────────┘
 ```
 
-- **Barra superior fija de 52 px** con `env(safe-area-inset-*)`. **Barra inferior flotante de 56 px** con 5 destinos. "Capas" abre el árbol completo en una hoja inferior.
+- **Barra superior fija de 52 px** con `env(safe-area-inset-*)`. ~~Barra inferior flotante de 56 px con 5 destinos.~~ **Decidido en F6:** un solo botón flotante "Capas" abajo a la derecha (hasta 1200 px), que abre el árbol completo en una hoja inferior: la navegación vive en las capas, como en Figma.
 - **Frames a ancho completo** con margen lateral de 16 px. La etiqueta del frame queda fija mientras se recorre la sección.
 - **Proyectos:**
   - Filtros como chips con scroll horizontal (`scroll-snap`).
@@ -259,8 +259,8 @@ scripts/optimize-images.py
 | **F3 · Secciones** ✅ | Enfoque con pasos nombrados (01–08) como formas de FigJam · caso principal a toda la fila + etiquetas de industria y método en los 6 destacados · filtros que reacomodan con FLIP · detalle con contador, etiquetas, flechas del teclado y la imagen que viaja desde la tarjeta · copiar correo y teléfono con aviso · historial con transición · hero en dos columnas desde 768 px | Probado a 390, 768 y 1440 px |
 | **F4 · Punteros colaborativos** ✅ (adelantada a pedido) | Motor (`assets/js/cursors.js`) + guiones por sección (`assets/js/scenes.js`), cursor "Tú" / ping táctil, presencia y pausa, *reduced motion*. Hero con nombre que se estira en vivo y capas 3D que siguen el mouse | Probado a 390 y 1440 px; sin desborde horizontal |
 | 🔎 **Revisión contigo** | La coreografía completa | Ajustes de ritmo y personalidad |
-| **F5 · 3D** ✅ | Retrato separado en capas reales (`retrato-capa`, generado por `scripts/optimize-images.py`): retícula, elipse, selección, foto + selector, chips, con profundidad compensada para que de frente se vea igual que la foto · llega en vista explotada y se aplana cuando Dev termina el nombre · botón "Capas en 3D" (también con movimiento reducido, sin transición) · **selector de color real**: brillo/saturación, tono, hex, 5 muestras, contraste en vivo; cambia el acento de todo el sitio y nunca baja del contraste original (AAA); dura la visita (`sessionStorage`) · Andrés prueba el ámbar y lo devuelve, e invita a probarlo (no toca el color si el visitante ya eligió uno) · selector compacto cuando el retrato mide menos de 300 px · nombre del hero medido contra el frame (`cqi`) · inspector desde 1440 px · inclinación sutil de los destacados · el lienzo ya no se ensancha durante los filtros | Probado a 375, 905, 1280 y 1440 px, ES/EN, teclado. Pendiente: movimiento reducido real y Safari iOS (F6) |
-| **F6 · QA** | Dispositivos, Safari iOS, ES/EN, accesibilidad, Lighthouse | Metas de la sección 7 cumplidas |
+| **F5 · 3D** ✅ | Retrato separado en capas reales (`retrato-capa`, generado por `scripts/optimize-images.py`): retícula, elipse, selección, foto + selector, chips, con profundidad compensada para que de frente se vea igual que la foto · llega en vista explotada y se aplana cuando Dev termina el nombre · botón "Vista 3D" (también con movimiento reducido, sin transición) · **selector de color real**: brillo/saturación, tono, hex, 5 muestras, contraste en vivo; cambia el acento de todo el sitio y nunca baja del contraste original (AAA); dura la visita (`sessionStorage`) · Andrés prueba el ámbar y lo devuelve, e invita a probarlo (no toca el color si el visitante ya eligió uno) · selector compacto cuando el retrato mide menos de 300 px · nombre del hero medido contra el frame (`cqi`) · inspector desde 1440 px · inclinación sutil de los destacados · el lienzo ya no se ensancha durante los filtros | Probado a 375, 905, 1280 y 1440 px, ES/EN, teclado. Pendiente: movimiento reducido real y Safari iOS (F6) |
+| **F6 · QA** ✅ (salvo Safari iOS) | Móvil con un solo botón flotante "Capas" · Lighthouse con servidor tipo GitHub Pages (gzip + caché): **escritorio 98 / 100 / 100 / 100**, **móvil 85–90 / 100 / 100 / 100** (rendimiento / accesibilidad / buenas prácticas / SEO) · favicon propio (no existía: daba 404) · imágenes intermedias (retrato 800, jirafa 96/200, taller 640) · botón de idioma con el texto visible en su nombre accesible · objetivos táctiles del selector de 24 px · texto mínimo de 11 px en el selector · título de Enfoque sin desborde · foco visible y en orden en todo el recorrido con teclado · 225 claves de texto completas en ES y EN · movimiento reducido verificado con Chrome sin interfaz (sin colaboradores, pila plana, sin transiciones ni scroll suave) · "Vista 3D" con ícono de cubo para no confundirse con "Capas" | Pendiente: Safari iOS en un iPhone real; el rendimiento móvil depende sobre todo de la hoja de Google Fonts (ver decisión 7) |
 | **F7 · Lanzamiento** | Corrección de `sw.js`, imagen OG, borrar `index-anterior.html`, merge a `page` y verificación en vivo | Sitio publicado; la app de inglés sigue funcionando |
 | *Extra* | Modo exploración con Three.js (opcional) | Solo desktop, carga diferida |
 
@@ -274,6 +274,7 @@ scripts/optimize-images.py
 4. **Skills en %:** ¿se mantienen como valores de slider o pasan a niveles (Experto / Avanzado…)?
 5. **Tipografía:** propongo *Archivo* como única familia (con sus ejes variables como parte del show). ¿Te gusta, o tienes una fuente de marca que quieras mantener?
 6. **Modo exploración con Three.js:** ¿lo incluimos como fase extra?
+7. **Fuente Archivo alojada en el sitio:** hoy la hoja de Google Fonts bloquea la primera pintura en móvil (~0,9 s simulados). Alojar el archivo `.woff2` (licencia OFL, unos 90 KB) en `assets/fonts/` con `preload` la quita del camino crítico y evita pedir datos a Google. Requiere descargar ese archivo.
 
 ---
 

@@ -291,7 +291,7 @@ $$('.copy-btn').forEach((button) => {
 });
 
 // ─── Sección actual en la navegación ─────────────────────────────────────────
-const navLinks = $$('.topbar__nav a, .toolbar a, .layers .layer--frame');
+const navLinks = $$('.topbar__nav a, .layers .layer--frame');
 const spy = new IntersectionObserver(
     (entries) => {
         entries.forEach((entry) => {

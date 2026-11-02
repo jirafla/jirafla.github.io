@@ -10,7 +10,7 @@ export function heroDepth() {
     const stage = $('.hero__stage');
     if (!hero || !stage) return;
 
-    // "Capas en 3D": separa la pila (también con movimiento reducido, solo que sin transición)
+    // "Vista 3D": separa la pila (también con movimiento reducido, solo que sin transición)
     const toggle = $('.stage-toggle', stage);
     toggle.addEventListener('click', () => {
         const exploded = !stage.classList.contains('is-exploded');

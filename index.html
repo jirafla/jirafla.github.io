@@ -10,7 +10,8 @@
     <meta property="og:title" content="Jirafla · Andrés Felipe Londoño">
     <meta property="og:description" content="Senior Product Designer & UX Strategist. Portfolio con 23 proyectos de banca, movilidad, educación e IA.">
     <meta property="og:url" content="https://jirafla.github.io/">
-    <link rel="icon" href="img/favicon.ico">
+    <link rel="icon" href="assets/img/favicon-32.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
     <script>
         // JS activo y, si se permite movimiento, el nombre del hero arranca "en edición" (los cursores lo terminan)
@@ -84,7 +85,7 @@
                 <svg class="collab-toggle__pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
                 <svg class="collab-toggle__play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5Z"/></svg>
             </button>
-            <button class="btn btn--small lang-toggle" type="button" id="lang-toggle" aria-label="Switch to English" data-i18n-attr="aria-label:lang-switch-label">
+            <button class="btn btn--small lang-toggle" type="button" id="lang-toggle" aria-label="EN · Ver en inglés" data-i18n-attr="aria-label:lang-switch-label">
                 <span data-i18n="lang-switch">EN</span>
             </button>
             <a class="btn btn--small btn--primary topbar__cv" href="CV-Andres-Londono.pdf" target="_blank" rel="noopener">
@@ -224,6 +225,10 @@
                     </p>
                 </div>
                 <figure class="hero__portrait hero__stage" id="retrato">
+                    <button class="stage-toggle" type="button" aria-pressed="false">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg>
+                        <span data-i18n="stage-toggle">Vista 3D</span>
+                    </button>
                     <div class="hero__stage-float">
                         <div class="hero__stage-inner">
                             <!-- Capas del retrato, de atrás hacia adelante. En 3D se separan en profundidad (--z) -->
@@ -239,8 +244,8 @@
                             </div>
                             <div class="stage-layer stage-layer--photo">
                                 <img src="assets/img/retrato-capa-560.webp"
-                                     srcset="assets/img/retrato-capa-560.webp 560w, assets/img/retrato-capa-1100.webp 1100w"
-                                     sizes="(min-width: 768px) 420px, 86vw"
+                                     srcset="assets/img/retrato-capa-560.webp 560w, assets/img/retrato-capa-800.webp 800w, assets/img/retrato-capa-1100.webp 1100w"
+                                     sizes="(min-width: 768px) 420px, 80vw"
                                      width="1100" height="1391"
                                      alt="Andrés Felipe Londoño sonriendo, con saco morado, junto a un círculo y un selector de color"
                                      data-i18n-attr="alt:hero-portrait-alt"
@@ -265,11 +270,11 @@
                                                aria-label="Código hexadecimal" data-i18n-attr="aria-label:picker-hex">
                                     </label>
                                     <div class="picker__swatches">
-                                        <button type="button" data-color="#7931D7" style="background: #7931D7" aria-label="Morado original" data-i18n-attr="aria-label:picker-sw-original"></button>
-                                        <button type="button" data-color="#FFC448" style="background: #FFC448" aria-label="Ámbar Jirafla" data-i18n-attr="aria-label:picker-sw-amber"></button>
-                                        <button type="button" data-color="#F2675A" style="background: #F2675A" aria-label="Coral" data-i18n-attr="aria-label:picker-sw-coral"></button>
-                                        <button type="button" data-color="#1FB5A3" style="background: #1FB5A3" aria-label="Turquesa" data-i18n-attr="aria-label:picker-sw-teal"></button>
-                                        <button type="button" data-color="#3D7BFA" style="background: #3D7BFA" aria-label="Azul" data-i18n-attr="aria-label:picker-sw-blue"></button>
+                                        <button type="button" data-color="#7931D7" style="background-color: #7931D7" aria-label="Morado original" data-i18n-attr="aria-label:picker-sw-original"></button>
+                                        <button type="button" data-color="#FFC448" style="background-color: #FFC448" aria-label="Ámbar Jirafla" data-i18n-attr="aria-label:picker-sw-amber"></button>
+                                        <button type="button" data-color="#F2675A" style="background-color: #F2675A" aria-label="Coral" data-i18n-attr="aria-label:picker-sw-coral"></button>
+                                        <button type="button" data-color="#1FB5A3" style="background-color: #1FB5A3" aria-label="Turquesa" data-i18n-attr="aria-label:picker-sw-teal"></button>
+                                        <button type="button" data-color="#3D7BFA" style="background-color: #3D7BFA" aria-label="Azul" data-i18n-attr="aria-label:picker-sw-blue"></button>
                                     </div>
                                 </div>
                             </div>
@@ -289,10 +294,6 @@
                             </div>
                         </div>
                     </div>
-                    <button class="stage-toggle" type="button" aria-pressed="false">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg>
-                        <span data-i18n="stage-toggle">Capas en 3D</span>
-                    </button>
                 </figure>
             </div>
         </section>
@@ -316,8 +317,8 @@
                 </div>
                 <figure class="about__teach" id="taller">
                     <img src="assets/img/taller-480.webp"
-                         srcset="assets/img/taller-480.webp 480w, assets/img/taller-930.webp 930w"
-                         sizes="(min-width: 1024px) 560px, 92vw"
+                         srcset="assets/img/taller-480.webp 480w, assets/img/taller-640.webp 640w, assets/img/taller-930.webp 930w"
+                         sizes="(min-width: 1024px) 560px, 80vw"
                          width="930" height="400" loading="lazy"
                          alt="Andrés presentando Creuni frente a un auditorio"
                          data-i18n-attr="alt:about-photo-alt">
@@ -339,8 +340,8 @@
                     <p class="focus__question" data-i18n="focus-subtitle">¿Diseñador?</p>
                     <p class="prose" data-i18n="focus-p">Diseñador con experiencia en distintas áreas multimediales (branding, animación, diseño web, diseño de interactivos, maquetación web). Actualmente desempeñando roles de Product Designer y UX Strategist con más de 8 años de experiencia en el campo.</p>
                     <img class="focus__giraffe" src="assets/img/jirafa-360.webp"
-                         srcset="assets/img/jirafa-360.webp 360w, assets/img/jirafa-550.webp 550w"
-                         sizes="(min-width: 1024px) 260px, 200px"
+                         srcset="assets/img/jirafa-200.webp 200w, assets/img/jirafa-360.webp 360w, assets/img/jirafa-550.webp 550w"
+                         sizes="clamp(88px, 24vw, 170px)"
                          width="550" height="885" loading="lazy"
                          alt="Jirafla: ilustración de una jirafa con camisa morada que gira un balón en un dedo"
                          data-i18n-attr="alt:focus-giraffe-alt">
@@ -710,7 +711,7 @@
             <div class="frame__body contact">
                 <article class="thread">
                     <div class="comment">
-                        <img class="comment__avatar" src="assets/img/jirafa-360.webp" width="360" height="579" alt="" loading="lazy">
+                        <img class="comment__avatar" src="assets/img/jirafa-96.webp" srcset="assets/img/jirafa-96.webp 96w, assets/img/jirafa-200.webp 200w" sizes="48px" width="96" height="154" alt="" loading="lazy">
                         <div class="comment__body">
                             <p class="comment__meta"><b>Andrés Felipe Londoño</b> <span data-i18n="contact-now">ahora</span></p>
                             <h2 class="comment__text" id="contact-title" data-i18n="contact-heading">Trabajemos juntos en proyectos ganadores 🔥</h2>
@@ -763,28 +764,11 @@
     </footer>
 
     <!-- Barra inferior (móvil y tablet) -->
-    <nav class="toolbar" aria-label="Secciones" data-i18n-attr="aria-label:nav-label">
-        <ul>
-            <li><a href="#inicio">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20h-5v-6H9v6H4Z"/></svg>
-                <span data-i18n="nav-home">Inicio</span></a></li>
-            <li><a href="#sobre-mi">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
-                <span data-i18n="nav-about">Sobre mí</span></a></li>
-            <li><a href="#skills">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
-                <span data-i18n="nav-skills">Skills</span></a></li>
-            <li><a href="#proyectos">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>
-                <span data-i18n="nav-projects">Proyectos</span></a></li>
-            <li><a href="#contacto">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z"/></svg>
-                <span data-i18n="nav-contact">Contacto</span></a></li>
-            <li><button type="button" id="layers-open" aria-haspopup="dialog">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg>
-                <span data-i18n="layers-title">Capas</span></button></li>
-        </ul>
-    </nav>
+    <!-- Móvil y tablet: un solo botón flotante abre las capas, que son la navegación del archivo -->
+    <button class="layers-fab" type="button" id="layers-open" aria-haspopup="dialog" aria-controls="layers-sheet">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg>
+        <span data-i18n="layers-title">Capas</span>
+    </button>
 
     <!-- Capas en móvil: el mismo árbol en una hoja inferior -->
     <dialog class="sheet sheet--layers" id="layers-sheet" aria-labelledby="layers-sheet-title">
@@ -817,7 +801,7 @@
             <h2 class="sheet__title" id="sheet-title"></h2>
             <ul class="project__tags sheet__tags" hidden></ul>
             <p class="sheet__desc"></p>
-            <a class="btn sheet__link" target="_blank" rel="noopener" hidden>
+            <a class="btn sheet__link" href="#proyectos" target="_blank" rel="noopener" hidden>
                 <span data-i18n="project-visit">Visitar sitio</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
             </a>

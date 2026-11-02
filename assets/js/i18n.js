@@ -2,7 +2,7 @@
 export const translations = {
         es: {
             'nav-home': 'Inicio',
-            'nav-about': 'Sobre Mí',
+            'nav-about': 'Sobre mí',
             'nav-focus': 'Enfoque',
             'nav-skills': 'Skills',
             'nav-projects': 'Proyectos',
@@ -294,7 +294,7 @@ const additions = {
         'file-name': 'Portfolio 2026',
         'nav-label': 'Secciones',
         'lang-switch': 'EN',
-        'lang-switch-label': 'Ver en inglés (English)',
+        'lang-switch-label': 'EN · Ver en inglés',
         'hero-role': 'Senior Product Designer & UX Strategist',
         'hero-intro': 'Diseño productos digitales con estrategia, research e IA: banca, movilidad, educación y servicio al cliente en Colombia, Ecuador y Chile.',
         'hero-cta2': 'Hablemos',
@@ -401,7 +401,7 @@ const additions = {
         'picker-sw-blue': 'Azul',
         'stage-grid': 'Retícula · 4 columnas',
         'stage-ellipse': 'Elipse',
-        'stage-toggle': 'Capas en 3D',
+        'stage-toggle': 'Vista 3D',
         'mp-c-picker': 'Este selector es real: pruébalo'
     },
     en: {
@@ -409,7 +409,7 @@ const additions = {
         'file-name': 'Portfolio 2026',
         'nav-label': 'Sections',
         'lang-switch': 'ES',
-        'lang-switch-label': 'View in Spanish (Español)',
+        'lang-switch-label': 'ES · View in Spanish',
         'hero-role': 'Senior Product Designer & UX Strategist',
         'hero-intro': 'I design digital products with strategy, research and AI: banking, mobility, education and customer service across Colombia, Ecuador and Chile.',
         'hero-cta2': "Let's talk",
@@ -515,7 +515,7 @@ const additions = {
         'picker-sw-blue': 'Blue',
         'stage-grid': 'Layout grid · 4 columns',
         'stage-ellipse': 'Ellipse',
-        'stage-toggle': '3D layers',
+        'stage-toggle': '3D view',
         'mp-c-picker': 'This picker is real: try it'
     }
 };

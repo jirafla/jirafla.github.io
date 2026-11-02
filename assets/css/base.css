@@ -316,6 +316,7 @@ mark {
   color: var(--ink-2);
   font-size: 0.875rem;
   text-decoration: none;
+  white-space: nowrap;
   transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
 
@@ -343,14 +344,6 @@ mark {
 }
 
 @media (min-width: 1024px) {
-  .topbar__nav {
-    display: block;
-  }
-
-  .topbar__actions {
-    margin-left: 0;
-  }
-
   .topbar__cv {
     display: inline-flex;
   }
@@ -373,13 +366,17 @@ mark {
 
 .toolbar ul {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   padding: 0;
   list-style: none;
 }
 
-.toolbar a {
+.toolbar a,
+.toolbar button {
   display: grid;
+  width: 100%;
+  border: 0;
+  background: none;
   justify-items: center;
   gap: 2px;
   min-height: 52px;
@@ -392,6 +389,10 @@ mark {
   transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
 
+.toolbar button {
+  font-family: inherit;
+}
+
 .toolbar svg {
   width: 20px;
   height: 20px;
@@ -402,7 +403,8 @@ mark {
   color: var(--ink);
 }
 
-@media (min-width: 1024px) {
+/* Desde 1200 px la navegación vive en el panel de capas (o arriba, si se ocultan los paneles) */
+@media (min-width: 1200px) {
   .toolbar {
     display: none;
   }
@@ -417,7 +419,7 @@ mark {
   font-size: var(--step--1);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .footer {
     padding-bottom: var(--space-6);
   }

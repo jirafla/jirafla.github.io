@@ -1,4 +1,5 @@
 import { translations } from './i18n.js';
+import { initChrome } from './chrome.js';
 import { heroDepth, startCollaboration, visitorCursor } from './scenes.js';
 
 const LANG_KEY = 'jirafla-lang';
@@ -9,6 +10,7 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 let lang = 'es';
 let collab = null;
 let you = null;
+let chrome = null;
 
 function storedLang() {
     try {
@@ -56,6 +58,7 @@ function applyTranslations(next) {
     if (sheet.open) fillSheet(visibleProjects()[current]);
     collab?.relabel();
     you?.relabel();
+    chrome?.relabel();
 }
 
 $('#lang-toggle').addEventListener('click', () => {
@@ -182,12 +185,13 @@ tabs.forEach((tab, index) => {
 selectTab(tabs[0]);
 
 // ─── Sección actual en la navegación ─────────────────────────────────────────
-const navLinks = $$('.topbar__nav a, .toolbar a');
+const navLinks = $$('.topbar__nav a, .toolbar a, .layers .layer--frame');
 const spy = new IntersectionObserver(
     (entries) => {
         entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
             const hash = `#${entry.target.id}`;
+            chrome?.setFrame(entry.target.id);
             navLinks.forEach((link) => {
                 if (link.getAttribute('href') === hash) link.setAttribute('aria-current', 'true');
                 else link.removeAttribute('aria-current');
@@ -198,9 +202,10 @@ const spy = new IntersectionObserver(
 );
 $$('main > .frame').forEach((frame) => spy.observe(frame));
 
+chrome = initChrome({ t });
 if (preferredLang() !== 'es') applyTranslations(preferredLang());
 
 // ─── El archivo cobra vida: colaboradores, cursor propio y profundidad ───────
-collab = startCollaboration({ t });
+collab = startCollaboration({ t, onActivity: (id, keys) => chrome.setActivity(id, keys) });
 you = visitorCursor({ t });
 heroDepth();

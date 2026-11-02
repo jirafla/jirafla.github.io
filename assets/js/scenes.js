@@ -329,7 +329,7 @@ async function idle(frame, actors, signal) {
 }
 
 // ─── Director ────────────────────────────────────────────────────────────────
-export function startCollaboration({ t }) {
+export function startCollaboration({ t, onActivity = () => {} }) {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)');
     const compactQuery = matchMedia('(max-width: 767px), (pointer: coarse)');
     const toggle = $('#collab-toggle');
@@ -366,11 +366,16 @@ export function startCollaboration({ t }) {
         stop();
         currentId = id;
         const scene = SCENES[id];
-        if (!scene || !enabled || suspended) return;
+        if (!scene || !enabled || suspended) {
+            onActivity(id, []);
+            return;
+        }
         controller = new AbortController();
         const { signal } = controller;
         const compact = compactQuery.matches;
-        const cast = (compact ? scene.compactCast : scene.cast).map((key) => team[key]);
+        const keys = compact ? scene.compactCast : scene.cast;
+        const cast = keys.map((key) => team[key]);
+        onActivity(id, keys);
         try {
             if (!played.has(id)) {
                 played.add(id);
@@ -402,6 +407,7 @@ export function startCollaboration({ t }) {
         else {
             stop();
             finishHero();
+            onActivity(currentId, []);
         }
     });
 

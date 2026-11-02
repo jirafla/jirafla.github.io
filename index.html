@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/sections.css">
     <link rel="stylesheet" href="assets/css/multiplayer.css">
+    <link rel="stylesheet" href="assets/css/chrome.css">
     <script type="module" src="assets/js/main.js"></script>
 </head>
 
@@ -44,6 +45,8 @@
             <img src="assets/img/logo-188.webp" alt="Jirafla" width="188" height="96">
             <span aria-hidden="true">/</span>
             <span data-i18n="file-name">Portfolio 2026</span>
+            <span class="topbar__crumb" aria-hidden="true">/</span>
+            <span class="topbar__frame" id="current-frame" data-i18n="nav-home">Inicio</span>
         </a>
         <nav class="topbar__nav" aria-label="Secciones" data-i18n-attr="aria-label:nav-label">
             <ul>
@@ -63,6 +66,9 @@
                 <span style="--c: var(--cursor-dev)">D</span>
                 <span style="--c: var(--cursor-ia)" data-i18n="mp-ia">IA</span>
             </div>
+            <button class="btn btn--small panels-toggle" type="button" id="panels-toggle" aria-pressed="false" aria-label="Ocultar paneles" aria-keyshortcuts="Control+Backslash">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8.5 4v16M15.5 4v16"/></svg>
+            </button>
             <button class="btn btn--small collab-toggle" type="button" id="collab-toggle" aria-pressed="false" aria-label="Pausar colaboradores">
                 <svg class="collab-toggle__pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
                 <svg class="collab-toggle__play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5Z"/></svg>
@@ -77,6 +83,108 @@
         </div>
     </header>
 
+    <!-- Panel de capas: la navegación del archivo -->
+    <aside class="layers" aria-label="Capas" data-i18n-attr="aria-label:layers-title">
+        <div class="layers__block">
+            <p class="layers__heading" data-i18n="layers-pages">Páginas</p>
+            <p class="layers__page">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+                <span data-i18n="file-name">Portfolio 2026</span>
+            </p>
+        </div>
+        <nav class="layers__block layers__tree" aria-label="Capas" data-i18n-attr="aria-label:layers-title">
+            <p class="layers__heading" data-i18n="layers-title">Capas</p>
+            <ul>
+                <li class="layer-group is-open" data-frame="inicio">
+                    <a class="layer layer--frame" href="#inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg><span data-i18n="nav-home">Inicio</span><span class="layer__avatars" aria-hidden="true"></span></a>
+                    <ul>
+                        <li><a class="layer" href="#hero-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 7V5h14v2M12 5v14M9 19h6"/></svg><span data-i18n="layer-name">Nombre</span></a></li>
+                        <li><a class="layer" href="#retrato"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 21 12l-9 9-9-9Z"/></svg><span data-i18n="layer-portrait">Retrato</span></a></li>
+                    </ul>
+                </li>
+                <li class="layer-group is-open" data-frame="sobre-mi">
+                    <a class="layer layer--frame" href="#sobre-mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg><span data-i18n="nav-about">Sobre mí</span><span class="layer__avatars" aria-hidden="true"></span></a>
+                    <ul>
+                        <li><a class="layer" href="#about-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 7V5h14v2M12 5v14M9 19h6"/></svg><span data-i18n="layer-title">Título</span></a></li>
+                        <li><a class="layer" href="#taller"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg><span data-i18n="layer-photo">Foto del taller</span></a></li>
+                    </ul>
+                </li>
+                <li class="layer-group is-open" data-frame="enfoque">
+                    <a class="layer layer--frame" href="#enfoque"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg><span data-i18n="nav-focus">Enfoque</span><span class="layer__avatars" aria-hidden="true"></span></a>
+                    <ul>
+                        <li><a class="layer" href="#focus-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 7V5h14v2M12 5v14M9 19h6"/></svg><span data-i18n="layer-title">Título</span></a></li>
+                        <li><a class="layer" href="#flujo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span data-i18n="layer-flow">Flujo de trabajo</span></a></li>
+                    </ul>
+                </li>
+                <li class="layer-group is-open" data-frame="skills">
+                    <a class="layer layer--frame" href="#skills"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg><span data-i18n="nav-skills">Skills</span><span class="layer__avatars" aria-hidden="true"></span></a>
+                    <ul>
+                        <li><a class="layer" href="#skills-props"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span data-i18n="skills-subheading">Skills</span></a></li>
+                        <li><a class="layer" href="#historial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span data-i18n="history-title">Historial de versiones</span></a></li>
+                    </ul>
+                </li>
+                <li class="layer-group is-open" data-frame="proyectos">
+                    <a class="layer layer--frame" href="#proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg><span data-i18n="nav-projects">Proyectos</span><span class="layer__avatars" aria-hidden="true"></span></a>
+                    <ul>
+                        <li><a class="layer" href="#destacados"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span data-i18n="projects-featured">Casos destacados</span></a></li>
+                        <li><a class="layer" href="#archivo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span data-i18n="projects-archive">Archivo</span></a></li>
+                    </ul>
+                </li>
+                <li class="layer-group is-open" data-frame="contacto">
+                    <a class="layer layer--frame" href="#contacto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg><span data-i18n="nav-contact">Contacto</span><span class="layer__avatars" aria-hidden="true"></span></a>
+                    <ul>
+                        <li><a class="layer" href="#contact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z"/></svg><span data-i18n="layer-comment">Comentario</span></a></li>
+                        <li><a class="layer" href="#responder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span data-i18n="layer-reply">Respuesta</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Inspector: propiedades reales del frame que estás viendo -->
+    <aside class="inspector" aria-label="Propiedades del frame" data-i18n-attr="aria-label:insp-label">
+        <p class="inspector__title" data-i18n="insp-title">Diseño</p>
+        <div class="insp">
+            <p class="insp__heading"><span>Frame</span> <b id="insp-frame">Inicio</b></p>
+            <dl class="insp__grid">
+                <div><dt>W</dt><dd id="insp-w">–</dd></div>
+                <div><dt>H</dt><dd id="insp-h">–</dd></div>
+                <div><dt>X</dt><dd id="insp-x">–</dd></div>
+                <div><dt>Y</dt><dd id="insp-y">–</dd></div>
+            </dl>
+        </div>
+        <div class="insp">
+            <p class="insp__heading">Auto layout</p>
+            <dl class="insp__grid">
+                <div><dt data-i18n="insp-gap">Espacio</dt><dd id="insp-gap">–</dd></div>
+                <div><dt>Padding</dt><dd id="insp-pad">–</dd></div>
+            </dl>
+        </div>
+        <div class="insp">
+            <p class="insp__heading" data-i18n="insp-fill">Relleno</p>
+            <p class="insp__row"><span class="insp__swatch" id="insp-swatch"></span><span>Surface / Frame</span><b id="insp-fill">–</b></p>
+        </div>
+        <div class="insp">
+            <p class="insp__heading" data-i18n="insp-text">Texto</p>
+            <p class="insp__row"><span class="insp__aa">Aa</span><span>Archivo</span><b id="insp-size">–</b></p>
+            <dl class="insp__grid">
+                <div><dt data-i18n="insp-weight">Peso</dt><dd id="insp-weight">–</dd></div>
+                <div><dt data-i18n="insp-width">Ancho</dt><dd id="insp-stretch">–</dd></div>
+            </dl>
+        </div>
+        <div class="insp">
+            <p class="insp__heading" data-i18n="insp-team">En este archivo</p>
+            <ul class="insp__team" id="insp-team"></ul>
+        </div>
+        <div class="insp">
+            <p class="insp__heading" data-i18n="insp-export">Exportar</p>
+            <a class="btn btn--small insp__export" href="CV-Andres-Londono.pdf" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>
+                <span data-i18n="insp-export-cv">CV en PDF</span>
+            </a>
+        </div>
+    </aside>
+
     <main class="canvas" id="contenido">
 
         <!-- Hero -->
@@ -84,6 +192,7 @@
             <p class="frame__label" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
                 <span><span data-i18n="nav-home">Inicio</span> / <span class="bp-mobile">Mobile</span><span class="bp-desktop">Desktop</span></span>
+                <span class="frame__size"></span>
             </p>
             <div class="frame__body hero">
                 <div class="hero__text">
@@ -103,7 +212,7 @@
                         <span data-i18n="contact-location">Medellín, Colombia</span>
                     </p>
                 </div>
-                <figure class="hero__portrait hero__stage">
+                <figure class="hero__portrait hero__stage" id="retrato">
                     <div class="hero__stage-inner">
                         <img src="assets/img/retrato-560.webp"
                              srcset="assets/img/retrato-560.webp 560w, assets/img/retrato-1100.webp 1100w"
@@ -136,6 +245,7 @@
             <p class="frame__label" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
                 <span data-i18n="nav-about">Sobre mí</span>
+                <span class="frame__size"></span>
             </p>
             <div class="frame__body about">
                 <h2 class="section-title about__title" id="about-title" data-i18n-html="about-title-html"><mark>8+ años</mark> de experiencia liderando productos digitales en entornos multiculturales</h2>
@@ -147,7 +257,7 @@
                         <li data-i18n="about-check3">Desarrollo acorde a necesidad o a medida</li>
                     </ul>
                 </div>
-                <figure class="about__teach">
+                <figure class="about__teach" id="taller">
                     <img src="assets/img/taller-480.webp"
                          srcset="assets/img/taller-480.webp 480w, assets/img/taller-930.webp 930w"
                          sizes="(min-width: 1024px) 560px, 92vw"
@@ -164,6 +274,7 @@
             <p class="frame__label" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
                 <span data-i18n="nav-focus">Enfoque</span>
+                <span class="frame__size"></span>
             </p>
             <div class="frame__body focus">
                 <div class="focus__intro">
@@ -177,7 +288,7 @@
                          alt="Jirafla: ilustración de una jirafa con camisa morada que gira un balón en un dedo"
                          data-i18n-attr="alt:focus-giraffe-alt">
                 </div>
-                <ol class="flow">
+                <ol class="flow" id="flujo">
                     <li data-i18n-html="focus-li1">Investigo: voz de usuario, journeys, puntos de interacción, decisiones, tendencias encontrando la mejor opción para el <b>levantamiento de las necesidades de los posibles usuarios</b>, enfocando el producto a un target y objetivo específico.</li>
                     <li data-i18n-html="focus-li2">Genero ideas innovadoras a través de la <b>necesidad de negocio</b>, enfocadas a mejora continua o lanzamiento de nuevos productos.</li>
                     <li data-i18n-html="focus-li3"><b>Itero en cada decisión tomada</b>, garantizando que el usuario obtenga un producto mínimo viable o servicio efectivo, y que su proceso dentro de este sea simple e intuitivo.</li>
@@ -195,11 +306,12 @@
             <p class="frame__label" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
                 <span data-i18n="nav-skills">Skills</span>
+                <span class="frame__size"></span>
             </p>
             <div class="frame__body skills">
                 <h2 class="section-title skills__title" id="skills-title" data-i18n="skills-heading">Skills &amp; Experiencia</h2>
 
-                <div class="panel props">
+                <div class="panel props" id="skills-props">
                     <h3 class="panel__title" data-i18n="skills-subheading">Skills</h3>
                     <ul class="props__list">
                         <li class="prop" style="--v: 95%"><span class="prop__label" data-i18n="skill-1">Diseño de interfaz y prototipado</span><span class="prop__track" aria-hidden="true"></span><span class="prop__value">95<span class="prop__unit">%</span></span></li>
@@ -211,7 +323,7 @@
                     </ul>
                 </div>
 
-                <div class="panel history">
+                <div class="panel history" id="historial">
                     <h3 class="panel__title" data-i18n="history-title">Historial de versiones</h3>
                     <div class="tabs" role="tablist" aria-label="Historial" data-i18n-attr="aria-label:history-title">
                         <button class="tab" type="button" role="tab" id="tab-exp" aria-controls="panel-exp" aria-selected="true" data-i18n="tab-experience">Experiencia</button>
@@ -272,6 +384,7 @@
             <p class="frame__label" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
                 <span data-i18n="nav-projects">Proyectos</span>
+                <span class="frame__size"></span>
             </p>
             <div class="frame__body projects">
                 <div class="projects__head">
@@ -287,7 +400,7 @@
                 </div>
                 <p class="visually-hidden" id="filter-status" role="status" aria-live="polite"></p>
 
-                <div class="project-group" data-group="featured">
+                <div class="project-group" data-group="featured" id="destacados">
                     <h3 class="project-group__title" data-i18n="projects-featured">Casos destacados</h3>
                     <div class="featured-grid">
                         <article class="project project--featured" id="p-retiro" data-company="centrohub">
@@ -347,7 +460,7 @@
                     </div>
                 </div>
 
-                <div class="project-group" data-group="archive">
+                <div class="project-group" data-group="archive" id="archivo">
                     <h3 class="project-group__title" data-i18n="projects-archive">Archivo</h3>
                     <div class="archive-grid">
                         <article class="project" id="p-bolivariano" data-company="centrohub">
@@ -505,6 +618,7 @@
             <p class="frame__label" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
                 <span data-i18n="nav-contact">Contacto</span>
+                <span class="frame__size"></span>
             </p>
             <div class="frame__body contact">
                 <article class="thread">
@@ -535,7 +649,7 @@
                         </div>
                     </dl>
 
-                    <div class="reply">
+                    <div class="reply" id="responder">
                         <p class="reply__prompt" data-i18n="contact-reply">Responder a Andrés…</p>
                         <div class="reply__actions">
                             <a class="btn btn--primary" href="https://wa.link/ay7j2p" target="_blank" rel="noopener">
@@ -579,8 +693,25 @@
             <li><a href="#contacto">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z"/></svg>
                 <span data-i18n="nav-contact">Contacto</span></a></li>
+            <li><button type="button" id="layers-open" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg>
+                <span data-i18n="layers-title">Capas</span></button></li>
         </ul>
     </nav>
+
+    <!-- Capas en móvil: el mismo árbol en una hoja inferior -->
+    <dialog class="sheet sheet--layers" id="layers-sheet" aria-labelledby="layers-sheet-title">
+        <div class="sheet__inner">
+            <div class="sheet__handle" aria-hidden="true"></div>
+            <div class="sheet__header">
+                <p class="sheet__company" id="layers-sheet-title" data-i18n="layers-title">Capas</p>
+                <button class="btn btn--small sheet__close" type="button" aria-label="Cerrar" data-i18n-attr="aria-label:close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+                </button>
+            </div>
+            <div class="layers-sheet__tree"></div>
+        </div>
+    </dialog>
 
     <!-- Detalle de proyecto: panel lateral en desktop, hoja inferior en móvil -->
     <dialog class="sheet" id="project-sheet" aria-labelledby="sheet-title">

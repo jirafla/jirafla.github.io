@@ -1,0 +1,76 @@
+/* Tokens de Jirafla.fig: lienzo oscuro teñido hacia el violeta de marca (#3F058A). */
+:root {
+  color-scheme: dark;
+
+  /* Lienzo y superficies */
+  --canvas: oklch(0.16 0.012 290);
+  --canvas-dot: oklch(0.27 0.016 290);
+  --frame: oklch(0.2 0.014 290);
+  --frame-raised: oklch(0.245 0.016 290);
+  --frame-sunken: oklch(0.175 0.013 290);
+  --border: oklch(0.33 0.018 290);
+  --border-strong: oklch(0.42 0.02 290);
+
+  /* Texto */
+  --ink: oklch(0.96 0.008 290);
+  --ink-2: oklch(0.82 0.012 290);
+  --ink-3: oklch(0.7 0.014 290);
+
+  /* Marca */
+  --brand: oklch(0.72 0.17 296);
+  --brand-deep: #3f058a;
+  --on-brand: oklch(0.17 0.04 296);
+  --amber: oklch(0.85 0.15 82);
+  --select: oklch(0.68 0.16 255);
+  --select-wash: oklch(0.68 0.16 255 / 0.26);
+
+  /* Colaboradores */
+  --cursor-andres: var(--brand);
+  --cursor-pm: oklch(0.72 0.17 30);
+  --cursor-dev: oklch(0.8 0.13 170);
+  --cursor-ia: var(--amber);
+  --cursor-you: var(--select);
+
+  /* Tipografía: Archivo, con ejes de ancho (62–125) y peso */
+  --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --step--1: 0.8125rem;
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --step-2: clamp(1.5625rem, 1.35rem + 1vw, 2.125rem);
+  --step-3: clamp(1.95rem, 1.5rem + 2.2vw, 3.25rem);
+  --step-4: clamp(2.75rem, 1.6rem + 6vw, 6rem);
+
+  /* Espacio (base 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --frame-pad: clamp(1.25rem, 0.6rem + 4vw, 4.5rem);
+  --frame-gap: clamp(4rem, 2rem + 9vw, 9rem);
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+
+  --radius-1: 4px;
+  --radius-2: 8px;
+  --radius-3: 12px;
+  --radius-4: 16px;
+
+  /* Movimiento */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 140ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
+
+  /* Capas */
+  --z-canvas: 0;
+  --z-cursors: 10;
+  --z-chrome: 20;
+  --z-sheet: 30;
+  --z-toast: 40;
+
+  --topbar-h: 52px;
+  --toolbar-h: 60px;
+}

@@ -1,6 +1,8 @@
 import { translations } from './i18n.js';
 import { initChrome } from './chrome.js';
-import { heroDepth, startCollaboration, visitorCursor } from './scenes.js';
+import { cardTilt, heroDepth } from './depth.js';
+import { initPicker } from './picker.js';
+import { startCollaboration, visitorCursor } from './scenes.js';
 
 const LANG_KEY = 'jirafla-lang';
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -11,6 +13,7 @@ let lang = 'es';
 let collab = null;
 let you = null;
 let chrome = null;
+let picker = null;
 
 function storedLang() {
     try {
@@ -59,6 +62,7 @@ function applyTranslations(next) {
     collab?.relabel();
     you?.relabel();
     chrome?.relabel();
+    picker?.relabel();
 }
 
 $('#lang-toggle').addEventListener('click', () => {
@@ -305,9 +309,11 @@ const spy = new IntersectionObserver(
 $$('main > .frame').forEach((frame) => spy.observe(frame));
 
 chrome = initChrome({ t });
+picker = initPicker({ t });
 if (preferredLang() !== 'es') applyTranslations(preferredLang());
 
 // ─── El archivo cobra vida: colaboradores, cursor propio y profundidad ───────
 collab = startCollaboration({ t, onActivity: (id, keys) => chrome.setActivity(id, keys) });
 you = visitorCursor({ t });
 heroDepth();
+cardTilt();

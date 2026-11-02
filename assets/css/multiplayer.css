@@ -375,14 +375,14 @@ body {
 }
 
 .btn.is-hovered {
-  background: oklch(0.78 0.15 296);
+  background: var(--brand-hover);
 }
 
 .reply__prompt.is-typing {
   color: var(--ink);
 }
 
-/* ─── Hero: nombre editable y capas en 3D ─────────────────────────────────── */
+/* ─── Hero: nombre editable (las capas 3D viven en stage.css) ──────────────── */
 .hero__name {
   width: fit-content;
 }
@@ -394,112 +394,4 @@ body {
 .scene-hero .hero__name {
   font-stretch: 78%;
   font-weight: 450;
-}
-
-.hero__stage {
-  perspective: 1100px;
-}
-
-.hero__stage-inner {
-  position: relative;
-  transform-style: preserve-3d;
-  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: transform 700ms var(--ease-out);
-}
-
-.hero__stage-inner img {
-  transform: translateZ(0);
-}
-
-.layer-chip {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-2);
-  background: var(--frame-raised);
-  box-shadow: 0 14px 30px -14px oklch(0 0 0 / 0.8);
-  color: var(--ink-2);
-  font-size: 0.75rem;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-.layer-chip svg {
-  width: 13px;
-  height: 13px;
-  color: var(--brand);
-}
-
-.layer-chip b {
-  color: var(--ink);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-
-.layer-chip__swatch {
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
-  background: var(--brand-deep);
-  box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.25);
-}
-
-.layer-chip--swatch {
-  top: 9%;
-  left: 2%;
-  transform: translateZ(90px);
-}
-
-.layer-chip--layout {
-  top: 26%;
-  right: 0;
-  transform: translateZ(60px);
-}
-
-.layer-chip--component {
-  top: 74%;
-  left: -6%;
-  transform: translateZ(120px);
-  color: var(--brand);
-}
-
-.layer-chip--component span {
-  color: var(--ink);
-}
-
-@media (max-width: 639px) {
-  .layer-chip {
-    padding: 5px 8px;
-    font-size: 0.6875rem;
-  }
-
-  .layer-chip--component {
-    left: 0;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .hero__stage.is-floating .hero__stage-inner {
-    animation: stage-float 9s ease-in-out infinite;
-  }
-}
-
-@keyframes stage-float {
-  0%,
-  100% {
-    transform: rotateX(2deg) rotateY(-5deg);
-  }
-  50% {
-    transform: rotateX(-2deg) rotateY(6deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__stage-inner {
-    transform: none;
-    transition: none;
-  }
 }

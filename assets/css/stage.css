@@ -1,0 +1,499 @@
+/* Hero en 3D: el retrato es una pila de capas (retícula, elipse, selección, foto con su selector
+   de color y chips) que se separan en profundidad. El selector es real: cambia el acento del sitio.
+   Las posiciones en % salen de profile.png (1103 × 1395); ver scripts/optimize-images.py. */
+
+/* ─── Escenario ───────────────────────────────────────────────────────────── */
+.hero__stage {
+  --persp: 1100;
+  position: relative;
+  perspective: calc(var(--persp) * 1px);
+}
+
+.hero__stage-float,
+.hero__stage-inner {
+  transform-style: preserve-3d;
+}
+
+.hero__stage-inner {
+  /* --d multiplica la distancia entre capas; --ex/--ey/--es giran y alejan la pila al separarla */
+  --d: 1;
+  --ex: 0deg;
+  --ey: 0deg;
+  --es: 1;
+  position: relative;
+  transform:
+    rotateX(calc(var(--rx, 0deg) + var(--ex)))
+    rotateY(calc(var(--ry, 0deg) + var(--ey)))
+    scale(var(--es));
+  transition: transform 700ms var(--ease-out);
+}
+
+/* Vista explotada: al cargar (mientras el equipo termina el hero) y con el botón "Capas en 3D" */
+.scene-hero .hero__stage-inner,
+.hero__stage.is-intro .hero__stage-inner,
+.hero__stage.is-exploded .hero__stage-inner {
+  --d: 2.2;
+  --ex: 8deg;
+  --ey: 22deg;
+  --es: 0.84;
+  translate: 4% 0;
+  transition-duration: 1100ms;
+}
+
+.hero__stage-inner {
+  transition-property: transform, translate;
+}
+
+/* Cada capa ocupa todo el retrato. Se aleja en Z y se escala para compensar la perspectiva:
+   de frente se ve igual que la foto plana; al girar aparece la profundidad. */
+.stage-layer {
+  position: absolute;
+  inset: 0;
+  transform:
+    translateZ(calc(var(--z) * var(--d) * 1px))
+    scale(calc(1 - var(--z) * var(--d) / var(--persp)));
+  transition: transform 1100ms var(--ease-out), opacity 500ms var(--ease-out);
+}
+
+.stage-layer--photo {
+  --z: 0;
+  position: relative;
+  container-type: inline-size;
+}
+
+.stage-layer--photo img {
+  width: 100%;
+}
+
+/* Retícula de 4 columnas, como un layout grid de Figma: solo se ve con las capas separadas */
+.stage-layer--grid {
+  padding-inline: 5%;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-1);
+  background-image: linear-gradient(oklch(0.68 0.21 25 / 0.08), oklch(0.68 0.21 25 / 0.08));
+  background-origin: content-box;
+  background-clip: content-box;
+  background-repeat: space;
+  background-size: 21% 100%;
+  opacity: 0;
+}
+
+.stage-circle {
+  position: absolute;
+  left: 3.99%;
+  top: 41.65%;
+  width: 27.47%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--pick);
+}
+
+.stage-select {
+  position: absolute;
+  left: 3.54%;
+  top: 41.36%;
+  width: 28.83%;
+  height: 23.15%;
+  border: 1.5px solid var(--select);
+}
+
+.stage-select i {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--select);
+  background: var(--ink);
+}
+
+.stage-select .tl { top: -5px; left: -5px; }
+.stage-select .tr { top: -5px; right: -5px; }
+.stage-select .bl { bottom: -5px; left: -5px; }
+.stage-select .br { bottom: -5px; right: -5px; }
+
+/* Nombre de cada capa, visible solo en la vista explotada */
+.stage-tag {
+  position: absolute;
+  top: 3%;
+  left: 4%;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--select);
+  color: var(--on-brand);
+  font-size: 0.6875rem;
+  font-weight: 650;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.stage-tag--shape {
+  top: calc(41.36% - 2.6em);
+}
+
+.stage-tag--photo {
+  top: 14%;
+  left: 30%;
+}
+
+.scene-hero .stage-layer--grid,
+.is-intro .stage-layer--grid,
+.is-exploded .stage-layer--grid,
+.scene-hero .stage-tag,
+.is-intro .stage-tag,
+.is-exploded .stage-tag {
+  opacity: 1;
+}
+
+/* ─── Chips flotantes ─────────────────────────────────────────────────────── */
+.layer-chip {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-2);
+  background: var(--frame-raised);
+  box-shadow: 0 14px 30px -14px oklch(0 0 0 / 0.8);
+  color: var(--ink-2);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  transform: translateZ(calc(var(--z) * var(--d) * 1px));
+  transition: transform 1100ms var(--ease-out);
+}
+
+.layer-chip svg {
+  width: 13px;
+  height: 13px;
+  color: var(--brand);
+}
+
+.layer-chip b {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.layer-chip__swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--pick);
+  box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.25);
+}
+
+.layer-chip--swatch {
+  top: 9%;
+  left: 2%;
+}
+
+.layer-chip--layout {
+  top: 26%;
+  right: 0;
+}
+
+.layer-chip--component {
+  top: 74%;
+  left: -6%;
+  color: var(--brand);
+}
+
+.layer-chip--component span {
+  color: var(--ink);
+}
+
+@media (max-width: 639px) {
+  .layer-chip {
+    padding: 5px 8px;
+    font-size: 0.6875rem;
+  }
+
+  .layer-chip--component {
+    left: 0;
+  }
+}
+
+/* ─── Botón "Capas en 3D" ─────────────────────────────────────────────────── */
+/* Justo encima del retrato, a la derecha, como la barra flotante de Figma sobre una selección:
+   así no choca con los chips cuando la pila se separa */
+.stage-toggle {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + var(--space-2));
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--frame-raised);
+  box-shadow: 0 10px 24px -12px oklch(0 0 0 / 0.8);
+  color: var(--ink-2);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.stage-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.stage-toggle:hover {
+  border-color: var(--ink-3);
+  color: var(--ink);
+}
+
+.stage-toggle[aria-pressed="true"] {
+  border-color: var(--select);
+  background: var(--select-wash);
+  color: var(--ink);
+}
+
+/* ─── Selector de color ───────────────────────────────────────────────────── */
+/* Ocupa exactamente el lugar del picker que traía la foto (y un poco más, para tapar el corte) */
+.picker {
+  position: absolute;
+  top: 48.85%;
+  right: 0;
+  bottom: 10.2%;
+  left: 53.75%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto auto;
+  gap: 2cqi;
+  padding: 2.4cqi;
+  border: 1px solid var(--border-strong);
+  border-radius: 2.2cqi;
+  background: var(--frame-raised);
+  box-shadow: 0 2cqi 6cqi -2cqi oklch(0 0 0 / 0.7);
+  color: var(--ink-2);
+  font-size: max(10px, 2.6cqi);
+  line-height: 1.2;
+}
+
+.picker__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1cqi;
+  padding-left: 1.6cqi;
+  color: var(--ink);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.picker__aa {
+  padding: 0.3cqi 1cqi;
+  border-radius: 0.8cqi;
+  background: var(--frame);
+  color: var(--ink-2);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.picker__aa b {
+  color: var(--ink);
+  font-weight: 750;
+}
+
+.picker__sv {
+  position: relative;
+  border-radius: 1.2cqi;
+  background:
+    linear-gradient(to top, #000, transparent),
+    linear-gradient(to right, #fff, hsl(var(--hue, 266) 100% 50%));
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.picker__thumb {
+  position: absolute;
+  left: calc(var(--s, 0.77) * 100%);
+  top: calc((1 - var(--v, 0.84)) * 100%);
+  width: max(11px, 3.4cqi);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--pick);
+  box-shadow: 0 0 0 1px oklch(0 0 0 / 0.45), 0 1px 4px oklch(0 0 0 / 0.5);
+  pointer-events: none;
+}
+
+.picker__hue {
+  --track: linear-gradient(to right, #f00 0%, #ff0 16.7%, #0f0 33.3%, #0ff 50%, #00f 66.7%, #f0f 83.3%, #f00 100%);
+  width: 100%;
+  height: max(20px, 6cqi);
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.picker__hue::-webkit-slider-runnable-track {
+  height: max(9px, 3cqi);
+  border-radius: 999px;
+  background: var(--track);
+}
+
+.picker__hue::-moz-range-track {
+  height: max(9px, 3cqi);
+  border-radius: 999px;
+  background: var(--track);
+}
+
+.picker__hue::-webkit-slider-thumb {
+  width: max(13px, 4cqi);
+  height: max(13px, 4cqi);
+  margin-top: calc((max(9px, 3cqi) - max(13px, 4cqi)) / 2);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: hsl(var(--hue, 266) 100% 50%);
+  box-shadow: 0 0 0 1px oklch(0 0 0 / 0.45), 0 1px 4px oklch(0 0 0 / 0.5);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.picker__hue::-moz-range-thumb {
+  width: max(13px, 4cqi);
+  height: max(13px, 4cqi);
+  box-sizing: border-box;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: hsl(var(--hue, 266) 100% 50%);
+  box-shadow: 0 0 0 1px oklch(0 0 0 / 0.45), 0 1px 4px oklch(0 0 0 / 0.5);
+}
+
+.picker__hex {
+  display: flex;
+  align-items: center;
+  gap: 1.6cqi;
+  height: max(22px, 6.4cqi);
+  padding: 0 1.6cqi;
+  border: 1px solid var(--border);
+  border-radius: 1cqi;
+  background: var(--frame);
+  color: var(--ink-3);
+  cursor: text;
+}
+
+.picker__hex:focus-within {
+  border-color: var(--select);
+  box-shadow: 0 0 0 1px var(--select);
+}
+
+.picker__hex input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  color: var(--ink);
+  font-size: inherit;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* iOS amplía la página si un campo tiene menos de 16 px */
+@media (pointer: coarse) {
+  .picker__hex input {
+    font-size: 16px;
+  }
+}
+
+.picker__swatches {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 0.6cqi;
+}
+
+.picker__swatches button {
+  width: max(15px, 4.4cqi);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.2);
+  transition: box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.picker__swatches button[aria-pressed="true"] {
+  box-shadow: 0 0 0 2px var(--frame-raised), 0 0 0 3.5px var(--ink);
+}
+
+/* Retrato angosto (móviles chicos, laptop con los dos paneles): el selector se queda con lo
+   esencial (brillo, tono y muestras) para que cada control conserve un tamaño usable */
+@container (max-width: 299px) {
+  .picker {
+    grid-template-rows: minmax(0, 1fr) auto auto;
+  }
+
+  .picker__head,
+  .picker__hex {
+    display: none;
+  }
+}
+
+/* La muestra redonda que "abrió" el selector, encima del borde izquierdo */
+.picker__dot {
+  position: absolute;
+  top: 52.62%;
+  left: 49.82%;
+  z-index: 1;
+  width: 5.9%;
+  aspect-ratio: 1;
+  translate: 0 -50%;
+  border: 0.9cqi solid var(--ink);
+  border-radius: 50%;
+  background: var(--pick);
+  box-shadow: 0 0.6cqi 1.6cqi oklch(0 0 0 / 0.45);
+}
+
+/* ─── Movimiento ──────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__stage.is-floating .hero__stage-float {
+    animation: stage-float 9s ease-in-out infinite;
+  }
+
+  /* Al tocar el selector, la pila deja de flotar para que se pueda apuntar */
+  .hero__stage.is-held .hero__stage-float {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes stage-float {
+  0%,
+  100% {
+    transform: rotateX(2deg) rotateY(-5deg);
+  }
+  50% {
+    transform: rotateX(-2deg) rotateY(6deg);
+  }
+}
+
+/* Sin animaciones: la vista explotada sigue disponible, pero cambia sin transición */
+@media (prefers-reduced-motion: reduce) {
+  .hero__stage-inner,
+  .stage-layer,
+  .stage-tag,
+  .layer-chip {
+    transition: none;
+  }
+}
+
+/* ─── Proyectos destacados: la imagen se inclina hacia el puntero ─────────── */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .project--featured .project__media {
+    transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+    transition: transform 500ms var(--ease-out), outline-color var(--dur-fast) var(--ease-out);
+  }
+}

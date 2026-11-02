@@ -185,7 +185,7 @@ export function clearSelections() {
 }
 
 // ─── Comentario con avatar ───────────────────────────────────────────────────
-export function comment(actor, x, y, text, { ttl = 5200 } = {}) {
+export function comment(actor, x, y, text, { ttl = 5200, above = false } = {}) {
     const el = document.createElement('div');
     el.className = 'mp-comment';
     el.style.setProperty('--c', actor.color);
@@ -194,10 +194,12 @@ export function comment(actor, x, y, text, { ttl = 5200 } = {}) {
     el.querySelector('.mp-comment__avatar').textContent = actor.initials;
     el.querySelector('b').textContent = actor.name;
     el.querySelector('span:last-child').textContent = text;
-    // Que no se salga por la derecha
+    // Que no se salga del lienzo (ni quede debajo del inspector); con `above`, y es donde termina
     layer.append(el);
-    const overflow = x + el.offsetWidth - (scrollX + document.documentElement.clientWidth - 12);
-    if (overflow > 0) el.style.translate = `${x - overflow}px ${y}px`;
+    const top = above ? y - el.offsetHeight : y;
+    const right = document.querySelector('main')?.getBoundingClientRect().right ?? document.documentElement.clientWidth;
+    const overflow = Math.max(0, x + el.offsetWidth - (scrollX + right - 12));
+    el.style.translate = `${x - overflow}px ${top}px`;
     requestAnimationFrame(() => el.classList.add('is-visible'));
     setTimeout(() => {
         el.classList.remove('is-visible');

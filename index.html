@@ -16,6 +16,16 @@
         // JS activo y, si se permite movimiento, el nombre del hero arranca "en edición" (los cursores lo terminan)
         (function (root) {
             root.classList.replace('no-js', 'js');
+            // El color que el visitante eligió en el selector del hero (solo dura esta visita)
+            try {
+                var accent = JSON.parse(sessionStorage.getItem('jirafla-accent'));
+                if (accent && accent.l && accent.h >= 0 && accent.c >= 0) {
+                    root.style.setProperty('--pick', accent.hex);
+                    root.style.setProperty('--brand-l', accent.l);
+                    root.style.setProperty('--brand-h', accent.h);
+                    root.style.setProperty('--brand-c', accent.c);
+                }
+            } catch (e) {}
             var off = false;
             try { off = localStorage.getItem('jirafla-collab') === 'off'; } catch (e) {}
             if (!off && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -33,6 +43,7 @@
     <link rel="stylesheet" href="assets/css/sections.css">
     <link rel="stylesheet" href="assets/css/multiplayer.css">
     <link rel="stylesheet" href="assets/css/chrome.css">
+    <link rel="stylesheet" href="assets/css/stage.css">
     <script type="module" src="assets/js/main.js"></script>
 </head>
 
@@ -213,29 +224,75 @@
                     </p>
                 </div>
                 <figure class="hero__portrait hero__stage" id="retrato">
-                    <div class="hero__stage-inner">
-                        <img src="assets/img/retrato-560.webp"
-                             srcset="assets/img/retrato-560.webp 560w, assets/img/retrato-1100.webp 1100w"
-                             sizes="(min-width: 1024px) 460px, 86vw"
-                             width="1100" height="1391"
-                             alt="Andrés Felipe Londoño sonriendo, con saco morado, junto a un selector de color"
-                             data-i18n-attr="alt:hero-portrait-alt"
-                             fetchpriority="high">
-                        <!-- Capas flotantes del archivo (decorativas) -->
-                        <div class="layer-chip layer-chip--swatch" aria-hidden="true">
-                            <span class="layer-chip__swatch"></span>
-                            <span>Brand / Primary</span>
-                            <b>#3F058A</b>
-                        </div>
-                        <div class="layer-chip layer-chip--component" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 21 12l-9 9-9-9Z"/></svg>
-                            <span>Senior / Product Designer</span>
-                        </div>
-                        <div class="layer-chip layer-chip--layout" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                            <span>Auto layout · 24</span>
+                    <div class="hero__stage-float">
+                        <div class="hero__stage-inner">
+                            <!-- Capas del retrato, de atrás hacia adelante. En 3D se separan en profundidad (--z) -->
+                            <div class="stage-layer stage-layer--grid" style="--z: -90" aria-hidden="true">
+                                <span class="stage-tag" data-i18n="stage-grid">Retícula · 4 columnas</span>
+                            </div>
+                            <div class="stage-layer stage-layer--shape" style="--z: -60" aria-hidden="true">
+                                <span class="stage-circle"></span>
+                                <span class="stage-tag stage-tag--shape" data-i18n="stage-ellipse">Elipse</span>
+                            </div>
+                            <div class="stage-layer stage-layer--select" style="--z: -30" aria-hidden="true">
+                                <span class="stage-select"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></span>
+                            </div>
+                            <div class="stage-layer stage-layer--photo">
+                                <img src="assets/img/retrato-capa-560.webp"
+                                     srcset="assets/img/retrato-capa-560.webp 560w, assets/img/retrato-capa-1100.webp 1100w"
+                                     sizes="(min-width: 768px) 420px, 86vw"
+                                     width="1100" height="1391"
+                                     alt="Andrés Felipe Londoño sonriendo, con saco morado, junto a un círculo y un selector de color"
+                                     data-i18n-attr="alt:hero-portrait-alt"
+                                     fetchpriority="high">
+                                <span class="stage-tag stage-tag--photo" aria-hidden="true">retrato.png</span>
+                                <span class="picker__dot" aria-hidden="true"></span>
+                                <!-- Selector de color real: cambia el acento de todo el sitio -->
+                                <div class="picker" role="group" aria-labelledby="picker-title">
+                                    <p class="picker__head">
+                                        <span id="picker-title" data-i18n="picker-title">Color del sitio</span>
+                                        <span class="picker__aa"><b>AAA</b> <span class="picker__ratio">7.3</span><span class="visually-hidden" data-i18n="picker-aa"> de contraste para el texto sobre el acento</span></span>
+                                    </p>
+                                    <div class="picker__sv" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="77"
+                                         aria-label="Saturación y brillo" data-i18n-attr="aria-label:picker-sv">
+                                        <span class="picker__thumb"></span>
+                                    </div>
+                                    <input class="picker__hue" type="range" min="0" max="359" step="1" value="266"
+                                           aria-label="Tono" data-i18n-attr="aria-label:picker-hue">
+                                    <label class="picker__hex">
+                                        <span aria-hidden="true">Hex</span>
+                                        <input type="text" value="7931D7" maxlength="7" spellcheck="false" autocomplete="off" autocapitalize="characters"
+                                               aria-label="Código hexadecimal" data-i18n-attr="aria-label:picker-hex">
+                                    </label>
+                                    <div class="picker__swatches">
+                                        <button type="button" data-color="#7931D7" style="background: #7931D7" aria-label="Morado original" data-i18n-attr="aria-label:picker-sw-original"></button>
+                                        <button type="button" data-color="#FFC448" style="background: #FFC448" aria-label="Ámbar Jirafla" data-i18n-attr="aria-label:picker-sw-amber"></button>
+                                        <button type="button" data-color="#F2675A" style="background: #F2675A" aria-label="Coral" data-i18n-attr="aria-label:picker-sw-coral"></button>
+                                        <button type="button" data-color="#1FB5A3" style="background: #1FB5A3" aria-label="Turquesa" data-i18n-attr="aria-label:picker-sw-teal"></button>
+                                        <button type="button" data-color="#3D7BFA" style="background: #3D7BFA" aria-label="Azul" data-i18n-attr="aria-label:picker-sw-blue"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Capas flotantes del archivo (decorativas) -->
+                            <div class="layer-chip layer-chip--swatch" style="--z: 90" aria-hidden="true">
+                                <span class="layer-chip__swatch"></span>
+                                <span>Brand / Primary</span>
+                                <b class="layer-chip__hex">#7931D7</b>
+                            </div>
+                            <div class="layer-chip layer-chip--component" style="--z: 120" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 21 12l-9 9-9-9Z"/></svg>
+                                <span>Senior / Product Designer</span>
+                            </div>
+                            <div class="layer-chip layer-chip--layout" style="--z: 60" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                                <span>Auto layout · 24</span>
+                            </div>
                         </div>
                     </div>
+                    <button class="stage-toggle" type="button" aria-pressed="false">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg>
+                        <span data-i18n="stage-toggle">Capas en 3D</span>
+                    </button>
                 </figure>
             </div>
         </section>

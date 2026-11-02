@@ -95,7 +95,7 @@ Cada frame lleva su etiqueta arriba a la izquierda, como en Figma (`Hero / Deskt
 ### 0 · Chrome del archivo (siempre visible)
 - **Barra superior:** logo + `Jirafla.fig / Portfolio 2026`, pila de avatares de colaboradores, ES/EN, botón **Exportar CV** (descarga el PDF actual) y "Pausar colaboradores".
 - **Panel de capas (izquierda, ≥1200 px):** es la navegación. Cada sección es una capa, con la actual resaltada (`aria-current`).
-- **Panel de propiedades (derecha, ≥1280 px):** contextual. Muestra datos de la sección visible (por ejemplo, en Skills, los sliders; en Proyectos, rol, empresa y año).
+- **Panel de propiedades (derecha, ≥1440 px; antes ≥1280, ver F5):** contextual. Muestra datos de la sección visible (por ejemplo, en Skills, los sliders; en Proyectos, rol, empresa y año).
 - **Barra inferior:** indicador de zoom + herramientas (mover, frame, texto, comentario). La herramienta de comentario lleva a Contacto.
 
 ### 1 · Hero
@@ -161,6 +161,7 @@ Cada frame lleva su etiqueta arriba a la izquierda, como en Figma (`Hero / Deskt
 1. **Hero en vista explotada:** 5–6 capas (cuadrícula del frame · círculo + selección · retrato · color picker · nombre · badges).
    - Desktop: paralaje con el mouse, y la pila se aplana al hacer scroll.
    - Móvil: 3 capas con menos profundidad. Usa el giroscopio si el usuario toca "Activar 3D" (iOS pide permiso); si no, hace una órbita lenta automática.
+   - *Hecho en F5:* sin giroscopio (pedía permiso en iOS y mueve el retrato mientras se lee). En táctil, la pila flota sola y se queda quieta al tocar el selector; el botón "Capas en 3D" separa las capas en cualquier pantalla.
 2. **Tarjetas de proyecto:** inclinación en hover (desktop). En móvil, una rotación sutil ligada al scroll del carrusel.
 3. **Transición tarjeta → detalle:** "zoom al frame" con View Transitions API, con *fallback* de fade.
 
@@ -170,7 +171,7 @@ Cada frame lleva su etiqueta arriba a la izquierda, como en Figma (`Hero / Deskt
 
 ## 7. Móvil en detalle
 
-**Breakpoints:** ≤599 teléfono · 600–1023 tablet · 1024–1279 laptop (sin panel derecho) · ≥1280 chrome completo.
+**Breakpoints:** ≤599 teléfono · 600–1023 tablet · 1024–1199 laptop · 1200–1439 con panel de capas · ≥1440 chrome completo (capas + inspector).
 
 ```
 TELÉFONO 390×844                       DETALLE DE PROYECTO (hoja)
@@ -258,7 +259,7 @@ scripts/optimize-images.py
 | **F3 · Secciones** ✅ | Enfoque con pasos nombrados (01–08) como formas de FigJam · caso principal a toda la fila + etiquetas de industria y método en los 6 destacados · filtros que reacomodan con FLIP · detalle con contador, etiquetas, flechas del teclado y la imagen que viaja desde la tarjeta · copiar correo y teléfono con aviso · historial con transición · hero en dos columnas desde 768 px | Probado a 390, 768 y 1440 px |
 | **F4 · Punteros colaborativos** ✅ (adelantada a pedido) | Motor (`assets/js/cursors.js`) + guiones por sección (`assets/js/scenes.js`), cursor "Tú" / ping táctil, presencia y pausa, *reduced motion*. Hero con nombre que se estira en vivo y capas 3D que siguen el mouse | Probado a 390 y 1440 px; sin desborde horizontal |
 | 🔎 **Revisión contigo** | La coreografía completa | Ajustes de ritmo y personalidad |
-| **F5 · 3D** | Hero en vista explotada, color picker vivo, inclinación de tarjetas, transición a detalle | Fluidez en gama media; fallback sin 3D |
+| **F5 · 3D** ✅ | Retrato separado en capas reales (`retrato-capa`, generado por `scripts/optimize-images.py`): retícula, elipse, selección, foto + selector, chips, con profundidad compensada para que de frente se vea igual que la foto · llega en vista explotada y se aplana cuando Dev termina el nombre · botón "Capas en 3D" (también con movimiento reducido, sin transición) · **selector de color real**: brillo/saturación, tono, hex, 5 muestras, contraste en vivo; cambia el acento de todo el sitio y nunca baja del contraste original (AAA); dura la visita (`sessionStorage`) · Andrés prueba el ámbar y lo devuelve, e invita a probarlo (no toca el color si el visitante ya eligió uno) · selector compacto cuando el retrato mide menos de 300 px · nombre del hero medido contra el frame (`cqi`) · inspector desde 1440 px · inclinación sutil de los destacados · el lienzo ya no se ensancha durante los filtros | Probado a 375, 905, 1280 y 1440 px, ES/EN, teclado. Pendiente: movimiento reducido real y Safari iOS (F6) |
 | **F6 · QA** | Dispositivos, Safari iOS, ES/EN, accesibilidad, Lighthouse | Metas de la sección 7 cumplidas |
 | **F7 · Lanzamiento** | Corrección de `sw.js`, imagen OG, borrar `index-anterior.html`, merge a `page` y verificación en vivo | Sitio publicado; la app de inglés sigue funcionando |
 | *Extra* | Modo exploración con Three.js (opcional) | Solo desktop, carga diferida |
@@ -267,7 +268,7 @@ scripts/optimize-images.py
 
 ## 11. Decisiones pendientes (tuyas)
 
-1. **Retrato:** ¿tienes el recorte limpio, sin círculo ni picker? Con él, las capas 3D y el picker interactivo quedan perfectos. Si no, recreo el círculo y el picker en código y uso el retrato actual con una máscara.
+1. ~~**Retrato:** ¿tienes el recorte limpio?~~ Resuelto en F5: el círculo, la selección y el picker se quitaron de la foto con un script y se recrearon en código. Si algún día hay un recorte nuevo, basta con reemplazar `img/profile.png` y ajustar las coordenadas del script.
 2. **Proyectos destacados:** propongo 6 casos arriba (Retiro sin Tarjeta, Transferencias Internacionales VISA Direct, miKia, Metro de Quito, Liberati, Operion) y el resto como "Archivo". ¿Estás de acuerdo o eliges otros?
 3. **Colaboradores:** ¿roles genéricos (PM, Dev, IA) o nombres de personas reales (con su permiso)?
 4. **Skills en %:** ¿se mantienen como valores de slider o pasan a niveles (Experto / Avanzado…)?

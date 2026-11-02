@@ -64,6 +64,8 @@
 .hero__portrait {
   justify-self: center;
   width: min(100%, 420px);
+  /* Arriba queda el botón "Capas en 3D"; abajo, el retrato toca el borde del frame */
+  margin-top: var(--space-7);
   margin-bottom: calc(-1 * var(--frame-pad));
 }
 
@@ -74,10 +76,17 @@
 }
 
 @media (min-width: 768px) {
+  /* El nombre se mide contra el ancho real del frame (con o sin paneles), no contra la ventana,
+     así el retrato con sus capas y su selector conserva espacio */
   .hero {
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    container-type: inline-size;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     align-items: end;
     min-height: min(760px, calc(100dvh - var(--topbar-h) - 6rem));
+  }
+
+  .hero__name {
+    font-size: clamp(2.75rem, 1rem + 6.2cqi, 6rem);
   }
 
   .hero__text {
@@ -394,7 +403,7 @@
 
 .version--current::before {
   background: var(--brand);
-  box-shadow: 0 0 0 4px oklch(0.72 0.17 296 / 0.25);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--brand) 25%, transparent);
 }
 
 .version__title {
@@ -935,9 +944,9 @@
   align-items: center;
   gap: var(--space-2);
   padding: 4px var(--space-3);
-  border: 1px solid oklch(0.72 0.17 296 / 0.45);
+  border: 1px solid color-mix(in oklch, var(--brand) 45%, transparent);
   border-radius: var(--radius-2);
-  background: oklch(0.72 0.17 296 / 0.14);
+  background: color-mix(in oklch, var(--brand) 14%, transparent);
   color: var(--ink);
   font-size: 0.9375rem;
   font-weight: 650;

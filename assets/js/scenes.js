@@ -14,6 +14,7 @@ import {
     tween,
     typeInto,
 } from './cursors.js';
+import { accentTouched, currentHsv, huePoint, previewHsv, restoreAccent } from './picker.js';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -21,8 +22,9 @@ const COLLAB_KEY = 'jirafla-collab';
 const rand = (min, max) => min + Math.random() * (max - min);
 
 // ─── Hero: el momento focal ──────────────────────────────────────────────────
-// Andrés acomoda una capa, selecciona el nombre y Dev lo estira desde la manija:
-// el ancho y el peso de Archivo cambian en vivo hasta su forma final.
+// El retrato llega con sus capas separadas en 3D. Andrés acomoda una capa, selecciona el nombre
+// y Dev lo estira desde la manija: el ancho y el peso de Archivo cambian en vivo hasta su forma
+// final y la pila se aplana. Después Andrés prueba otro color en el selector, que es real.
 const NAME_FROM = { stretch: 78, weight: 450 };
 const NAME_TO = { stretch: 116, weight: 820 };
 
@@ -33,6 +35,8 @@ function setName(name, e) {
 
 function finishHero() {
     const name = $('.hero__name');
+    $('.hero__stage').classList.remove('is-intro');
+    restoreAccent();
     name.style.fontStretch = '';
     name.style.fontWeight = '';
     $('.layer-chip--swatch').style.translate = '';
@@ -45,9 +49,11 @@ async function heroScene({ team, t, compact }, signal) {
     const name = $('.hero__name');
     const swatch = $('.layer-chip--swatch');
     const role = $('.hero__role');
+    const stage = $('.hero__stage');
     let stretched;
     const nameDone = new Promise((resolve) => (stretched = resolve));
     setName(name, 0);
+    stage.classList.add('is-intro');
     document.documentElement.classList.remove('scene-hero');
 
     try {
@@ -88,10 +94,12 @@ async function heroScene({ team, t, compact }, signal) {
                 }, signal);
                 dev.press(false);
                 stretched();
+                stage.classList.remove('is-intro');
                 await sleep(600, signal);
                 nameSel.remove();
                 delete name.dataset.selected;
-                await andres.moveToEl(role, signal, { at: [0.15, 1.8], speed: 0.8 });
+                if (compact || accentTouched()) await andres.moveToEl(role, signal, { at: [0.15, 1.8], speed: 0.8 });
+                else await tryAccent(andres, t, signal);
             })(),
             (async () => {
                 // Cuando el nombre queda listo, PM comenta en el espacio libre a su derecha
@@ -109,6 +117,35 @@ async function heroScene({ team, t, compact }, signal) {
     } finally {
         finishHero();
     }
+}
+
+// Andrés arrastra el tono hasta el ámbar de Jirafla, lo mira y lo devuelve: invita a probarlo
+async function tryAccent(andres, t, signal) {
+    const [from, s, v] = currentHsv();
+    const to = 42 + 360; // por el camino corto: magenta, rojo, naranja, ámbar
+    const drag = async (a, b, duration) => {
+        andres.press(true);
+        await tween(duration, (e) => {
+            const h = lerp(a, b, e) % 360;
+            previewHsv([h, s, v]);
+            const p = huePoint(h);
+            andres.place(p.x, p.y);
+        }, signal);
+        andres.press(false);
+    };
+    const start = huePoint(from);
+    await andres.moveTo(start.x, start.y, signal);
+    if (accentTouched()) return;
+    await drag(from, to, 1100);
+    await sleep(1300, signal);
+    if (accentTouched()) return;
+    await drag(to, from, 900);
+    restoreAccent();
+    const r = rectOf($('.picker'));
+    await sleep(250, signal);
+    // Encima del selector y a la derecha de la cara (debajo lo taparía la barra inferior en tablet)
+    comment(andres, r.x + r.w * 0.3, r.y - 10, t('mp-c-picker'), { above: true });
+    await andres.moveTo(andres.x - 60, andres.y + 70, signal, { speed: 0.7 });
 }
 
 // ─── Sobre mí ────────────────────────────────────────────────────────────────
@@ -456,37 +493,6 @@ export function startCollaboration({ t, onActivity = () => {} }) {
             if (!suspended) run(currentId);
         },
     };
-}
-
-// ─── Profundidad 3D del hero ─────────────────────────────────────────────────
-export function heroDepth() {
-    const hero = $('.hero');
-    const stage = $('.hero__stage');
-    if (!hero || !stage || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (!matchMedia('(pointer: fine)').matches) {
-        // En táctil, la pila flota sola mientras está en pantalla
-        new IntersectionObserver(([entry]) => stage.classList.toggle('is-floating', entry.isIntersecting)).observe(stage);
-        return;
-    }
-    let raf = 0;
-    let px = 0;
-    let py = 0;
-    const apply = () => {
-        raf = 0;
-        stage.style.setProperty('--ry', `${(px * 14).toFixed(2)}deg`);
-        stage.style.setProperty('--rx', `${(-py * 10).toFixed(2)}deg`);
-    };
-    hero.addEventListener('pointermove', (event) => {
-        const r = hero.getBoundingClientRect();
-        px = (event.clientX - r.left) / r.width - 0.5;
-        py = (event.clientY - r.top) / r.height - 0.5;
-        if (!raf) raf = requestAnimationFrame(apply);
-    });
-    hero.addEventListener('pointerleave', () => {
-        px = 0;
-        py = 0;
-        if (!raf) raf = requestAnimationFrame(apply);
-    });
 }
 
 // ─── El visitante también es colaborador ─────────────────────────────────────

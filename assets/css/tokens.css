@@ -16,10 +16,16 @@
   --ink-2: oklch(0.82 0.012 290);
   --ink-3: oklch(0.7 0.014 290);
 
-  /* Marca */
-  --brand: oklch(0.72 0.17 296);
+  /* Marca. El selector del hero cambia luminosidad, croma y tono; la luminosidad nunca baja
+     de 0.72, así el texto sobre el acento conserva al menos el contraste original (AAA). */
+  --brand-l: 0.72;
+  --brand-h: 296;
+  --brand-c: 0.17;
+  --brand: oklch(var(--brand-l) var(--brand-c) var(--brand-h));
+  --brand-hover: oklch(calc(var(--brand-l) + 0.06) calc(var(--brand-c) * 0.88) var(--brand-h));
   --brand-deep: #3f058a;
-  --on-brand: oklch(0.17 0.04 296);
+  --on-brand: oklch(0.17 0.04 var(--brand-h));
+  --pick: #7931d7; /* el color elegido tal cual: círculo del retrato y muestra */
   --amber: oklch(0.85 0.15 82);
   --select: oklch(0.68 0.16 255);
   --select-wash: oklch(0.68 0.16 255 / 0.26);

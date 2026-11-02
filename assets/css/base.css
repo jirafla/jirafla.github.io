@@ -169,8 +169,8 @@ mark {
 }
 
 .btn--primary:hover {
-  background: oklch(0.78 0.15 296);
-  border-color: oklch(0.78 0.15 296);
+  background: var(--brand-hover);
+  border-color: var(--brand-hover);
 }
 
 .btn--small {
@@ -189,6 +189,8 @@ mark {
 .canvas {
   display: grid;
   gap: var(--frame-gap);
+  /* Lo que se anima (filtros, arrastres) nunca ensancha la página */
+  overflow-x: clip;
   padding: calc(var(--topbar-h) + var(--space-6)) var(--gutter) var(--space-8);
 }
 

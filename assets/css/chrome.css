@@ -78,7 +78,8 @@
   }
 }
 
-@media (min-width: 1280px) {
+/* El inspector llega desde 1440 px: en laptops de 1366 el contenido necesita ese ancho */
+@media (min-width: 1440px) {
   :root {
     --panel-right: 248px;
   }

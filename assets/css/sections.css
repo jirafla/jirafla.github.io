@@ -523,6 +523,8 @@
 .project {
   position: relative;
   display: grid;
+  /* minmax(0, …): un título largo de una línea no puede ensanchar la tarjeta */
+  grid-template-columns: minmax(0, 1fr);
   align-content: start;
   gap: var(--space-2);
 }

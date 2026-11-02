@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- Composición de la imagen para redes (1200 × 630). Se captura con Chrome; ver PLAN-REDISENO.md (F7). -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=block">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background-color: var(--canvas);
+    background-image: radial-gradient(circle at 1px 1px, var(--canvas-dot) 1px, transparent 1.5px);
+    background-size: 24px 24px;
+    color: var(--ink);
+    font-family: var(--font);
+  }
+  .label { position: absolute; left: 56px; top: 34px; display: flex; gap: 8px; color: var(--ink-3); font-size: 18px; }
+  .frame {
+    position: absolute; inset: 68px 56px 0;
+    border: 1px solid var(--border); border-bottom: 0; border-radius: 6px 6px 0 0;
+    background: var(--frame); overflow: hidden;
+  }
+  .text { position: absolute; left: 64px; top: 72px; width: 640px; }
+  .hello { color: var(--ink-2); font-size: 28px; }
+  h1 { margin-top: 10px; font-size: 92px; font-weight: 820; font-stretch: 116%; letter-spacing: -0.03em; line-height: 0.96; }
+  h1 span { display: block; }
+  .role { margin-top: 58px; color: var(--brand); font-size: 30px; font-weight: 620; }
+  .sel { position: absolute; left: 52px; top: 108px; width: 566px; height: 284px; border: 2px solid var(--select); }
+  .sel i { position: absolute; width: 11px; height: 11px; border: 2px solid var(--select); background: var(--ink); }
+  .tl { top: -7px; left: -7px; } .tr { top: -7px; right: -7px; } .bl { bottom: -7px; left: -7px; } .br { bottom: -7px; right: -7px; }
+  .size { position: absolute; left: 50%; bottom: -36px; translate: -50% 0; padding: 2px 9px; border-radius: 4px; background: var(--select); color: var(--on-brand); font-size: 15px; font-weight: 650; }
+  .cursor { position: absolute; left: 670px; top: 306px; z-index: 2; }
+  .cursor svg { width: 26px; height: 32px; fill: var(--brand); stroke: var(--ink); stroke-width: 1.4; }
+  .cursor b { position: absolute; left: 20px; top: 28px; padding: 3px 11px 4px; border-radius: 5px 999px 999px 999px; background: var(--brand); color: var(--on-brand); font-size: 17px; white-space: nowrap; }
+  .portrait { position: absolute; right: 40px; bottom: 0; width: 420px; }
+  .portrait img { display: block; width: 100%; position: relative; }
+  .circle { position: absolute; left: 3.99%; top: 41.65%; width: 27.47%; aspect-ratio: 1; border-radius: 50%; background: var(--pick); }
+  .chip {
+    position: absolute; display: flex; align-items: center; gap: 8px; padding: 8px 13px;
+    border: 1px solid var(--border-strong); border-radius: 9px; background: var(--frame-raised);
+    box-shadow: 0 14px 30px -14px oklch(0 0 0 / 0.8); color: var(--ink-2); font-size: 17px; white-space: nowrap;
+  }
+  .chip b { color: var(--ink); font-weight: 600; }
+  .chip i { width: 18px; height: 18px; border-radius: 4px; background: var(--pick); }
+  /* El selector de color, como en el sitio: tapa el recorte que dejó en la foto */
+  .picker {
+    position: absolute; top: 48.85%; right: 0; bottom: 10.2%; left: 53.75%;
+    display: grid; grid-template-rows: auto 1fr auto auto; gap: 9px; padding: 11px;
+    border: 1px solid var(--border-strong); border-radius: 9px; background: var(--frame-raised);
+    box-shadow: 0 10px 26px -10px oklch(0 0 0 / 0.7); font-size: 12px; color: var(--ink);
+  }
+  .picker p { display: flex; justify-content: space-between; font-weight: 600; }
+  .picker p span { color: var(--ink-2); font-weight: 500; }
+  .sv { border-radius: 5px; background: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, hsl(266 100% 50%)); position: relative; }
+  .sv::after { content: ""; position: absolute; left: 77%; top: 16%; width: 12px; height: 12px; translate: -50% -50%; border: 2px solid #fff; border-radius: 50%; background: var(--pick); }
+  .hue { height: 11px; border-radius: 99px; background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00); position: relative; }
+  .hue::after { content: ""; position: absolute; left: 74%; top: 50%; width: 15px; height: 15px; translate: -50% -50%; border: 2px solid #fff; border-radius: 50%; background: hsl(266 100% 50%); }
+  .sw { display: flex; justify-content: space-between; }
+  .sw i { width: 17px; height: 17px; border-radius: 50%; }
+  .dot { position: absolute; top: 52.62%; left: 49.82%; width: 5.9%; aspect-ratio: 1; translate: 0 -50%; border: 4px solid var(--ink); border-radius: 50%; background: var(--pick); z-index: 1; }
+  .url { position: absolute; left: 64px; bottom: 44px; color: var(--ink-3); font-size: 22px; }
+  .url b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+  <p class="label"># <span>Portfolio 2026 / Inicio</span></p>
+  <div class="frame">
+    <div class="text">
+      <p class="hello">👋 Hola, soy</p>
+      <h1><span>Andrés</span><span>Felipe</span><span>Londoño</span></h1>
+      <p class="role">Senior Product Designer &amp; UX Strategist</p>
+    </div>
+    <div class="sel"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span class="size">Archivo · 116 %</span></div>
+    <div class="cursor">
+      <svg viewBox="0 0 18 22"><path d="M1 1v17l4.5-4.2L8.6 21l3-1.3-3.1-7h6.2Z"/></svg>
+      <b>Andrés</b>
+    </div>
+    <div class="portrait">
+      <span class="circle"></span>
+      <img src="../assets/img/retrato-capa-1100.webp" alt="">
+      <div class="picker">
+        <p>Color del sitio <span><b>AAA</b> 7.3</span></p>
+        <div class="sv"></div>
+        <div class="hue"></div>
+        <div class="sw"><i style="background:#7931D7"></i><i style="background:#FFC448"></i><i style="background:#F2675A"></i><i style="background:#1FB5A3"></i><i style="background:#3D7BFA"></i></div>
+      </div>
+      <span class="dot"></span>
+    </div>
+    <div class="chip" style="right: 40px; top: 96px"><i></i>Brand / Primary <b>#7931D7</b></div>
+    <p class="url"><b>jirafla.github.io</b> · banca, movilidad, educación e IA</p>
+  </div>
+</body>
+</html>

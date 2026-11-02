@@ -73,7 +73,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .hero {
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
     align-items: end;
@@ -211,7 +211,7 @@
   content: "";
   position: absolute;
   left: 0;
-  top: 0.45em;
+  top: 9px;
   width: 14px;
   height: 14px;
   border: 2px solid var(--brand);
@@ -223,8 +223,8 @@
   content: "";
   position: absolute;
   left: 6px;
-  top: calc(0.45em + 16px);
-  bottom: calc(-1 * var(--space-5) + 2px - 0.45em);
+  top: 25px;
+  bottom: calc(-1 * var(--space-5) - 7px);
   width: 2px;
   background: var(--border-strong);
 }
@@ -927,4 +927,212 @@
   from {
     opacity: 0;
   }
+}
+
+/* ─── F3: pasos del flujo como formas de FigJam ───────────────────────────── */
+.flow__step {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 4px var(--space-3);
+  border: 1px solid oklch(0.72 0.17 296 / 0.45);
+  border-radius: var(--radius-2);
+  background: oklch(0.72 0.17 296 / 0.14);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  font-stretch: 108%;
+  line-height: 1.5;
+}
+
+.flow__num {
+  color: var(--brand);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.flow__text {
+  margin-top: var(--space-2);
+}
+
+.flow li.is-done .flow__step {
+  border-color: var(--brand);
+}
+
+/* ─── F3: etiquetas de proyecto ───────────────────────────────────────────── */
+.project__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  list-style: none;
+}
+
+.project__tags li {
+  padding: 2px var(--space-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.project--featured .project__tags {
+  grid-area: tags;
+  margin-block: 2px var(--space-1);
+}
+
+/* Las áreas del destacado suman las etiquetas */
+.project--featured {
+  grid-template-areas:
+    "media"
+    "title"
+    "company"
+    "tags"
+    "summary"
+    "details";
+}
+
+@media (min-width: 640px) {
+  .project--featured {
+    grid-template-areas:
+      "media title"
+      "media company"
+      "media tags"
+      "media summary"
+      "media details";
+    grid-template-rows: auto auto auto auto 1fr;
+  }
+}
+
+/* El primer caso destacado es el protagonista: ocupa toda la fila */
+.featured-grid > .project--featured:first-child {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 640px) {
+  .featured-grid > .project--featured:first-child {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    column-gap: var(--space-6);
+    align-items: center;
+  }
+
+  .featured-grid > .project--featured:first-child .project__title {
+    align-self: end;
+    font-size: var(--step-2);
+  }
+
+  .featured-grid > .project--featured:first-child .project__summary {
+    -webkit-line-clamp: 5;
+    font-size: var(--step-0);
+  }
+}
+
+/* ─── F3: copiar datos de contacto ────────────────────────────────────────── */
+.copyable {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.copy-btn {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-1);
+  background: var(--frame);
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.copy-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.copy-btn:hover {
+  border-color: var(--ink-3);
+  color: var(--ink);
+}
+
+/* Área táctil de 44 px sin agrandar el botón */
+@media (pointer: coarse) {
+  .copy-btn {
+    position: relative;
+  }
+
+  .copy-btn::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+  }
+}
+
+/* ─── F3: aviso al estilo Figma ───────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--toolbar-h) + var(--space-6) + env(safe-area-inset-bottom));
+  z-index: var(--z-toast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--canvas);
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0;
+  translate: -50% 8px;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-out), translate var(--dur-base) var(--ease-out);
+}
+
+.toast.is-visible {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+.toast svg {
+  width: 16px;
+  height: 16px;
+  color: oklch(0.55 0.15 150);
+}
+
+@media (min-width: 1200px) {
+  .toast {
+    bottom: var(--space-6);
+  }
+}
+
+/* ─── F3: detalle de proyecto ─────────────────────────────────────────────── */
+.sheet__count {
+  margin-left: auto;
+  color: var(--ink-3);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.sheet__tags[hidden] {
+  display: none;
+}
+
+/* Durante el viaje de la imagen desde la tarjeta, la hoja no se desliza ni recorta */
+.vt-sheet .sheet[open] {
+  overflow: visible;
+  animation: none;
+}
+
+.vt-sheet .sheet__inner {
+  overflow: visible;
+}
+
+.vt-sheet .sheet__media {
+  position: relative;
+  z-index: 1;
 }

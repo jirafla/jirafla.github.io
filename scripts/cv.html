@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!-- Fuente del CV en PDF (A4). Se imprime con Chrome: ver PLAN-REDISENO.md. Texto real, una columna: lo leen bien los ATS. -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Andrés Felipe Londoño A. · CV</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=block">
+<style>
+  @page { size: A4; margin: 14mm 16mm 14mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #17141c;
+    --ink-2: #4a4552;
+    --ink-3: #6e6878;
+    --rule: #dcd8e2;
+    --brand: #6a24c4;
+  }
+  body {
+    color: var(--ink);
+    font-family: "Archivo", "Segoe UI", sans-serif;
+    font-size: 9.4pt;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  header { display: grid; gap: 3pt; padding-bottom: 10pt; border-bottom: 1.5pt solid var(--ink); }
+  h1 { font-size: 24pt; font-weight: 780; font-stretch: 112%; letter-spacing: -0.02em; line-height: 1.05; }
+  .role { color: var(--brand); font-size: 11pt; font-weight: 620; }
+  .contact { display: flex; flex-wrap: wrap; gap: 2pt 12pt; margin-top: 4pt; color: var(--ink-2); font-size: 8.8pt; }
+
+  section { margin-top: 13pt; }
+  h2 {
+    display: flex; align-items: center; gap: 8pt;
+    margin-bottom: 7pt;
+    font-size: 10.5pt; font-weight: 720; font-stretch: 108%;
+  }
+  h2::after { content: ""; flex: 1; height: 0.75pt; background: var(--rule); }
+
+  .summary { color: var(--ink-2); }
+
+  .job { break-inside: avoid; margin-top: 9pt; }
+  .job:first-of-type { margin-top: 0; }
+  .job__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12pt; }
+  h3 { font-size: 10pt; font-weight: 680; }
+  .date { flex: none; color: var(--ink-3); font-size: 8.8pt; font-variant-numeric: tabular-nums; }
+  .where { margin-bottom: 3pt; color: var(--ink-2); font-size: 8.8pt; }
+  .where b { color: var(--ink); font-weight: 600; }
+  ul { display: grid; gap: 2.5pt; padding-left: 11pt; }
+  li::marker { color: var(--brand); }
+  strong { font-weight: 640; }
+
+  .skills { display: grid; grid-template-columns: 30mm 1fr; gap: 4pt 10pt; }
+  .skills dt { font-weight: 640; }
+  .skills dd { color: var(--ink-2); }
+
+  .edu { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt 18pt; }
+  .edu div { break-inside: avoid; }
+  .edu p { color: var(--ink-2); font-size: 8.8pt; }
+  .edu .note { color: var(--ink-3); font-size: 8.4pt; }
+
+  .langs { display: flex; flex-wrap: wrap; gap: 4pt 22pt; }
+  .langs span { color: var(--ink-2); }
+  .langs b { color: var(--ink); font-weight: 640; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Andrés Felipe Londoño A.</h1>
+    <p class="role">Senior Product Designer &amp; UX Strategist · AI-Integrated Design</p>
+    <p class="contact">
+      <span>Medellín, Colombia</span>
+      <a href="tel:+573194338591">+57 319 433 8591</a>
+      <a href="mailto:jirafla.diseno@gmail.com">jirafla.diseno@gmail.com</a>
+      <a href="https://jirafla.github.io">jirafla.github.io</a>
+      <a href="https://www.linkedin.com/in/jirafla/">linkedin.com/in/jirafla</a>
+    </p>
+  </header>
+
+  <section>
+    <h2>Perfil profesional</h2>
+    <p class="summary">Senior Product Designer con más de 8 años de experiencia liderando el diseño de productos digitales en entornos multiculturales (Colombia, Ecuador, Chile). Especializado en UX/UI strategy, design systems y prototipado interactivo multiplataforma. Actualmente integrando metodologías de Inteligencia Artificial (IA generativa, LLMs y automatización) en flujos de investigación UX, ideación y desarrollo de productos. Experiencia comprobada construyendo aplicaciones habilitadas con IA, reduciendo tiempos de entrega y elevando la calidad de las experiencias de usuario. Liderazgo transversal desde la planeación estratégica hasta la ejecución y la medición de impacto.</p>
+  </section>
+
+  <section>
+    <h2>Experiencia laboral</h2>
+
+    <div class="job">
+      <div class="job__head"><h3>Senior Product Designer / UX Strategist</h3><span class="date">Mar 2023 – Presente</span></div>
+      <p class="where"><b>CentroHub</b> · Quito, Ecuador · Full-time · Remoto</p>
+      <ul>
+        <li>Lidero la estrategia de producto digital, definiendo roadmaps de UX y coordinando equipos multidisciplinarios para el lanzamiento de nuevas funcionalidades.</li>
+        <li>Impulso la toma de decisiones basada en datos mediante la definición de OKRs y KPIs, priorizando rutas de producto enfocadas en canales financieros y bancarios.</li>
+        <li>Implemento flujos de trabajo con IA generativa (ChatGPT, Claude, Gemini) dentro de las metodologías de diseño, <strong>reduciendo en un 40 % el tiempo de ideación y generación de wireframes</strong>.</li>
+        <li>Desarrollo aplicaciones internas habilitadas con IA (interfaces conversacionales y dashboards inteligentes) utilizando APIs de LLMs integradas con prototipos en Figma y componentes front-end.</li>
+        <li>Establezco y mantengo un Design System escalable (tokens, componentes, documentación), <strong>adoptado por 3 squads de producto</strong>.</li>
+        <li>Llevo sesiones de investigación cualitativa y cuantitativa (entrevistas, usability testing, análisis heurístico) en productos financieros, RRHH, Contabilidad, Mina, entre otros, validando decisiones de diseño con datos reales de usuarios.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job__head"><h3>Product Designer</h3><span class="date">Ene 2022 – Mar 2023</span></div>
+      <p class="where"><b>Aira Virtual</b> · Santiago de Chile, Chile · Full-time · Remoto</p>
+      <ul>
+        <li>Diseñé y lancé features end-to-end para una plataforma SaaS, cubriendo todo el ciclo: discovery, wireframing, prototipado, pruebas y entrega a desarrollo.</li>
+        <li>Colaboré activamente con squads de ingeniería aplicando metodologías ágiles (Scrum/Kanban), participando en sprint plannings y retrospectivas.</li>
+        <li><strong>Mejoré la tasa de retención de usuarios en un 25 %</strong> tras rediseñar flujos de onboarding con base en análisis de datos de comportamiento (Hotjar, Mixpanel).</li>
+        <li>Creé prototipos de alta fidelidad en Figma para validaciones con stakeholders y sesiones de prueba con usuarios.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job__head"><h3>Diseñador UX/UI &amp; Interactivo</h3><span class="date">Mar 2017 – Ene 2022</span></div>
+      <p class="where"><b>Geostigma Media SAS</b> · Popayán / Medellín, Colombia · Full-time</p>
+      <ul>
+        <li>Responsable del diseño y desarrollo de productos digitales: interfaces web, aplicaciones móviles, animaciones 2D/3D e interactivos multiplataforma.</li>
+        <li>Implementé maquetación web con HTML5, CSS3 y JavaScript, trabajando en sinergia con equipos de desarrollo.</li>
+        <li>Gestioné proyectos de branding y comunicación visual para clientes de sectores educativo, gobierno y retail.</li>
+        <li>Dirigí proyectos desde la conceptualización hasta la publicación, asegurando la coherencia visual y la experiencia de usuario en cada entregable.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job__head"><h3>Productor Multimedia (Pasantía)</h3><span class="date">Mar 2016 – Oct 2016</span></div>
+      <p class="where"><b>Comfama</b> · Popayán, Colombia · Pasantía</p>
+      <ul>
+        <li>Desarrollé micro-aplicaciones internas, animaciones corporativas y piezas multimedia para comunicación interna.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Habilidades y tecnologías</h2>
+    <dl class="skills">
+      <dt>UX/UI y diseño</dt>
+      <dd>Figma (Avanzado), Adobe XD, Sketch, Design Systems, Atomic Design, UX Research, Usability Testing, Heuristic Evaluation, Information Architecture, Wireframing, Prototipado interactivo</dd>
+      <dt>IA y herramientas emergentes</dt>
+      <dd>ChatGPT / GPT-4o, Claude (Anthropic), Midjourney, DALL-E, Cursor AI, integraciones con APIs de LLMs (OpenAI, Anthropic), desarrollo de aplicaciones AI-powered</dd>
+      <dt>Front-end</dt>
+      <dd>HTML5, CSS3, JavaScript (intermedio), maquetación web responsive</dd>
+      <dt>Multimedia y visual</dt>
+      <dd>Adobe Suite (Ps, Ai, Ae, Pr), Blender, Cinema 4D, Affinity Designer</dd>
+      <dt>Metodologías</dt>
+      <dd>Design Thinking, Double Diamond, Lean UX, Agile/Scrum, OKRs, Jobs-to-be-Done</dd>
+      <dt>Analítica y otros</dt>
+      <dd>Hotjar, Mixpanel, Google Analytics, Notion, Jira, Confluence, Miro</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Educación y certificaciones</h2>
+    <div class="edu">
+      <div>
+        <div class="job__head"><h3>Product Management, Visión y Estrategia</h3><span class="date">Mar 2026</span></div>
+        <p>Universidad de Palermo · Online</p>
+      </div>
+      <div>
+        <div class="job__head"><h3>Introducción a Product Management</h3><span class="date">Ene 2025</span></div>
+        <p>IBM · Online</p>
+      </div>
+      <div>
+        <div class="job__head"><h3>Diseño UX/UI</h3><span class="date">Dic 2022</span></div>
+        <p>Coderhouse · Online</p>
+      </div>
+      <div>
+        <div class="job__head"><h3>Diseño Gráfico</h3><span class="date">Ene 2017 – 2023</span></div>
+        <p>Universidad del Cauca</p>
+        <p class="note">Semillero de investigación en Comunicación Digital · Diseño de Interacción · Desarrollo de Productos Digitales</p>
+      </div>
+      <div>
+        <div class="job__head"><h3>Técnico en Producción Multimedia</h3><span class="date">Feb 2014 – Feb 2016</span></div>
+        <p>SENA</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Idiomas</h2>
+    <p class="langs"><span><b>Español</b> · Nativo</span><span><b>Inglés</b> · Intermedio (B1)</span><span><b>Francés</b> · Básico (A2)</span></p>
+  </section>
+</body>
+</html>

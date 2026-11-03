@@ -280,7 +280,8 @@
   list-style: none;
 }
 
-/* Fila de propiedad: etiqueta, slider y campo numérico */
+/* Fila de propiedad, como una variante en Figma: nivel en cuatro pasos y el campo con su valor.
+   Debajo, la evidencia: proyectos reales donde se ve la habilidad. */
 .prop {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -290,43 +291,57 @@
 
 .prop__label {
   grid-column: 1 / -1;
-  color: var(--ink-2);
+  color: var(--ink);
   font-size: 0.9375rem;
 }
 
-.prop__track {
-  position: relative;
-  height: 4px;
-  border-radius: 2px;
-  background: linear-gradient(to right, var(--brand) var(--v), var(--border) var(--v));
+.prop__level {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
 }
 
-.prop__track::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: var(--v);
-  width: 14px;
-  height: 14px;
-  translate: -50% -50%;
-  border: 2px solid var(--brand);
-  border-radius: 50%;
-  background: var(--ink);
+.prop__level i {
+  height: 6px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+
+.prop[data-level="1"] .prop__level i:nth-child(-n + 1),
+.prop[data-level="2"] .prop__level i:nth-child(-n + 2),
+.prop[data-level="3"] .prop__level i:nth-child(-n + 3),
+.prop[data-level="4"] .prop__level i {
+  background: var(--brand);
 }
 
 .prop__value {
-  min-width: 4.5ch;
+  min-width: 8.5rem;
   padding: 2px var(--space-2);
   background: var(--frame);
   border: 1px solid var(--border);
   border-radius: var(--radius-1);
   font-size: 0.875rem;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
 }
 
-.prop__unit {
+.prop__evidence {
+  grid-column: 1 / -1;
   color: var(--ink-3);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+.prop__evidence a {
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 0.2em;
+  transition: color var(--dur-fast) var(--ease-out), text-decoration-color var(--dur-fast) var(--ease-out);
+}
+
+.prop__evidence a:hover {
+  color: var(--brand-hover);
+  text-decoration-color: currentColor;
 }
 
 .tabs {
@@ -452,6 +467,65 @@
 .projects__head {
   display: grid;
   gap: var(--space-4);
+}
+
+/* Clientes como instancias de un componente: rombo morado y nombre, como en el panel de capas de Figma */
+.clients {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.clients__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-4);
+  font-size: var(--step--1);
+}
+
+.clients__title {
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+.clients__count {
+  color: var(--ink-3);
+}
+
+.clients__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.instance {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 var(--space-3) 0 10px;
+  border: 1px dashed color-mix(in oklch, var(--component) 55%, transparent);
+  border-radius: var(--radius-1);
+  color: var(--ink-2);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.instance svg {
+  width: 12px;
+  height: 12px;
+  color: var(--component);
+}
+
+.instance:hover {
+  border-style: solid;
+  border-color: var(--component);
+  background: color-mix(in oklch, var(--component) 14%, transparent);
+  color: var(--ink);
 }
 
 .filters {

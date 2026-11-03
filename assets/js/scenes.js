@@ -207,36 +207,28 @@ async function focusScene({ team, t }, signal) {
 // ─── Skills ──────────────────────────────────────────────────────────────────
 async function skillsScene({ team, t, compact }, signal) {
     const { dev, andres } = team;
+    // Dev prueba la variante de Front: la sube un nivel, la mira y la devuelve a su sitio
     const prop = $$('.prop')[4] || $('.prop');
-    const track = $('.prop__track', prop);
     const value = $('.prop__value', prop);
-    const unit = $('.prop__unit', value).outerHTML;
-    const original = parseFloat(prop.style.getPropertyValue('--v'));
-    const setValue = (v) => {
-        prop.style.setProperty('--v', `${v}%`);
-        value.innerHTML = `${Math.round(v)}${unit}`;
+    const original = Number(prop.dataset.level);
+    const setLevel = (n) => {
+        prop.dataset.level = n;
+        value.textContent = t(`level-${n}`);
     };
     await Promise.all([
         (async () => {
-            const thumbAt = () => {
-                const r = rectOf(track);
-                return { x: r.x + (r.w * parseFloat(prop.style.getPropertyValue('--v'))) / 100, y: r.y + r.h / 2 };
-            };
-            await dev.moveTo(thumbAt().x, thumbAt().y, signal);
-            dev.press(true);
+            const cells = $$('.prop__level i', prop);
+            const up = cells[Math.min(original, cells.length - 1)];
+            if (!up || !inViewport(up, 0)) return;
             try {
-                await tween(700, (e) => {
-                    setValue(lerp(original, 55, e));
-                    dev.place(thumbAt().x, thumbAt().y);
-                }, signal);
-                await sleep(350, signal);
-                await tween(900, (e) => {
-                    setValue(lerp(55, original, e));
-                    dev.place(thumbAt().x, thumbAt().y);
-                }, signal, easeOut);
+                await dev.moveToEl(up, signal, { at: [0.5, 0.5] });
+                await dev.click(signal);
+                setLevel(Math.min(original + 1, 4));
+                await sleep(900, signal);
+                await dev.moveToEl(cells[original - 1], signal, { at: [0.5, 0.5] });
+                await dev.click(signal);
             } finally {
-                setValue(original);
-                dev.press(false);
+                setLevel(original);
             }
             const r = rectOf(value);
             comment(dev, r.x - 220, r.y + r.h + 10, t('mp-c-skills'));

@@ -329,7 +329,7 @@ const additions = {
         'mp-c-hero': '¡Este perfil encaja! ¿Agendamos? 🙌',
         'mp-c-about': 'B2B, B2C y B2B2C, revisado ✅',
         'mp-c-focus': 'Flujo conectado de punta a punta ✨',
-        'mp-c-skills': 'Front al 80 %: nos vamos a entender 🤝',
+        'mp-c-skills': 'Diseña y maqueta: nos vamos a entender 🤝',
         'mp-c-projects': 'Este caso me encanta 👌',
         'mp-c-contact': '¡Hola Andrés! Vi tu portfolio y me gustaría hablar…',
         'collab-pause': 'Pausar colaboradores',
@@ -402,7 +402,20 @@ const additions = {
         'stage-grid': 'Retícula · 4 columnas',
         'stage-ellipse': 'Elipse',
         'stage-toggle': 'Vista 3D',
-        'mp-c-picker': 'Este selector es real: pruébalo'
+        'mp-c-picker': 'Este selector es real: pruébalo',
+        'level-4': 'Experto',
+        'level-3': 'Avanzado',
+        'level-2': 'Intermedio',
+        'level-1': 'En crecimiento',
+        'evidence-1': 'En 19 proyectos, como <a href="#p-retiro">Retiro sin Tarjeta</a> y <a href="#p-mikia">miKia</a>',
+        'evidence-2': 'En 13 proyectos, como <a href="#p-mikia">miKia</a> y el <a href="#p-bolivariano">roadmap del Banco Bolivariano</a>',
+        'evidence-4': 'Lideré equipo y stakeholders en <a href="#p-aira">Aira Virtual</a> y <a href="#p-transferencias">Transferencias Internacionales</a>',
+        'evidence-6': 'Guías de estilo y design systems en <a href="#p-prosemana">Prosemanasanta</a> y <a href="#p-lectorami">LectorAmi</a>',
+        'evidence-3': 'Maqueto en HTML, CSS y JS: <a href="#p-solidaria">Seguros Solidaria</a> y <a href="#inicio">este portfolio</a>',
+        'evidence-5': 'Lo que estoy aprendiendo ahora',
+        'clients-title': 'Marcas con las que he trabajado',
+        'clients-count': '12 instancias',
+        'layer-clients': 'Clientes'
     },
     en: {
         'skip-link': 'Skip to content',
@@ -443,7 +456,7 @@ const additions = {
         'mp-c-hero': 'This profile fits! Shall we schedule? 🙌',
         'mp-c-about': 'B2B, B2C and B2B2C, checked ✅',
         'mp-c-focus': 'Flow connected end to end ✨',
-        'mp-c-skills': '80% front-end: we will get along 🤝',
+        'mp-c-skills': 'Designs and codes: we will get along 🤝',
         'mp-c-projects': 'Love this case 👌',
         'mp-c-contact': 'Hi Andrés! I saw your portfolio and would love to talk…',
         'collab-pause': 'Pause collaborators',
@@ -516,7 +529,20 @@ const additions = {
         'stage-grid': 'Layout grid · 4 columns',
         'stage-ellipse': 'Ellipse',
         'stage-toggle': '3D view',
-        'mp-c-picker': 'This picker is real: try it'
+        'mp-c-picker': 'This picker is real: try it',
+        'level-4': 'Expert',
+        'level-3': 'Advanced',
+        'level-2': 'Intermediate',
+        'level-1': 'Growing',
+        'evidence-1': 'In 19 projects, like <a href="#p-retiro">Cardless Withdrawal</a> and <a href="#p-mikia">miKia</a>',
+        'evidence-2': 'In 13 projects, like <a href="#p-mikia">miKia</a> and the <a href="#p-bolivariano">Banco Bolivariano roadmap</a>',
+        'evidence-4': 'Led the team and stakeholders on <a href="#p-aira">Aira Virtual</a> and <a href="#p-transferencias">International Transfers</a>',
+        'evidence-6': 'Style guides and design systems for <a href="#p-prosemana">Prosemanasanta</a> and <a href="#p-lectorami">LectorAmi</a>',
+        'evidence-3': 'I build in HTML, CSS and JS: <a href="#p-solidaria">Seguros Solidaria</a> and <a href="#inicio">this portfolio</a>',
+        'evidence-5': 'What I am learning right now',
+        'clients-title': 'Brands I have worked with',
+        'clients-count': '12 instances',
+        'layer-clients': 'Clients'
     }
 };
 

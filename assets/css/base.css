@@ -242,6 +242,27 @@ mark {
   border-radius: var(--radius-1);
 }
 
+/* Salto de cámara (camera.js): mientras viaja se aleja; al llegar, el destino queda seleccionado un momento */
+.is-flying .canvas {
+  will-change: scale;
+}
+
+.is-landed {
+  outline: 2px solid var(--select);
+  outline-offset: 4px;
+  animation: landed 1.6s linear forwards;
+}
+
+@keyframes landed {
+  70% {
+    outline-color: var(--select);
+  }
+
+  100% {
+    outline-color: transparent;
+  }
+}
+
 .section-title {
   font-size: var(--step-3);
   font-weight: 760;

@@ -1,4 +1,6 @@
 // Chrome del archivo: panel de capas, inspector con valores reales, medidas de frames y capas en móvil.
+import { flyTo } from './camera.js';
+
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
@@ -211,9 +213,9 @@ export function initChrome({ t }) {
         if (!link) return;
         event.preventDefault();
         sheet.close();
+        root.classList.remove('sheet-open');
         const target = document.querySelector(link.getAttribute('href'));
-        target?.scrollIntoView({ block: 'start' });
-        history.replaceState(null, '', link.getAttribute('href'));
+        if (target) flyTo(target, link.getAttribute('href'));
     });
     $('.sheet__close', sheet).addEventListener('click', () => sheet.close());
     sheet.addEventListener('click', (event) => {

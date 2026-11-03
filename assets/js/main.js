@@ -1,4 +1,5 @@
 import { translations } from './i18n.js';
+import { initCamera } from './camera.js';
 import { initChrome } from './chrome.js';
 import { cardTilt, heroDepth } from './depth.js';
 import { initPicker } from './picker.js';
@@ -309,6 +310,7 @@ const spy = new IntersectionObserver(
 $$('main > .frame').forEach((frame) => spy.observe(frame));
 
 chrome = initChrome({ t });
+initCamera();
 picker = initPicker({ t });
 if (preferredLang() !== 'es') applyTranslations(preferredLang());
 

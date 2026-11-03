@@ -271,7 +271,7 @@ scripts/optimize-images.py
 1. ~~**Retrato:** ¿tienes el recorte limpio?~~ Resuelto en F5: el círculo, la selección y el picker se quitaron de la foto con un script y se recrearon en código. Si algún día hay un recorte nuevo, basta con reemplazar `img/profile.png` y ajustar las coordenadas del script.
 2. **Proyectos destacados:** propongo 6 casos arriba (Retiro sin Tarjeta, Transferencias Internacionales VISA Direct, miKia, Metro de Quito, Liberati, Operion) y el resto como "Archivo". ¿Estás de acuerdo o eliges otros?
 3. **Colaboradores:** ¿roles genéricos (PM, Dev, IA) o nombres de personas reales (con su permiso)?
-4. **Skills en %:** ¿se mantienen como valores de slider o pasan a niveles (Experto / Avanzado…)?
+4. **Skills en %:** ✅ decidido: niveles en cuatro pasos (Experto, Avanzado, Intermedio, En crecimiento), cada uno con evidencia enlazada a proyectos reales.
 5. **Tipografía:** propongo *Archivo* como única familia (con sus ejes variables como parte del show). ¿Te gusta, o tienes una fuente de marca que quieras mantener?
 6. **Modo exploración con Three.js:** ¿lo incluimos como fase extra?
 7. ~~**Fuente Archivo alojada en el sitio**~~ **Decidido: se queda en Google Fonts.** El rendimiento móvil queda en 85–90 (escritorio 98); si más adelante se quiere subir, alojar el `.woff2` (licencia OFL, unos 90 KB) en `assets/fonts/` con `preload` es el siguiente paso.
